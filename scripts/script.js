@@ -31,3 +31,13 @@ function checkEmptyInput() {
         searchButton.classList.remove('colored');
     }
 }
+
+function changeTheme2Night(){
+    let stylesheet = document.getElementById('stylesheet');
+    stylesheet.href = './styles/night-theme/styles-night.css';
+}
+
+function changeTheme2Day(){
+    let stylesheet = document.getElementById('stylesheet');
+    stylesheet.href = './styles/day-theme/styles-day.css';
+}

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" id="stylesheet" href="./styles/night-theme/styles-night.css">
     <title>gifOS</title>
 </head>
 <body>
@@ -24,8 +24,8 @@
                         </div>
                     </div>
                     <div class="theme-buttons" id="select-theme">
-                        <div id="day-button" class="button sailor-day">Sailor Day</div>
-                        <div id="night-button" class="button sailor-night">Sailor Night</div>
+                        <div id="day-button" onclick="changeTheme2Day()" class="button sailor-day">Sailor Day</div>
+                        <div id="night-button" onclick="changeTheme2Night()" class="button sailor-night">Sailor Night</div>
                     </div>
                 </div>
                 <a><span>M</span>is Guifos</a>
