@@ -1,0 +1,5 @@
+1- search bar - sugeridos mismo width que el input
+2- botones responsivos
+3- todo mas mobile friendly... o alternativa mobile... 
+4- doble borde dotteado en bottones
+5- configurar numero de visitas
