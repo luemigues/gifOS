@@ -148,49 +148,7 @@ showSuggestedToday()
 
 // TRENDING DISPLAY
 
-
-function showTrending1(offset){
-
-    fetch('https://api.giphy.com/v1/gifs/trending?' + apiKey + '&limit=25' + '&offset='+ offset)
-    .then(res => res.json())
-    .then(res => {
-
-            let gifs = res.data;
-            let trendingSection = document.getElementById('trending-container');
-            
-            for(let i= 0; i < 10; i++) {
-                let div = document.createElement('div');
-                trendingSection.appendChild(div);
-
-            }
-
-            let wideGifs = [];
-            let squareGifs = [];
-
-            for(let gif of gifs){
-                let gifWidth = parseInt(gif.images["downsized"].width);
-                let gifHeight = parseInt(gif.images["downsized"].height);   
-
-
-                if(gifWidth/gifHeight > 1.3){
-                    wideGifs.push(gif.images["downsized"].url)
-                }else{
-                    squareGifs.push(gif.images["downsized"].url)
-                }
-            }
-
-            for(let i = 0; i < trendingSection.children.length; i++){
-                if(i == 4 || i == 9){
-                    trendingSection.children[i].style.backgroundImage = 'url(' + wideGifs[i] + ')'
-                }else{
-                    trendingSection.children[i].style.backgroundImage = 'url(' + squareGifs[i] + ')'
-                }
-            }
-    });
-}
-
-
-function showTrending2(offset){
+function showTrending(offset){
 
     fetch('https://api.giphy.com/v1/gifs/trending?' + apiKey + '&limit=25' + '&offset='+ offset)
     .then(res => res.json())
@@ -212,10 +170,15 @@ function showTrending2(offset){
                 let gifHeight = gif.images["downsized"].height;
 
                 if(filledColumns < 3 && savedGifs.length > 0){
+
                     let div = document.createElement('div');
                     trendingSection.appendChild(div);
-                    div.style.backgroundImage = 'url(' + savedGifs[0] + ')'
+
+                    div.style.backgroundImage = 'url(' + savedGifs[0].images["downsized"].url + ')'
                     div.style.gridColumn = "span 2";
+                    div.onclick = () => window.open(savedGifs[0].url)
+                   
+
                     savedGifs.shift()
                     filledColumns+=2
                     totalgifs += 2;
@@ -226,22 +189,28 @@ function showTrending2(offset){
                     if(filledColumns < 5){
                         let div = document.createElement('div');
                         trendingSection.appendChild(div);
+
                         div.style.backgroundImage = 'url(' + gif.images["downsized"].url + ')'
                         div.style.gridColumn = "span 2";
+                        div.onclick = () => window.open(gif.url)
+
                         totalgifs += 2
                     }
 
                 }else{
-
                     filledColumns++
+
                     let div = document.createElement('div');
                     trendingSection.appendChild(div);
+
                     div.style.backgroundImage = 'url(' + gif.images["downsized"].url + ')'
+                    div.onclick = () => window.open(gif.url)
+
                     totalgifs ++
                 }
 
                 if(filledColumns==5){
-                    savedGifs.push(gif.images["downsized"].url)
+                    savedGifs.push(gif)
                     filledColumns -= 2
                 }else if(filledColumns == 4){
                     filledColumns=0
@@ -251,4 +220,11 @@ function showTrending2(offset){
     });
 }
 
-showTrending2(0)
+let n = 0
+showTrending(n)
+
+window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        showTrending(n+=25)
+    }
+};

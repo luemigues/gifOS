@@ -5,7 +5,7 @@
 body {
     background-color: $day-background;
     font-family: $font-fam;
-    min-width: 50vw;
+    min-width: 100vw;
     overflow-x: hidden;
 
 }
@@ -404,7 +404,7 @@ header {
 
 // Trending section
 
-.trending-container{
+.bulkGif-container{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -420,13 +420,10 @@ header {
         background-image: "";
     }
 
-    // & > div:nth-child(5){
-    //     grid-column: 1 / span 2;
-    // }
-    // & > div:nth-child(10){
-    //     grid-column: 3 / span 2;
-    // }
+}
 
+// Search 
 
-
+#search {
+    display: none;
 }
