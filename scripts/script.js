@@ -15,7 +15,6 @@ function showThemes() {
     }
 }
 
-
 let searchInput = document.getElementById('search-input');
 
 function activateSearchButton(){
@@ -49,12 +48,12 @@ function checkEmptyInput() {
 
 function changeTheme2Night(){
     let stylesheet = document.getElementById('stylesheet');
-    stylesheet.href = './styles/night-theme/styles-night.css';
+    stylesheet.href = '.././styles/night-theme/styles-night.css';
 }
 
 function changeTheme2Day(){
     let stylesheet = document.getElementById('stylesheet');
-    stylesheet.href = './styles/day-theme/styles-day.css';
+    stylesheet.href = '.././styles/day-theme/styles-day.css';
 }
 
 // SEARCH 
@@ -68,13 +67,13 @@ function suggestSearch(){
     let div2 = document.getElementById('sugg2');
     let div3 = document.getElementById('sugg3');
 
+    activateSearchButton()
+
     fetch('https://api.giphy.com/v1/tags/related/'+ input +'?' + apiKey)
     .then(res => res.json())
     .then(res => {
 
-        if(input.length > 1){
-
-            activateSearchButton()
+        if(input.length > 1){   
 
             let suggestions = document.getElementById('search-suggestions');
             suggestions.style.display = 'flex';
@@ -91,13 +90,35 @@ function suggestSearch(){
     });
 }
 
-function searchGif(){
-    let input = document.getElementById('search-input').value;
-    fetch('https://api.giphy.com/v1/gifs/search'+ '?' + apiKey + '&q=' + input)
-    .then(res => res.json())
-    .then(res => console.log(res));
+function hide(element){
+    element.style.display = "none";
 }
 
+function show(element){
+    element.style.display = "block";
+}
+
+function searchFromInput(){
+    let input = document.getElementById('search-input').value
+    showResults(input)
+}
+
+function autocompleteAndSearch(id){
+    let suggestedTerm = document.getElementById(id).innerText;
+    let input = document.getElementById('search-input').value = suggestedTerm;
+
+    showResults(input)
+}
+
+function closeSearch(){
+    let search = document.getElementById('search')
+    let trending = document.getElementById('trending')
+    let suggested = document.getElementById('suggested-today')
+
+    hide(search)
+    show(trending)
+    show(suggested)
+}
 
 // SUGGESTED TODAY
 
@@ -111,7 +132,6 @@ function showSuggestedToday(){
     let ran2 = getRndInteger(7,13);
     let ran3 = getRndInteger(14,20);
     let ran4 = getRndInteger(21,27);
-    let ransub = getRndInteger(0,10);
 
     let title1 = document.getElementById('suggested-t1')
     let gif1 = document.getElementById('suggested-g1')
@@ -125,12 +145,14 @@ function showSuggestedToday(){
     let title4 = document.getElementById('suggested-t4')
     let gif4 = document.getElementById('suggested-g4')
 
+
     fetch('https://api.giphy.com/v1/gifs/categories?' + apiKey)
     .then(res => res.json())
     .then(res => {
             
-        title1.innerText = '#' + res.data[ran1].gif["tags"][1];       
+        title1.innerText = '#' + res.data[ran1].gif["tags"][1];
         gif1.style.backgroundImage = 'url(' + res.data[ran1].gif["images"].downsized_medium["url"] + ')'; 
+        gif1.style.backgroundImage = 'url(' + res.data[ran1].gif["images"].downsized_medium["url"] + ')';
         
         title2.innerText = '#' + res.data[ran2].gif["tags"][1];    
         gif2.style.backgroundImage = 'url(' + res.data[ran2].gif["images"].downsized_medium["url"] + ')'; 
@@ -146,85 +168,119 @@ function showSuggestedToday(){
 
 showSuggestedToday()
 
+function searchCategory(id){
+
+    let categoryName = document.getElementById(id).innerText
+    categoryName = categoryName.substring(1);
+    showResults(categoryName)
+}
+
+function showResults(term){
+
+    let trending = document.getElementById('trending')
+    let suggested = document.getElementById('suggested-today')
+    let suggestions = document.getElementById('search-suggestions');
+
+    hide(trending)
+    hide(suggested)
+    hide(suggestions)
+
+    let search = document.getElementById('search-container');
+    let searchSection = document.getElementById('search');
+    let searchTitle = document.getElementById('search-title');
+    
+    searchTitle.innerText = term;
+    search.textContent = "";
+    searchSection.style.display = 'block';
+    
+    fetch('https://api.giphy.com/v1/gifs/search'+ '?' + apiKey + '&q=' + term)
+    .then(res => res.json())
+    .then(res => showGifsOnGrid(res, search))
+}
+
 // TRENDING DISPLAY
 
 function showTrending(offset){
 
+    let trendingSection = document.getElementById('trending-container');
+
     fetch('https://api.giphy.com/v1/gifs/trending?' + apiKey + '&limit=25' + '&offset='+ offset)
     .then(res => res.json())
-    .then(res => {
+    .then(res => showGifsOnGrid(res, trendingSection));
+}
 
-            let gifs = res.data;
-            let trendingSection = document.getElementById('trending-container');
-            let totalgifs = 0;
+function showGifsOnGrid(res, append){
+    
+    let gifs = res.data;
+    let totalgifs = 0;
+    let savedGifs = [];
+    let filledColumns = 0
 
-            let savedGifs = [];
 
-            let filledColumns = 0
-            for(let gif of gifs){
-               
-                if(totalgifs < 12){
+    for(let gif of gifs){
+       
+        if(totalgifs < 12){
 
-                
-                let gifWidth = gif.images["downsized"].width;
-                let gifHeight = gif.images["downsized"].height;
+        
+            let gifWidth = gif.images["downsized"].width;
+            let gifHeight = gif.images["downsized"].height;
 
-                if(filledColumns < 3 && savedGifs.length > 0){
+            if(filledColumns < 3 && savedGifs.length > 0){
 
-                    let div = document.createElement('div');
-                    trendingSection.appendChild(div);
+                createGif(savedGifs[0], append, true);
 
-                    div.style.backgroundImage = 'url(' + savedGifs[0].images["downsized"].url + ')'
-                    div.style.gridColumn = "span 2";
-                    div.onclick = () => window.open(savedGifs[0].url)
-                   
+                savedGifs.shift();
+                filledColumns+=2;
+                totalgifs += 2;
+            }
 
-                    savedGifs.shift()
-                    filledColumns+=2
+            if(gifWidth/gifHeight > 1.41){
+                filledColumns+=2;
+
+                if(filledColumns < 5){
+
+                    createGif(gif, append, true);
                     totalgifs += 2;
                 }
 
-                if(gifWidth/gifHeight > 1.41){
-                    filledColumns+=2
-                    if(filledColumns < 5){
-                        let div = document.createElement('div');
-                        trendingSection.appendChild(div);
+            }else{
+                filledColumns++
+                createGif(gif, append);
+                totalgifs ++;
+            }
 
-                        div.style.backgroundImage = 'url(' + gif.images["downsized"].url + ')'
-                        div.style.gridColumn = "span 2";
-                        div.onclick = () => window.open(gif.url)
+            if(filledColumns==5){
 
-                        totalgifs += 2
-                    }
+                savedGifs.push(gif);
+                filledColumns -= 2;
 
-                }else{
-                    filledColumns++
-
-                    let div = document.createElement('div');
-                    trendingSection.appendChild(div);
-
-                    div.style.backgroundImage = 'url(' + gif.images["downsized"].url + ')'
-                    div.onclick = () => window.open(gif.url)
-
-                    totalgifs ++
-                }
-
-                if(filledColumns==5){
-                    savedGifs.push(gif)
-                    filledColumns -= 2
-                }else if(filledColumns == 4){
-                    filledColumns=0
-                }
+            }else if(filledColumns == 4){
+                filledColumns=0;
             }
         }
-    });
+    }
 }
+
+function createGif(gif, append, isWide = false){
+    
+    let div = document.createElement('div');
+    append.appendChild(div);
+    
+    div.style.backgroundImage = 'url(' + gif.images["downsized"].url + ')'
+    div.onclick = () => window.open(gif.url)
+
+    if(isWide){
+        div.style.gridColumn = "span 2";
+    }   
+}
+
+
 
 let n = 0
 showTrending(n)
 
-window.onscroll = function(ev) {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        showTrending(n+=25)
-    }
-};
+// window.onscroll = function(ev) {
+//     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+//         showTrending(n+=25)
+//     }
+// };

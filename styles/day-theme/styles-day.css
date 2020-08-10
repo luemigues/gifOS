@@ -3,7 +3,6 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  max-width: 100vw;
 }
 
 body {
@@ -194,6 +193,10 @@ header .main-header nav a span {
           box-shadow: inset -1px -1px 0 0 #E6DCE4, inset 1px 1px 0 0 #FFFFFF;
 }
 
+.theme-buttons .sailor-day span {
+  border-bottom: 1px solid #110038;
+}
+
 .theme-buttons .sailor-night {
   width: 150px;
   height: 36px;
@@ -347,9 +350,11 @@ header .main-header nav a span {
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
   justify-items: center;
-  height: 140px;
-  padding-right: 150px;
-  padding-left: 15px;
+  padding: 10px 150px 10px 15px;
+  width: 1200px;
+  background: #E6E6E6;
+  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 }
 
 .search-suggestions > div:first-of-type {
@@ -363,6 +368,7 @@ header .main-header nav a span {
   width: 100%;
   max-width: 1057px;
   padding: 7px 16px;
+  margin: 5px;
   -ms-flex-item-align: start;
       align-self: flex-start;
   color: #110038;
@@ -507,5 +513,31 @@ header .main-header nav a span {
 
 #search {
   display: none;
+}
+
+#search .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#search .title p {
+  float: right;
+  color: #110038;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 16px;
+  margin: 5px 10px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: right;
+      justify-self: right;
 }
 /*# sourceMappingURL=styles-day.css.map */

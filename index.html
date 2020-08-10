@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" id="stylesheet" href="./styles/day-theme/styles-day.css">
+    <link rel="stylesheet" id="stylesheet" href="./styles/night-theme/styles-night.css">
     <title>gifOS</title>
 </head>
 <body>
@@ -24,8 +24,8 @@
                         </div>
                     </div>
                     <div class="theme-buttons" id="select-theme">
-                        <div id="day-button" onclick="changeTheme2Day()" class="button sailor-day">Sailor Day</div>
-                        <div id="night-button" onclick="changeTheme2Night()" class="button sailor-night">Sailor Night</div>
+                        <div id="day-button" onclick="changeTheme2Day()" class="button sailor-day"><span>S</span>ailor Day</div>
+                        <div id="night-button" onclick="changeTheme2Night()" class="button sailor-night"><span>S</span>ailor Night</div>
                     </div>
                 </div>
                 <a><span>M</span>is Guifos</a>
@@ -36,7 +36,7 @@
                 <div class="top-bar">Buscar</div>
                 <div class="search">
                     <input type="text" id="search-input" oninput="suggestSearch()" onkeyup="checkEmptyInput()" placeholder="Busca gifs, hashtags, temas, busca lo que quieras…">
-                    <div class="button inactive" id="search-button">
+                    <div class="button inactive" id="search-button" onclick="searchFromInput()">
                         <svg width="16px" height="16px" class="inactive-day" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
         <title>lupa_inactive</title>
@@ -111,14 +111,24 @@
                 </div>
             </div>
             <div id="search-suggestions" class="search-suggestions">
-                <div id="sugg1"></div>
-                <div id="sugg2"></div>
-                <div id="sugg3"></div>
+                <div id="sugg1" onclick="autocompleteAndSearch('sugg1')"></div>
+                <div id="sugg2" onclick="autocompleteAndSearch('sugg2')"></div>
+                <div id="sugg3" onclick="autocompleteAndSearch('sugg3')"></div>
             </div>
         </div>
 
     </header>
     <main>
+        <section id="search">
+            <div class="title">
+                <h2 id="search-title">Busqueda</h2>
+                <p id="close" onclick="closeSearch()">X</p>
+            </div>
+            <div class="bulkGif-container" id="search-container">
+                <!-- JS search display -->
+            </div>
+        </section>
+
         <section id="suggested-today">
             <div class="title">
                 <h2>Hoy te sugerimos:</h2>
@@ -132,7 +142,7 @@
                         <img src="./assets/button3.svg" alt="close">
                     </div>
                     <div class="suggested-gif" id="suggested-g1">
-                        <div class="button suggested-b">
+                        <div class="button suggested-b" onclick="searchCategory('suggested-t1')">
                             Ver más…
                         </div>
                     </div>
@@ -145,7 +155,7 @@
                         <img src="./assets/button3.svg" alt="close">
                     </div>
                     <div class="suggested-gif" id="suggested-g2">
-                        <div class="button suggested-b">
+                        <div class="button suggested-b" onclick="searchCategory('suggested-t2')">
                             Ver más…
                         </div>
                     </div>
@@ -158,7 +168,7 @@
                         <img src="./assets/button3.svg" alt="close">
                     </div>
                     <div class="suggested-gif" id="suggested-g3">
-                        <div class="button suggested-b">
+                        <div class="button suggested-b" onclick="searchCategory('suggested-t3')">
                             Ver más…
                         </div>
                     </div>
@@ -171,7 +181,7 @@
                         <img src="./assets/button3.svg" alt="close">
                     </div>
                     <div class="suggested-gif" id="suggested-g4">
-                        <div class="button suggested-b">
+                        <div class="button suggested-b" onclick="searchCategory('suggested-t4')">
                             Ver más…
                         </div>
                     </div>
@@ -188,15 +198,6 @@
                 <div class="bulkGif-container" id="trending-container">
                     <!-- JS trending display -->
 
-                </div>
-        </section>
-
-        <section id="search">
-                <div class="title">
-                    <h2 id="search-title">Busqueda</h2>
-                </div>
-                <div class="bulkGif-container" id="search-container">
-                    <!-- JS search display -->
                 </div>
         </section>
 

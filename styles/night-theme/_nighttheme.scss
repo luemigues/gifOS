@@ -1,8 +1,23 @@
 @import '../variables';
 
+
+// General
+
 body {
     background-color: $night-background;
     font-family: $font-fam;
+    min-width: 100vw;
+    overflow-x: hidden;
+
+}
+
+main{
+
+    section{
+        margin: 0 auto;
+        margin-top: 64px;
+        max-width: 1200px;
+    }
 }
 
 // button styles
@@ -29,6 +44,9 @@ body {
 // HEADER - NAV BAR + LOGO
 
 header {
+
+    min-width: 100vw; 
+
     .top-bar{
         background: $night-gradient;
         color: $fcolor-lb;
@@ -36,6 +54,7 @@ header {
         font-weight: 400;
         padding: 4px 8px;
         box-shadow: 0 1px 0 0 #110038;
+        margin-bottom: 3%;
     }
 
     .main-header{
@@ -47,7 +66,10 @@ header {
         display: flex;
         justify-content: space-between;
         height: 64px;
-        margin: 35px 140px 19px 100px;
+        max-width: 1200px;
+        margin: 0 auto;
+        // margin: 3% 10% 1% 7%;
+        //margin: 35px 140px 19px 100px;
 
         img{
             width: 103px;
@@ -87,15 +109,16 @@ header {
                 height: 36px;
                 align-self: center;
                 margin: 0px;
+                color: $fcolor-lb;
             }
 
-            a { 
+            a {
                 align-self: center;
-                color: $fcolor-lb;
                 margin-left: 16.5px;
+                color: $fcolor-lb;
 
                 span {
-                border-bottom: 1px solid #FFFFFF;
+                border-bottom: 1px solid $fcolor-lb;
                 padding-bottom: 2px;
                 line-height: 2px;
 
@@ -127,25 +150,30 @@ header {
     justify-content: space-evenly;
     align-items: center;
     background-color: $night-greybox;
-    box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+    box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+
+    .sailor-night{
+
+        width: 150px;
+        height: 36px;
+        background: $night-gif;
+        border: 1px solid rgba(51,53,143,0.20);
+        box-shadow: inset -1px -1px 0 0 #E6DCE4, inset 1px 1px 0 0 #FFFFFF;
+        color: $fcolor-lb;
+
+        span {
+            border-bottom: 1px solid $fcolor-lb;
+        }
+    }
 
     .sailor-day{
 
         width: 150px;
         height: 36px;
         background: #CCCCCC;
-        color: $fcolor-db;
         border: 1px solid #808080;
         box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
-    }
-
-    .sailor-night{
-
-        width: 150px;
-        height: 36px;
-        background: $night-theme-selected;
-        border: 1px solid rgba(51,53,143,0.20);
-        box-shadow: inset -1px -1px 0 0 #E6DCE4, inset 1px 1px 0 0 #FFFFFF;
+        color: $fcolor-db;
     }
 
 }
@@ -155,29 +183,43 @@ header {
 // Search Bar
 
 .search-container{
-    
-    margin: 35px 140px 19px 100px;
+
+    max-width: 1200px;
+    min-width: 400px;
+    margin: 2% auto;
+    //margin: 35px 140px 19px 100px;
     background: $night-greybox;
     box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+    min-width: 340px;
+
+    & > div:first-of-type {
+        padding: 2px;
+        background: $night-greybox;
+        box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+    }
 
     .top-bar{
         font-weight: 900;
+        box-shadow: 0 0 0 0 $night-greybox;
     }
 
     .search{
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: flex-start;
 
         input {
             width: 1057px;
+            max-width: 1057px;
             height: 48px;
             padding: 13px;
             margin: 12px;
             color: $fcolor-db;
+            font-family: $font-fam;
             background: #FFFFFF;
             border: 1px solid #979797;
             box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+            align-self: flex-start;
             
             &::placeholder{
                 color: #B4B4B4;
@@ -190,7 +232,9 @@ header {
             margin: 18px;
             width: 102px;
             height: 36px;
+            padding: 10px;
             align-self: center;
+            justify-self: center;
 
             svg{
                 float: left;
@@ -206,14 +250,14 @@ header {
         }
 
         .inactive{
-            background: #E6E6E6;
+            background: $night-greybox;
             border: 1px solid #808080;
             box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
-
+            
             .inactive-night {
                 display: block;
             }
-            .active-night{
+            .active-night {
                 display: none;
             }
 
@@ -238,4 +282,179 @@ header {
         }
 
     }
+}
+
+
+// suggested search
+
+.search-suggestions{
+
+    display: none;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    justify-items: center;
+    padding: 10px 150px 10px 15px;
+    width: 1200px;
+    // position: absolute;
+
+    // z-index: 1;
+
+    background: $night-greybox;
+    box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+
+    & > div:first-of-type{
+        background: #CCCCCC;
+        border: 1px solid #808080;
+        box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+    }
+
+    div{
+        width: 100%;
+        max-width: 1057px;
+        padding: 7px 16px;
+        margin: 5px;
+        align-self: flex-start;
+
+        color: $fcolor-db;
+        font-size: $fsize-reg;
+        text-align: left;
+
+        background: #CCCCCC;
+        border: 1px solid #808080;
+        box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+  
+    }
+
+}
+
+//Suggested for tonight
+
+.title{
+    background: #FFFAFE;
+    border: 1px solid #2E32FB;
+    box-shadow: inset -2px -2px 0 0 #E6DCE4, inset 2px 2px 0 0 #110038;
+    margin-bottom: 16px;
+
+    h2{
+        font-family: $font-fam;
+        font-size: $fsize-med;
+        color: $fcolor-db;
+        font-weight: 400;
+        margin: 7px;
+    }
+}
+
+.suggested-container{
+
+    display: flex;
+    width: 1200px;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .suggested-box{
+
+        width: 288px;
+        height: 319px;
+        padding: 3px;
+        background: $night-greybox;
+        box-shadow: inset -2px -2px 0 0 #5C5C5C, inset 2px 2px 0 0 #FFFFFF;
+
+        .top-suggested{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            align-content: center;
+            background: $night-gradient;
+            padding: 5px;
+            margin: 2px;
+
+            p{
+                color: $fcolor-lb;
+                font-size: $fsize-med;
+                font-family: $font-fam;
+                font-weight: 900;
+            }
+        }
+
+        .suggested-gif{
+
+            display: flex;
+            align-content: flex-end;
+            align-items: flex-end;
+            justify-content: flex-start;
+            
+            width: 280px;
+            height: 280px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-origin: border-box;
+            background-position: center;
+            background-image: url('');
+
+            .button {
+                z-index: 1;
+                width: 84px;
+                height: 34px;
+                margin: 15px 7px;
+
+                color: $fcolor-lb;
+                font-family: $font-fam;
+                font-size: $fsize-med;
+                font-weight: 400;
+
+                background: $night-gif;
+                border: 1px solid #4C2F99;
+                box-shadow: inset -2px -2px 0 0 #2124B3, inset 2px 2px 0 0 #FFFFFF;
+            }
+        }
+    }
+    
+}
+
+// Trending section
+
+.bulkGif-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 15px;
+    row-gap: 15px;
+
+    & > div{
+        height: 298px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-origin: border-box;
+        background-position: center;
+        background-image: "";
+    }
+
+}
+
+// Search 
+
+#search {
+    display: none;
+
+    .title{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    
+        p{
+            float: right;
+            color: $fcolor-lb;
+            font-family: $font-fam;
+            font-size: $fsize-reg;
+            margin: 5px 10px;
+            align-self: center;
+            justify-self: right;
+        }
+    }
+
 }
