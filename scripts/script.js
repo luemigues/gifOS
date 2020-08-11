@@ -46,14 +46,17 @@ function checkEmptyInput() {
     }
 }
 
+
 function changeTheme2Night(){
     let stylesheet = document.getElementById('stylesheet');
-    stylesheet.href = '.././styles/night-theme/styles-night.css';
+    stylesheet.href = './styles/night-theme/styles-night.css';
+    stylesheet.setAttribute('type',"text/css");
 }
 
 function changeTheme2Day(){
     let stylesheet = document.getElementById('stylesheet');
-    stylesheet.href = '.././styles/day-theme/styles-day.css';
+    stylesheet.href = './styles/day-theme/styles-day.css';
+    stylesheet.setAttribute('type',"text/css");
 }
 
 // SEARCH 
@@ -264,17 +267,24 @@ function showGifsOnGrid(res, append){
 function createGif(gif, append, isWide = false){
     
     let div = document.createElement('div');
+    let hover = document.createElement('div');
+    div.appendChild(hover);
     append.appendChild(div);
     
     div.style.backgroundImage = 'url(' + gif.images["downsized"].url + ')'
+
+    const regex = ' by';
+    let title = gif.title.replace(regex,'');
+    let splitTitle = title.split(" ");
+    let tags = splitTitle.join(' #');
+    hover.textContent = '#' + tags;
+    
     div.onclick = () => window.open(gif.url)
 
     if(isWide){
         div.style.gridColumn = "span 2";
     }   
 }
-
-
 
 let n = 0
 showTrending(n)

@@ -5,6 +5,7 @@
 body {
     background-color: $day-background;
     font-family: $font-fam;
+    box-sizing: border-box;
     min-width: 100vw;
     overflow-x: hidden;
 
@@ -31,12 +32,16 @@ main{
 
 .colored{
     background: $day-bcolored;
-    outline: 1px solid #110038;
-    //border: 1px solid #110038;
+    border: 1px solid #110038;
     box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
     height: 36px;
     width: 140px;
     text-align: center;
+    
+    &:hover, &:active {
+         outline: 1px dashed $fcolor-db;
+        outline-offset: -6px;
+     }
 }
 
 
@@ -80,6 +85,8 @@ header {
             flex-direction: row;
             align-content: center;
             align-items: flex-start;
+            justify-content: space-around;
+            justify-items: center;
             padding: 15px;
     
             .theme-buttons{
@@ -90,18 +97,6 @@ header {
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
-
-                &:hover{
-                    
-                    div:before{
-                        content: " ";
-                        position: absolute;
-                        width: inherit;
-                        height: inherit;
-                        border-collapse: collapse;
-                        border: 1.5px dotted #110038;
-                    }
-                }
             }
     
             .material-icons{
@@ -114,12 +109,25 @@ header {
             a {
                 align-self: center;
                 margin-left: 16.5px;
+                margin-right: 5px;
+                padding: 5px 6px 5px 0px;
 
                 span {
                 border-bottom: 1px solid #000;
-                padding-bottom: 2px;
                 line-height: 2px;
+                width: 2px;
+                height: 2px;
 
+                }
+
+                &:hover{
+                    outline: 1px dashed $fcolor-db;
+                    outline-offset: 2px 5px;
+                    
+                }
+
+                &:active{
+                    color: rgba(17,0,56,0.5);
                 }
             }
     
@@ -149,6 +157,15 @@ header {
     align-items: center;
     background-color: $day-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+
+
+    .theme-dopdown:hover , &:active{
+                
+                .buttons{
+                    outline: 1px dashed $fcolor-db;
+                    outline-offset: -6px;
+                }
+        }
 
     .sailor-day{
 
@@ -231,6 +248,16 @@ header {
             padding: 10px;
             align-self: center;
             justify-self: center;
+
+            &:hover{
+                outline: 0px solid transparent;
+                outline-offset: 0px;
+            }
+
+            &:active{
+                outline: 1px dashed $fcolor-db;
+                outline-offset: -6px;
+            }
 
             svg{
                 float: left;
@@ -406,6 +433,11 @@ header {
                 background: $day-gif;
                 border: 1px solid #4C2F99;
                 box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
+
+                &:hover{
+                    outline: 1px dashed $fcolor-db;
+                    outline-offset: -6px;
+                }
             }
         }
     }
@@ -422,12 +454,38 @@ header {
     row-gap: 15px;
 
     & > div{
-        height: 298px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-origin: border-box;
-        background-position: center;
-        background-image: "";
+            display: flex;
+            align-content: flex-end;
+            align-items: flex-end;
+            justify-content: flex-start;
+
+            height: 298px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-origin: border-box;
+            background-position: center;
+            background-image: "";
+
+            &:hover > div{
+                    display: block;
+                    justify-self: stretch;
+                    width: 100%;
+                    padding: 2px;
+                    background: $day-gradient;
+                    color: $fcolor-lb;
+                    font-size: $fsize-small;
+                    font-family: $font-fam;
+                    font-weight: 900;
+                    overflow: hidden;
+                    height: 20px;
+                    line-height: 18px;
+            }
+
+            div{
+                display: none;
+            }
+
+        
     }
 
 }
@@ -454,3 +512,4 @@ header {
     }
 
 }
+
