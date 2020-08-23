@@ -53,7 +53,6 @@ function activateSearchButton(){
     let searchButton = document.getElementById('search-button');
     searchButton.classList.add('colored');
     searchButton.classList.remove('inactive');   
-
 };
 
 function checkEmptyInput() {
@@ -75,6 +74,7 @@ function checkEmptyInput() {
         div3.innerText = "";
 
     }
+
 };
  
 function suggestSearch(){
@@ -83,6 +83,7 @@ function suggestSearch(){
     let div1 = document.getElementById('sugg1');
     let div2 = document.getElementById('sugg2');
     let div3 = document.getElementById('sugg3');
+
 
     activateSearchButton()
 
@@ -245,8 +246,6 @@ function searchCategory(id){
     showResults(categoryName)
 }
 
-
-
 // TRENDING DISPLAY
 
 function showTrending(offset){
@@ -341,7 +340,6 @@ let n = 0
 showTrending(n)
 
 window.onscroll = function(ev) {
-    
     let searchSection = document.getElementById('search').style.display;
 
         if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (searchSection == 'block')) {

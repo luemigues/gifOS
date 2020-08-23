@@ -1,6 +1,7 @@
 @import '../variables';
 
 
+
 // General
 
 body {
@@ -18,6 +19,7 @@ main{
         margin-top: 64px;
         max-width: 1200px;
     }
+
 }
 
 // button styles
@@ -44,7 +46,6 @@ main{
 // HEADER - NAV BAR + LOGO
 
 header {
-
     min-width: 100vw; 
 
     .top-bar{
@@ -55,6 +56,7 @@ header {
         padding: 4px 8px;
         box-shadow: 0 1px 0 0 #110038;
         margin-bottom: 3%;
+
     }
 
     .main-header{

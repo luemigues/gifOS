@@ -42,16 +42,17 @@ main{
 
 .colored{
     background: $day-bcolored;
+
     border: 1px solid #110038;
     box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
     height: 36px;
     width: 140px;
     text-align: center;
-    
     &:hover, &:active {
          outline: 1px dashed $fcolor-db;
         outline-offset: -6px;
      }
+
 }
 
 
@@ -168,7 +169,6 @@ header {
     background-color: $day-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 
-
     .theme-dopdown:hover , &:active{
                 
                 .buttons{
@@ -184,7 +184,6 @@ header {
         background: $day-background;
         border: 1px solid #CCA6C9;
         box-shadow: inset -1px -1px 0 0 #E6DCE4, inset 1px 1px 0 0 #FFFFFF;
-
         span {
             border-bottom: 1px solid $fcolor-db;
         }
@@ -259,7 +258,6 @@ header {
             padding: 10px;
             align-self: center;
             justify-self: center;
-
             &:hover{
                 outline: 0px solid transparent;
                 outline-offset: 0px;
@@ -328,6 +326,7 @@ header {
     align-content: flex-start;
     justify-content: space-evenly;
     justify-items: center;
+
     padding: 10px 150px 10px 15px;
     width: 1200px;
     // position: absolute;
@@ -348,6 +347,7 @@ header {
         max-width: 1057px;
         padding: 7px 16px;
         margin: 5px;
+
         align-self: flex-start;
 
         color: $fcolor-db;
@@ -401,7 +401,6 @@ header {
         }
     }
 }
-
 
 //Suggested for today
 
@@ -485,7 +484,6 @@ header {
                 background: $day-gif;
                 border: 1px solid #4C2F99;
                 box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
-
                 &:hover{
                     outline: 1px dashed $fcolor-db;
                     outline-offset: -6px;
@@ -536,8 +534,6 @@ header {
             div{
                 display: none;
             }
-
-        
     }
 
 }

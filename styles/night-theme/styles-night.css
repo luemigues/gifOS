@@ -43,6 +43,7 @@ main section {
   text-align: center;
 }
 
+
 header {
   min-width: 100vw;
 }
@@ -57,6 +58,7 @@ header .top-bar {
   -webkit-box-shadow: 0 1px 0 0 #110038;
           box-shadow: 0 1px 0 0 #110038;
   margin-bottom: 3%;
+
 }
 
 header .main-header {
@@ -69,6 +71,7 @@ header .main-header {
   height: 64px;
   max-width: 1200px;
   margin: 0 auto;
+
 }
 
 header .main-header [class="day"] {
@@ -129,6 +132,7 @@ header .main-header nav .material-icons {
       align-self: center;
   margin: 0px;
   color: #FFFFFF;
+
 }
 
 header .main-header nav a {
@@ -232,6 +236,7 @@ header .main-header nav a span {
   font-weight: 900;
   -webkit-box-shadow: 0 0 0 0 #B4B4B4;
           box-shadow: 0 0 0 0 #B4B4B4;
+
 }
 
 .search-container .search {
@@ -249,12 +254,15 @@ header .main-header nav a span {
 
 .search-container .search input {
   width: 1057px;
+
   max-width: 1057px;
+
   height: 48px;
   padding: 13px;
   margin: 12px;
   color: #110038;
   font-family: "Chakra Petch", sans-serif;
+
   background: #FFFFFF;
   border: 1px solid #979797;
   -webkit-box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
@@ -313,6 +321,7 @@ header .main-header nav a span {
 }
 
 .search-container .search .inactive {
+
   background: #B4B4B4;
   border: 1px solid #808080;
   -webkit-box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;

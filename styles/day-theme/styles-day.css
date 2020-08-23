@@ -51,6 +51,7 @@ main section {
 .colored {
   background: #F7C9F3;
   border: 1px solid #110038;
+
   -webkit-box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
           box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
   height: 36px;
@@ -135,6 +136,7 @@ header .main-header nav .theme-dopdown {
           justify-content: center;
 }
 
+
 header .main-header nav .material-icons {
   width: 36px;
   height: 36px;
@@ -149,12 +151,15 @@ header .main-header nav a {
       -ms-grid-row-align: center;
       align-self: center;
   margin-left: 16.5px;
+
   margin-right: 5px;
   padding: 5px 6px 5px 0px;
+
 }
 
 header .main-header nav a span {
   border-bottom: 1px solid #000;
+
   line-height: 2px;
   width: 2px;
   height: 2px;
@@ -242,7 +247,9 @@ header .main-header nav a:active {
   max-width: 1200px;
   min-width: 400px;
   margin: 2% auto;
+
   margin-bottom: 0px;
+
   background: #E6E6E6;
   -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
           box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
@@ -393,6 +400,7 @@ header .main-header nav a:active {
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
   justify-items: center;
+
   padding: 10px 150px 10px 15px;
   width: 1200px;
   background: #E6E6E6;
@@ -412,6 +420,7 @@ header .main-header nav a:active {
   max-width: 1057px;
   padding: 7px 16px;
   margin: 5px;
+
   -ms-flex-item-align: start;
       align-self: flex-start;
   color: #110038;
@@ -580,6 +589,7 @@ header .main-header nav a:active {
           box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
 }
 
+
 .suggested-container .suggested-box .suggested-gif .button:hover {
   outline: 1px dashed #110038;
   outline-offset: -6px;
@@ -598,6 +608,7 @@ header .main-header nav a:active {
 }
 
 .bulkGif-container > div {
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -609,6 +620,7 @@ header .main-header nav a:active {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+
   height: 298px;
   background-repeat: no-repeat;
   background-size: cover;
