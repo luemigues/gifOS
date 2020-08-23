@@ -5,7 +5,11 @@
           box-sizing: border-box;
 }
 
-body {
+html {
+  scroll-behavior: smooth;
+}
+
+body, .return-top {
   background-color: #FFF4FD;
   font-family: "Chakra Petch", sans-serif;
   -webkit-box-sizing: border-box;
@@ -14,9 +18,19 @@ body {
   overflow-x: hidden;
 }
 
+body a, .return-top a {
+  text-decoration: none;
+  color: inherit;
+  cursor: auto;
+}
+
+main {
+  margin-top: 0px;
+}
+
 main section {
   margin: 0 auto;
-  margin-top: 64px;
+  margin-top: 68px;
   max-width: 1200px;
 }
 
@@ -228,6 +242,7 @@ header .main-header nav a:active {
   max-width: 1200px;
   min-width: 400px;
   margin: 2% auto;
+  margin-bottom: 0px;
   background: #E6E6E6;
   -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
           box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
@@ -408,6 +423,53 @@ header .main-header nav a:active {
           box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
 }
 
+.search-suggestions div:hover, .search-suggestions div:active {
+  outline: 1px dashed #110038;
+  outline-offset: -6px;
+}
+
+.prev-search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  overflow: hidden;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  justify-items: unsave;
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 12px;
+}
+
+.prev-search > div {
+  height: 34px;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  padding: 8px;
+  margin-right: 8px;
+  -ms-flex-preferred-size: content;
+      flex-basis: content;
+  color: #FFFFFF;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  background: #4180F6;
+  border: 1px solid #4C2F99;
+  -webkit-box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
+}
+
+.prev-search > div:hover {
+  outline: 1px dashed #110038;
+  outline-offset: -6px;
+}
+
 .title {
   background: #FFFAFE;
   border: 1px solid #E6BBE2;
@@ -526,9 +588,9 @@ header .main-header nav a:active {
 .bulkGif-container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[4];
+  -ms-grid-columns: (4, 1fr);
       grid-template-columns: repeat(4, 1fr);
-  -ms-grid-rows: (1fr)[3];
+  -ms-grid-rows: (3,1fr);
       grid-template-rows: repeat(3, 1fr);
   -webkit-column-gap: 15px;
           column-gap: 15px;
@@ -578,6 +640,7 @@ header .main-header nav a:active {
 
 #search {
   display: none;
+  margin-top: 64px;
 }
 
 #search .title {
@@ -604,5 +667,29 @@ header .main-header nav a:active {
       align-self: center;
   -ms-grid-column-align: right;
       justify-self: right;
+}
+
+.return-top {
+  border-radius: 50%;
+  font-size: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  position: fixed;
+  top: 90vh;
+  left: 93vw;
+}
+
+.return-top a {
+  color: #110038;
 }
 /*# sourceMappingURL=styles-day.css.map */

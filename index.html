@@ -9,7 +9,7 @@
     <title>gifOS</title>
 </head>
 <body>
-    <header>
+    <header id="top">
         <div class="top-bar">¡Bienvenidos/as a Guifos.com! ——————Donde los gifs están.////// Número de visitas: <span id="numVisits">12.765.803</span></div>
         <div class="main-header">
             <img src="./assets/gifOF_logo.png" alt="logo" class="day">
@@ -28,7 +28,7 @@
                         <div id="night-button" onclick="changeTheme2Night()" class="button sailor-night"><span>S</span>ailor Night</div>
                     </div>
                 </div>
-                <a><span>M</span>is Guifos</a>
+                <a href="./misGifos.html"><span>M</span>is Guifos</a>
             </nav>
         </div>
         <div class="search-container">
@@ -116,18 +116,17 @@
                 <div id="sugg3" onclick="autocompleteAndSearch('sugg3')"></div>
             </div>
         </div>
+        <div id="previous-search" class="prev-search">
+        </div>
 
     </header>
     <main>
-        <section id="search">
-            <div class="title">
-                <h2 id="search-title">Busqueda</h2>
-                <p id="close" onclick="closeSearch()">X</p>
-            </div>
-            <div class="bulkGif-container" id="search-container">
-                <!-- JS search display -->
-            </div>
-        </section>
+
+        <div class="return-top">
+            <a class="material-icons" href="#top">
+                arrow_upward
+            </a>
+        </div>
 
         <section id="suggested-today">
             <div class="title">
@@ -139,7 +138,7 @@
                 <div class="suggested-box">
                     <div class="top-suggested">
                         <p id="suggested-t1">#</p>
-                        <img src="./assets/button3.svg" alt="close">
+                        <img src="./assets/button3.svg" alt="close" onclick="suggestNewCategory('suggested-g1')">
                     </div>
                     <div class="suggested-gif" id="suggested-g1">
                         <div class="button suggested-b" onclick="searchCategory('suggested-t1')">
@@ -152,7 +151,7 @@
                 <div class="suggested-box">
                     <div class="top-suggested">
                         <p id="suggested-t2">#</p>
-                        <img src="./assets/button3.svg" alt="close">
+                        <img src="./assets/button3.svg" alt="close" onclick="suggestNewCategory('suggested-g2')">
                     </div>
                     <div class="suggested-gif" id="suggested-g2">
                         <div class="button suggested-b" onclick="searchCategory('suggested-t2')">
@@ -165,7 +164,7 @@
                 <div class="suggested-box">
                     <div class="top-suggested">
                         <p id="suggested-t3">#</p>
-                        <img src="./assets/button3.svg" alt="close">
+                        <img src="./assets/button3.svg" alt="close" onclick="suggestNewCategory('suggested-g3')">
                     </div>
                     <div class="suggested-gif" id="suggested-g3">
                         <div class="button suggested-b" onclick="searchCategory('suggested-t3')">
@@ -178,7 +177,7 @@
                 <div class="suggested-box">
                     <div class="top-suggested">
                         <p id="suggested-t4">#</p>
-                        <img src="./assets/button3.svg" alt="close">
+                        <img src="./assets/button3.svg" alt="close" onclick="suggestNewCategory('suggested-g4')">
                     </div>
                     <div class="suggested-gif" id="suggested-g4">
                         <div class="button suggested-b" onclick="searchCategory('suggested-t4')">
@@ -200,6 +199,17 @@
 
                 </div>
         </section>
+
+        <section id="search">
+            <div class="title">
+                <h2 id="search-title">Busqueda</h2>
+                <p id="close" onclick="closeSearch()">X</p>
+            </div>
+            <div class="bulkGif-container" id="search-container">
+                <!-- JS search display -->
+            </div>
+        </section>
+
 
     </main>
 
