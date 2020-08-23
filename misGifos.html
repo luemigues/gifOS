@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" id="stylesheet" href="./styles/day-theme/styles-day.css" type="text/css">
+    <title>gifOS</title>
+</head>
+<body>
+    <header id="top">
+        <div class="top-bar">¡Bienvenidos/as a Guifos.com! ——————Donde los gifs están.////// Número de visitas: <span id="numVisits">12.765.803</span></div>
+        <div class="main-header">
+            <a href="./index.html">
+                <img src="./assets/gifOF_logo.png" alt="logo" class="day">
+                <img src="./assets/gifOF_logo_dark.png" alt="logo" class="night">
+            </a>
+            <nav>
+                <div class="button colored">Crear Guifos</div>
+                <div class="theme-button-container">
+                    <div class="theme-dopdown">
+                        <div class="button colored" onclick="showThemes()">Elegir tema</div>
+                        <div onclick="showThemes()" class="button colored material-icons">
+                                    arrow_drop_down
+                        </div>
+                    </div>
+                    <div class="theme-buttons" id="select-theme">
+                        <div id="day-button" onclick="changeTheme2Day()" class="button sailor-day"><span>S</span>ailor Day</div>
+                        <div id="night-button" onclick="changeTheme2Night()" class="button sailor-night"><span>S</span>ailor Night</div>
+                    </div>
+                </div>
+                <a><span>M</span>is Guifos</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+
+        <section id="creadorGifo">
+            
+
+        </section>
+
+        <section id="misGifos">
+            <div class="title">
+                <h2>Mis guifos</h2>
+            </div>
+
+            <div class="bulkGif-container" id="misGifos-container">
+                <!-- JS trending display -->
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="./scripts/script.js"></script>
+</body>
+</html>

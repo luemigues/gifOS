@@ -9,6 +9,14 @@
 body {
   background-color: #110038;
   font-family: "Chakra Petch", sans-serif;
+  min-width: 100vw;
+  overflow-x: hidden;
+}
+
+main section {
+  margin: 0 auto;
+  margin-top: 64px;
+  max-width: 1200px;
 }
 
 .button {
@@ -35,6 +43,11 @@ body {
   text-align: center;
 }
 
+
+header {
+  min-width: 100vw;
+}
+
 header .top-bar {
   background: -webkit-gradient(linear, right top, left top, from(#EE3EFE), to(#2E32FB));
   background: linear-gradient(270deg, #EE3EFE 0%, #2E32FB 100%);
@@ -44,6 +57,8 @@ header .top-bar {
   padding: 4px 8px;
   -webkit-box-shadow: 0 1px 0 0 #110038;
           box-shadow: 0 1px 0 0 #110038;
+  margin-bottom: 3%;
+
 }
 
 header .main-header {
@@ -54,7 +69,9 @@ header .main-header {
       -ms-flex-pack: justify;
           justify-content: space-between;
   height: 64px;
-  margin: 35px 140px 19px 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+
 }
 
 header .main-header [class="day"] {
@@ -114,14 +131,16 @@ header .main-header nav .material-icons {
       -ms-grid-row-align: center;
       align-self: center;
   margin: 0px;
+  color: #FFFFFF;
+
 }
 
 header .main-header nav a {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
-  color: #FFFFFF;
   margin-left: 16.5px;
+  color: #FFFFFF;
 }
 
 header .main-header nav a span {
@@ -168,18 +187,8 @@ header .main-header nav a span {
       -ms-flex-align: center;
           align-items: center;
   background-color: #B4B4B4;
-  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
-          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
-}
-
-.theme-buttons .sailor-day {
-  width: 150px;
-  height: 36px;
-  background: #CCCCCC;
-  color: #110038;
-  border: 1px solid #808080;
-  -webkit-box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
-          box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+  -webkit-box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
 }
 
 .theme-buttons .sailor-night {
@@ -189,17 +198,45 @@ header .main-header nav a span {
   border: 1px solid rgba(51, 53, 143, 0.2);
   -webkit-box-shadow: inset -1px -1px 0 0 #E6DCE4, inset 1px 1px 0 0 #FFFFFF;
           box-shadow: inset -1px -1px 0 0 #E6DCE4, inset 1px 1px 0 0 #FFFFFF;
+  color: #FFFFFF;
+}
+
+.theme-buttons .sailor-night span {
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.theme-buttons .sailor-day {
+  width: 150px;
+  height: 36px;
+  background: #CCCCCC;
+  border: 1px solid #808080;
+  -webkit-box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+          box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+  color: #110038;
 }
 
 .search-container {
-  margin: 35px 140px 19px 100px;
+  max-width: 1200px;
+  min-width: 400px;
+  margin: 2% auto;
   background: #B4B4B4;
   -webkit-box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
           box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+  min-width: 340px;
+}
+
+.search-container > div:first-of-type {
+  padding: 2px;
+  background: #B4B4B4;
+  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 }
 
 .search-container .top-bar {
   font-weight: 900;
+  -webkit-box-shadow: 0 0 0 0 #B4B4B4;
+          box-shadow: 0 0 0 0 #B4B4B4;
+
 }
 
 .search-container .search {
@@ -210,20 +247,28 @@ header .main-header nav a span {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .search-container .search input {
   width: 1057px;
+
+  max-width: 1057px;
+
   height: 48px;
   padding: 13px;
   margin: 12px;
   color: #110038;
+  font-family: "Chakra Petch", sans-serif;
+
   background: #FFFFFF;
   border: 1px solid #979797;
   -webkit-box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
           box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
 
 .search-container .search input::-webkit-input-placeholder {
@@ -254,9 +299,12 @@ header .main-header nav a span {
   margin: 18px;
   width: 102px;
   height: 36px;
+  padding: 10px;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
 }
 
 .search-container .search .button svg {
@@ -273,7 +321,8 @@ header .main-header nav a span {
 }
 
 .search-container .search .inactive {
-  background: #E6E6E6;
+
+  background: #B4B4B4;
   border: 1px solid #808080;
   -webkit-box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
           box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
@@ -301,5 +350,208 @@ header .main-header nav a span {
 
 .search-container .search .colored:active {
   border: 1px solid #110038;
+}
+
+.search-suggestions {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  justify-items: center;
+  padding: 10px 150px 10px 15px;
+  width: 1200px;
+  background: #B4B4B4;
+  -webkit-box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+}
+
+.search-suggestions > div:first-of-type {
+  background: #CCCCCC;
+  border: 1px solid #808080;
+  -webkit-box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+          box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+}
+
+.search-suggestions div {
+  width: 100%;
+  max-width: 1057px;
+  padding: 7px 16px;
+  margin: 5px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  color: #110038;
+  font-size: 16px;
+  text-align: left;
+  background: #CCCCCC;
+  border: 1px solid #808080;
+  -webkit-box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+          box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+}
+
+.title {
+  background: #FFFAFE;
+  border: 1px solid #2E32FB;
+  -webkit-box-shadow: inset -2px -2px 0 0 #E6DCE4, inset 2px 2px 0 0 #110038;
+          box-shadow: inset -2px -2px 0 0 #E6DCE4, inset 2px 2px 0 0 #110038;
+  margin-bottom: 16px;
+}
+
+.title h2 {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 14px;
+  color: #110038;
+  font-weight: 400;
+  margin: 7px;
+}
+
+.suggested-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1200px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  justify-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.suggested-container .suggested-box {
+  width: 288px;
+  height: 319px;
+  padding: 3px;
+  background: #B4B4B4;
+  -webkit-box-shadow: inset -2px -2px 0 0 #5C5C5C, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #5C5C5C, inset 2px 2px 0 0 #FFFFFF;
+}
+
+.suggested-container .suggested-box .top-suggested {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  background: -webkit-gradient(linear, right top, left top, from(#EE3EFE), to(#2E32FB));
+  background: linear-gradient(270deg, #EE3EFE 0%, #2E32FB 100%);
+  padding: 5px;
+  margin: 2px;
+}
+
+.suggested-container .suggested-box .top-suggested p {
+  color: #FFFFFF;
+  font-size: 14px;
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 900;
+}
+
+.suggested-container .suggested-box .suggested-gif {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 280px;
+  height: 280px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+  background-position: center;
+  background-image: url("");
+}
+
+.suggested-container .suggested-box .suggested-gif .button {
+  z-index: 1;
+  width: 84px;
+  height: 34px;
+  margin: 15px 7px;
+  color: #FFFFFF;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  background: #2E32FB;
+  border: 1px solid #4C2F99;
+  -webkit-box-shadow: inset -2px -2px 0 0 #2124B3, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #2124B3, inset 2px 2px 0 0 #FFFFFF;
+}
+
+.bulkGif-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-rows: (1fr)[3];
+      grid-template-rows: repeat(3, 1fr);
+  -webkit-column-gap: 15px;
+          column-gap: 15px;
+  row-gap: 15px;
+}
+
+.bulkGif-container > div {
+  height: 298px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+  background-position: center;
+  background-image: "";
+}
+
+#search {
+  display: none;
+}
+
+#search .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#search .title p {
+  float: right;
+  color: #FFFFFF;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 16px;
+  margin: 5px 10px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: right;
+      justify-self: right;
 }
 /*# sourceMappingURL=styles-night.css.map */
