@@ -110,25 +110,30 @@ function checkEmptyInput() {
 };
 
 async function suggestSearch(){
-    
-    let input = searchInput.value;
-    let div1 = document.getElementById('sugg0');
-    let div2 = document.getElementById('sugg1');
-    let div3 = document.getElementById('sugg2');
-    
-    activateSearchButton()
-    
-    let relatedTerms = await giphy.getRelatedTags(input);
+
+    try{
+        let input = searchInput.value;
+        let div1 = document.getElementById('sugg0');
+        let div2 = document.getElementById('sugg1');
+        let div3 = document.getElementById('sugg2');
         
-    if(input.length >= 1){   
+        activateSearchButton()
+        
+        let relatedTerms = await giphy.getRelatedTags(input);
             
-        let suggestions = document.getElementById('search-suggestions');
-        suggestions.style.display = 'flex';
-            
-        div1.innerText = relatedTerms.data[0].name
-        div2.innerText = relatedTerms.data[1].name
-        div3.innerText = relatedTerms.data[2].name
+        if(input.length >= 1){   
+                
+            let suggestions = document.getElementById('search-suggestions');
+            suggestions.style.display = 'flex';
+                
+            div1.innerText = relatedTerms.data[0].name
+            div2.innerText = relatedTerms.data[1].name
+            div3.innerText = relatedTerms.data[2].name
+        }
     }
+    catch(err){
+        return err;
+    }  
 };
 
 //SEARCH RESULTS
@@ -156,21 +161,27 @@ function getSearchedTerms(){
 };
 
 function showSearchHistory(){
-    let recentSearch = JSON.parse(localStorage.getItem('search-History'));
-    
-    if(recentSearch){
+
+    try{
+        let recentSearch = JSON.parse(localStorage.getItem('search-History'));
         
-        for( let i = (recentSearch.length - 1); i >= 0; i--){
+        if(recentSearch){
             
-            let container = document.getElementById('previous-search');
-            let searchTerm = document.createElement('div');
-            
-            searchTerm.innerText = recentSearch[i];
-            container.appendChild(searchTerm);
-
-            searchTerm.addEventListener('click', () => {showResults(searchTerm.innerText)})
-
+            for( let i = (recentSearch.length - 1); i >= 0; i--){
+                
+                let container = document.getElementById('previous-search');
+                let searchTerm = document.createElement('div');
+                
+                searchTerm.innerText = recentSearch[i];
+                container.appendChild(searchTerm);
+    
+                searchTerm.addEventListener('click', () => {showResults(searchTerm.innerText)})
+    
+            }
         }
+    }
+    catch(err){
+        return err;
     }
 };
 
@@ -198,13 +209,19 @@ function showResults(term){
 };
 
 async function searchGifs(term, offset){
-    
-    let searchContainer = document.getElementById('search-container');
-    
-    let search = await giphy.getSearch(term, 25, 0)
-    
-    showGifsOnGrid(search, searchContainer, 5);
+
+    try{
+        let searchContainer = document.getElementById('search-container');
+        
+        let search = await giphy.getSearch(term, 25, 0)
+        
+        showGifsOnGrid(search, searchContainer, 5);
+    }
+    catch(err){
+        return err;
+    }
 };
+    
 
 
 // SUGGESTED TODAY
@@ -220,16 +237,20 @@ for(let i=1 ; i <= 4; i++){
 };
 
 async function suggestCategory(titlePostion, gifPosition, position){
-
-    let random = [getRndInteger(0,5), getRndInteger(6,11), getRndInteger(12,17), getRndInteger(18,24)]
-    let title = document.getElementById(titlePostion)
-    let gif = document.getElementById(gifPosition)
-
-    let categories = await giphy.getCategories();
-
-    let gifData = categories.data; 
-    title.innerText = '#' + gifData[random[position]].gif["tags"][1];
-    gif.style.backgroundImage = 'url(' + gifData[random[position]].gif["images"].downsized_medium["url"] + ')'; 
+    try{
+        let random = [getRndInteger(0,5), getRndInteger(6,11), getRndInteger(12,17), getRndInteger(18,24)]
+        let title = document.getElementById(titlePostion)
+        let gif = document.getElementById(gifPosition)
+    
+        let categories = await giphy.getCategories();
+    
+        let gifData = categories.data; 
+        title.innerText = '#' + gifData[random[position]].gif["tags"][1];
+        gif.style.backgroundImage = 'url(' + gifData[random[position]].gif["images"].downsized_medium["url"] + ')'; 
+    }
+    catch(err){
+        return err;
+    }
 };
 
 
@@ -270,10 +291,15 @@ function searchCategory(id){
 
 async function showTrending(offset){
 
-    let trendingSection = document.getElementById('trending-container');
-    let trendings = await giphy.getTrendings(25, offset);
-
-    showGifsOnGrid(trendings, trendingSection, 5);
+    try{
+        let trendingSection = document.getElementById('trending-container');
+        let trendings = await giphy.getTrendings(25, offset);
+    
+        showGifsOnGrid(trendings, trendingSection, 5);
+    }
+    catch(err){
+        return err;
+    }
 };
 
 // GIFS IN GRID
@@ -332,25 +358,31 @@ function showGifsOnGrid(res, append, rows){
 };
 
 function createGif(gif, append, isWide = false){
-    
-    let div = document.createElement('div');
-    let hover = document.createElement('div');
-    div.appendChild(hover);
-    append.appendChild(div);
-    
-    div.style.backgroundImage = 'url(' + gif.images["original"].url + ')'
 
-    const regex = ' by';
-    let title = gif.title.replace(regex,'');
-    let splitTitle = title.split(" ");
-    let tags = splitTitle.join(' #');
-    hover.textContent = '#' + tags;
+    try{
+        let div = document.createElement('div');
+        let hover = document.createElement('div');
+        div.appendChild(hover);
+        append.appendChild(div);
+        
+        div.style.backgroundImage = 'url(' + gif.images["original"].url + ')'
     
-    div.addEventListener('click', () => window.open(gif.url)) 
-
-    if(isWide){
-        div.style.gridColumn = "span 2";
-    }   
+        const regex = ' by';
+        let title = gif.title.replace(regex,'');
+        let splitTitle = title.split(" ");
+        let tags = splitTitle.join(' #');
+        hover.textContent = '#' + tags;
+        
+        div.addEventListener('click', () => window.open(gif.url)) 
+    
+        if(isWide){
+            div.style.gridColumn = "span 2";
+        }   
+    }
+    catch(err){
+        return err;
+    }
+    
 };
 
 showSearchHistory()
