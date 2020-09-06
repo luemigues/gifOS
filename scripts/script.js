@@ -1,9 +1,12 @@
+import Giphy from "./giphy.js";
 
 // Global vars
 const apiKey = 'api_key=lBi3DfmhAX973lNDIbC2l0hCj4EymuCT'
 const searchInput = document.getElementById('search-input');
 let clickThemes = true;
-let searchedTerms = [];
+let searchedTerms = getSearchedTerms();
+const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
+
 
 //Global funcs
 
@@ -21,13 +24,22 @@ function getRndInteger(min, max) {
 
 //THEMES
 
+const themeDropdown = document.getElementById("theme-dropdown");
+for(let button of themeDropdown.children){
+    button.addEventListener('click', showThemes)
+};
+
+document.getElementById("day-button").addEventListener('click', changeTheme2Day);
+document.getElementById("night-button").addEventListener('click', changeTheme2Night);
+document.getElementById("search-button").addEventListener('click', searchFromInput);
+
 function showThemes() {
     let themes = document.getElementById('select-theme')
     
     if(clickThemes){
         themes.style.display = 'flex';
         clickThemes = false;
-
+        
     }else{
         themes.style.display = 'none';
         clickThemes= true;
@@ -48,6 +60,26 @@ function changeTheme2Day(){
 
 // SUGGESTED SEARCH
 
+const inputCheck = document.getElementById("search-input");
+inputCheck.addEventListener('input', suggestSearch);
+inputCheck.addEventListener('keyup', checkEmptyInput);
+
+const searchSuggestionsButtons = document.getElementById("search-suggestions");
+for(let button of searchSuggestionsButtons.children){
+    button.addEventListener('click', () => {
+    
+    let suggestedTerm = button.innerText;
+    let input = searchInput.value = suggestedTerm;
+    document.getElementById('previous-search').innerText = '';
+    
+    searchedTerms.push(input);
+    localStorage.setItem('search-History', JSON.stringify(searchedTerms));
+    
+    showResults(input);
+    showSearchHistory();
+    });
+};
+
 function activateSearchButton(){
     
     let searchButton = document.getElementById('search-button');
@@ -57,55 +89,46 @@ function activateSearchButton(){
 
 function checkEmptyInput() {
     if(searchInput.value.length == 0) {
-
+        
         let searchButton = document.getElementById('search-button');
         searchButton.classList.add('inactive');
         searchButton.classList.remove('colored');
-
+        
         let suggestions = document.getElementById('search-suggestions');
         suggestions.style.display = 'none';
-
-        let div1 = document.getElementById('sugg1');
-        let div2 = document.getElementById('sugg2');
-        let div3 = document.getElementById('sugg3');
-
+        
+        let div1 = document.getElementById('sugg0');
+        let div2 = document.getElementById('sugg1');
+        let div3 = document.getElementById('sugg2');
+        
         div1.innerText = "";
         div2.innerText = "";
         div3.innerText = "";
-
+        
     }
-
-};
- 
-function suggestSearch(){
-
-    let input = searchInput.value;
-    let div1 = document.getElementById('sugg1');
-    let div2 = document.getElementById('sugg2');
-    let div3 = document.getElementById('sugg3');
-
-
-    activateSearchButton()
-
-    fetch('https://api.giphy.com/v1/tags/related/'+ input +'?' + apiKey)
-    .then(res => res.json())
-    .then(res => {
-
-        if(input.length >= 1){   
-
-            let suggestions = document.getElementById('search-suggestions');
-            suggestions.style.display = 'flex';
     
-            div1.innerText = res.data[0].name
-            div2.innerText = res.data[1].name
-            div3.innerText = res.data[2].name
+};
 
-            suggestions.appendChild(div1)
-            suggestions.appendChild(div2)
-            suggestions.appendChild(div3)
-        }
-
-    });
+async function suggestSearch(){
+    
+    let input = searchInput.value;
+    let div1 = document.getElementById('sugg0');
+    let div2 = document.getElementById('sugg1');
+    let div3 = document.getElementById('sugg2');
+    
+    activateSearchButton()
+    
+    let relatedTerms = await giphy.getRelatedTags(input);
+        
+    if(input.length >= 1){   
+            
+        let suggestions = document.getElementById('search-suggestions');
+        suggestions.style.display = 'flex';
+            
+        div1.innerText = relatedTerms.data[0].name
+        div2.innerText = relatedTerms.data[1].name
+        div3.innerText = relatedTerms.data[2].name
+    }
 };
 
 //SEARCH RESULTS
@@ -114,34 +137,46 @@ function searchFromInput(){
     let input = searchInput.value;
     if(input.length >= 1){
         showResults(input)
-
+        
         searchedTerms.push(input)
         localStorage.setItem('search-History', JSON.stringify(searchedTerms));
-
+        
         document.getElementById('previous-search').innerHTML = '';
         showSearchHistory();
     }
 };
 
+function getSearchedTerms(){
+    const fromStorage = JSON.parse(localStorage.getItem('search-History'));
+    if(fromStorage){
+        return fromStorage;
+    }else{
+        return [];
+    }
+};
+
 function showSearchHistory(){
     let recentSearch = JSON.parse(localStorage.getItem('search-History'));
-
-    if(recentSearch){
-
-        for(i= (recentSearch.length - 1); i > 0; i--){
     
+    if(recentSearch){
+        
+        for( let i = (recentSearch.length - 1); i >= 0; i--){
+            
             let container = document.getElementById('previous-search');
             let searchTerm = document.createElement('div');
-    
+            
             searchTerm.innerText = recentSearch[i];
             container.appendChild(searchTerm);
+
+            searchTerm.addEventListener('click', () => {showResults(searchTerm.innerText)})
+
         }
     }
-}
+};
 
 
 function showResults(term){
-    
+
     let suggestions = document.getElementById('search-suggestions');
     hide(suggestions)
     
@@ -160,58 +195,43 @@ function showResults(term){
     searchInput.value = "";
     
     searchGifs(term, 0);
-}
-
-function searchGifs(term, offset){
-    
-    let search = document.getElementById('search-container');
-    
-    fetch('https://api.giphy.com/v1/gifs/search'+ '?' + apiKey + '&q=' + term + '&offset='+ offset)
-    .then(res => res.json())
-    .then(res => showGifsOnGrid(res, search, 5));
-}
-
-function autocompleteAndSearch(id){
-    let suggestedTerm = document.getElementById(id).innerText;
-    let input = searchInput.value = suggestedTerm;
-    document.getElementById('previous-search').innerText = '';
-    
-    searchedTerms.push(input);
-    localStorage.setItem('search-History', JSON.stringify(searchedTerms));
-    
-    showResults(input);
-    showSearchHistory();
 };
 
-function closeSearch(){
-    let search = document.getElementById('search')
-    let trending = document.getElementById('trending')
-    let suggested = document.getElementById('suggested-today')
+async function searchGifs(term, offset){
     
-    hide(search)
-    show(trending)
-    show(suggested)
+    let searchContainer = document.getElementById('search-container');
+    
+    let search = await giphy.getSearch(term, 25, 0)
+    
+    showGifsOnGrid(search, searchContainer, 5);
 };
+
 
 // SUGGESTED TODAY
 
+const closeCategoryItems = document.getElementsByClassName('close-category');
+for(let i=1 ; i <= 4; i++){
+    closeCategoryItems[i-1].addEventListener('click', () => suggestNewCategory(`suggested-g${i}`));
+};
 
-function suggestCategory(titlePostion, gifPosition, position){
+const viewMorefromCategory = document.getElementsByClassName('button suggested-b');
+for(let i=1 ; i <= 4; i++){
+    viewMorefromCategory[i-1].addEventListener('click', () => searchCategory(`suggested-t${i}`));
+};
+
+async function suggestCategory(titlePostion, gifPosition, position){
+
     let random = [getRndInteger(0,5), getRndInteger(6,11), getRndInteger(12,17), getRndInteger(18,24)]
     let title = document.getElementById(titlePostion)
     let gif = document.getElementById(gifPosition)
 
-    fetch('https://api.giphy.com/v1/gifs/categories?' + apiKey)
-    .then(res => res.json())
-    .then(res => {
+    let categories = await giphy.getCategories();
 
-        let gifData = res.data;
-            
-        title.innerText = '#' + gifData[random[position]].gif["tags"][1];
-        gif.style.backgroundImage = 'url(' + gifData[random[position]].gif["images"].downsized_medium["url"] + ')'; 
-
-    });
+    let gifData = categories.data; 
+    title.innerText = '#' + gifData[random[position]].gif["tags"][1];
+    gif.style.backgroundImage = 'url(' + gifData[random[position]].gif["images"].downsized_medium["url"] + ')'; 
 };
+
 
 function suggestDailyCategories(){
 
@@ -219,7 +239,7 @@ function suggestDailyCategories(){
     suggestCategory('suggested-t2','suggested-g2',1)
     suggestCategory('suggested-t3','suggested-g3',2)
     suggestCategory('suggested-t4','suggested-g4',3)
-}
+};
 
 suggestDailyCategories();
 
@@ -237,25 +257,24 @@ function suggestNewCategory(categoryId){
 
         suggestCategory('suggested-t4','suggested-g4',3)
     }    
-}
+};
 
 function searchCategory(id){
 
     let categoryName = document.getElementById(id).innerText
     categoryName = categoryName.substring(1);
     showResults(categoryName)
-}
+};
 
 // TRENDING DISPLAY
 
-function showTrending(offset){
+async function showTrending(offset){
 
     let trendingSection = document.getElementById('trending-container');
+    let trendings = await giphy.getTrendings(25, offset);
 
-    fetch('https://api.giphy.com/v1/gifs/trending?' + apiKey + '&limit=25' + '&offset='+ offset)
-    .then(res => res.json())
-    .then(res => showGifsOnGrid(res, trendingSection, 5));
-}
+    showGifsOnGrid(trendings, trendingSection, 5);
+};
 
 // GIFS IN GRID
 
@@ -310,7 +329,7 @@ function showGifsOnGrid(res, append, rows){
             }
         }
     }
-}
+};
 
 function createGif(gif, append, isWide = false){
     
@@ -327,12 +346,12 @@ function createGif(gif, append, isWide = false){
     let tags = splitTitle.join(' #');
     hover.textContent = '#' + tags;
     
-    div.onclick = () => window.open(gif.url)
+    div.addEventListener('click', () => window.open(gif.url)) 
 
     if(isWide){
         div.style.gridColumn = "span 2";
     }   
-}
+};
 
 showSearchHistory()
 

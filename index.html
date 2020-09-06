@@ -17,15 +17,15 @@
             <nav>
                 <div class="button colored">Crear Guifos</div>
                 <div class="theme-button-container">
-                    <div class="theme-dopdown">
-                        <div class="button colored" onclick="showThemes()">Elegir tema</div>
-                        <div onclick="showThemes()" class="button colored material-icons">
+                    <div class="theme-dopdown" id="theme-dropdown">
+                        <div class="button colored">Elegir tema</div>
+                        <div class="button colored material-icons">
                                     arrow_drop_down
                         </div>
                     </div>
                     <div class="theme-buttons" id="select-theme">
-                        <div id="day-button" onclick="changeTheme2Day()" class="button sailor-day"><span>S</span>ailor Day</div>
-                        <div id="night-button" onclick="changeTheme2Night()" class="button sailor-night"><span>S</span>ailor Night</div>
+                        <div id="day-button" class="button sailor-day"><span>S</span>ailor Day</div>
+                        <div id="night-button" class="button sailor-night"><span>S</span>ailor Night</div>
                     </div>
                 </div>
                 <a href="./misGifos.html"><span>M</span>is Guifos</a>
@@ -35,8 +35,8 @@
             <div>
                 <div class="top-bar">Buscar</div>
                 <div class="search">
-                    <input type="text" id="search-input" oninput="suggestSearch()" onkeyup="checkEmptyInput()" placeholder="Busca gifs, hashtags, temas, busca lo que quieras…">
-                    <div class="button inactive" id="search-button" onclick="searchFromInput()">
+                    <input type="text" id="search-input" placeholder="Busca gifs, hashtags, temas, busca lo que quieras…">
+                    <div class="button inactive" id="search-button">
                         <svg width="16px" height="16px" class="inactive-day" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
         <title>lupa_inactive</title>
@@ -111,9 +111,9 @@
                 </div>
             </div>
             <div id="search-suggestions" class="search-suggestions">
-                <div id="sugg1" onclick="autocompleteAndSearch('sugg1')"></div>
-                <div id="sugg2" onclick="autocompleteAndSearch('sugg2')"></div>
-                <div id="sugg3" onclick="autocompleteAndSearch('sugg3')"></div>
+                <div id="sugg0"></div>
+                <div id="sugg1"></div>
+                <div id="sugg2"></div>
             </div>
         </div>
         <div id="previous-search" class="prev-search">
@@ -137,10 +137,10 @@
                 <div class="suggested-box">
                     <div class="top-suggested">
                         <p id="suggested-t1">#</p>
-                        <img src="./assets/button3.svg" alt="close" onclick="suggestNewCategory('suggested-g1')">
+                        <img src="./assets/button3.svg" class="close-category" alt="close">
                     </div>
                     <div class="suggested-gif" id="suggested-g1">
-                        <div class="button suggested-b" onclick="searchCategory('suggested-t1')">
+                        <div class="button suggested-b">
                             Ver más…
                         </div>
                     </div>
@@ -150,10 +150,10 @@
                 <div class="suggested-box">
                     <div class="top-suggested">
                         <p id="suggested-t2">#</p>
-                        <img src="./assets/button3.svg" alt="close" onclick="suggestNewCategory('suggested-g2')">
+                        <img src="./assets/button3.svg" class="close-category" alt="close">
                     </div>
                     <div class="suggested-gif" id="suggested-g2">
-                        <div class="button suggested-b" onclick="searchCategory('suggested-t2')">
+                        <div class="button suggested-b">
                             Ver más…
                         </div>
                     </div>
@@ -163,10 +163,10 @@
                 <div class="suggested-box">
                     <div class="top-suggested">
                         <p id="suggested-t3">#</p>
-                        <img src="./assets/button3.svg" alt="close" onclick="suggestNewCategory('suggested-g3')">
+                        <img src="./assets/button3.svg" class="close-category" alt="close">
                     </div>
                     <div class="suggested-gif" id="suggested-g3">
-                        <div class="button suggested-b" onclick="searchCategory('suggested-t3')">
+                        <div class="button suggested-b">
 
                             Ver más…
                         </div>
@@ -177,10 +177,10 @@
                 <div class="suggested-box">
                     <div class="top-suggested">
                         <p id="suggested-t4">#</p>
-                        <img src="./assets/button3.svg" alt="close" onclick="suggestNewCategory('suggested-g4')">
+                        <img src="./assets/button3.svg" class="close-category" alt="close">
                     </div>
                     <div class="suggested-gif" id="suggested-g4">
-                        <div class="button suggested-b" onclick="searchCategory('suggested-t4')">
+                        <div class="button suggested-b">
 
                             Ver más…
                         </div>
@@ -204,7 +204,6 @@
         <section id="search">
             <div class="title">
                 <h2 id="search-title">Busqueda</h2>
-                <p id="close" onclick="closeSearch()">X</p>
             </div>
             <div class="bulkGif-container" id="search-container">
                 <!-- JS search display -->
@@ -213,6 +212,6 @@
 
     </main>
 
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/script.js" type="module"  type="text/javascript"></script>
 </body>
 </html>
