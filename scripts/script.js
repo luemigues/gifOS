@@ -1,10 +1,12 @@
 import Giphy from "./giphy.js";
+import * as myGifos from './myGifos.js';
 
 // Global vars
 const apiKey = 'api_key=lBi3DfmhAX973lNDIbC2l0hCj4EymuCT'
 const searchInput = document.getElementById('search-input');
 let clickThemes = true;
 let searchedTerms = getSearchedTerms();
+let myGifosStorage = getSavedGifos();
 const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 
 
@@ -22,7 +24,7 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 };
 
-//THEMES
+//EVENT LISTENERS
 
 const themeDropdown = document.getElementById("theme-dropdown");
 for(let button of themeDropdown.children){
@@ -31,8 +33,43 @@ for(let button of themeDropdown.children){
 
 document.getElementById("day-button").addEventListener('click', changeTheme2Day);
 document.getElementById("night-button").addEventListener('click', changeTheme2Night);
-document.getElementById("search-button").addEventListener('click', searchFromInput);
 
+if(document.getElementById('search-button')){
+    
+    document.getElementById("search-button").addEventListener('click', searchFromInput);
+    
+    const inputCheck = document.getElementById("search-input");
+    inputCheck.addEventListener('input', suggestSearch);
+    inputCheck.addEventListener('keyup', checkEmptyInput);
+    
+    const searchSuggestionsButtons = document.getElementById("search-suggestions");
+    for(let button of searchSuggestionsButtons.children){
+        button.addEventListener('click', () => {
+            
+            let suggestedTerm = button.innerText;
+            let input = searchInput.value = suggestedTerm;
+            document.getElementById('previous-search').innerText = '';
+            
+            searchedTerms.push(input);
+            localStorage.setItem('search-History', JSON.stringify(searchedTerms));
+            
+            showResults(input);
+            showSearchHistory();
+        });
+    };
+    
+    const closeCategoryItems = document.getElementsByClassName('close-category');
+    for(let i=1 ; i <= 4; i++){
+        closeCategoryItems[i-1].addEventListener('click', () => suggestNewCategory(`suggested-g${i}`));
+    };
+    
+    const viewMorefromCategory = document.getElementsByClassName('button suggested-b');
+    for(let i=1 ; i <= 4; i++){
+        viewMorefromCategory[i-1].addEventListener('click', () => searchCategory(`suggested-t${i}`));
+    };
+}
+
+//THEMES
 function showThemes() {
     let themes = document.getElementById('select-theme')
     
@@ -59,26 +96,6 @@ function changeTheme2Day(){
 };
 
 // SUGGESTED SEARCH
-
-const inputCheck = document.getElementById("search-input");
-inputCheck.addEventListener('input', suggestSearch);
-inputCheck.addEventListener('keyup', checkEmptyInput);
-
-const searchSuggestionsButtons = document.getElementById("search-suggestions");
-for(let button of searchSuggestionsButtons.children){
-    button.addEventListener('click', () => {
-    
-    let suggestedTerm = button.innerText;
-    let input = searchInput.value = suggestedTerm;
-    document.getElementById('previous-search').innerText = '';
-    
-    searchedTerms.push(input);
-    localStorage.setItem('search-History', JSON.stringify(searchedTerms));
-    
-    showResults(input);
-    showSearchHistory();
-    });
-};
 
 function activateSearchButton(){
     
@@ -226,15 +243,6 @@ async function searchGifs(term, offset){
 
 // SUGGESTED TODAY
 
-const closeCategoryItems = document.getElementsByClassName('close-category');
-for(let i=1 ; i <= 4; i++){
-    closeCategoryItems[i-1].addEventListener('click', () => suggestNewCategory(`suggested-g${i}`));
-};
-
-const viewMorefromCategory = document.getElementsByClassName('button suggested-b');
-for(let i=1 ; i <= 4; i++){
-    viewMorefromCategory[i-1].addEventListener('click', () => searchCategory(`suggested-t${i}`));
-};
 
 async function suggestCategory(titlePostion, gifPosition, position){
     try{
@@ -306,7 +314,7 @@ async function showTrending(offset){
 
 function showGifsOnGrid(res, append, rows){
     
-    let gifs = res.data;
+    let gifs = res.data || res;
     let totalgifs = 0;
     let savedGifs = [];
     let filledColumns = 0
@@ -373,7 +381,12 @@ function createGif(gif, append, isWide = false){
         let tags = splitTitle.join(' #');
         hover.textContent = '#' + tags;
         
-        div.addEventListener('click', () => window.open(gif.url)) 
+        // div.addEventListener('click', () => window.open(gif.url))
+        div.addEventListener('click', () => {
+            myGifosStorage.push(gif);
+            localStorage.setItem('my-gifos', JSON.stringify(myGifosStorage));
+            alert("El gif se ha guardado en 'Mis Gifos'");
+        });
     
         if(isWide){
             div.style.gridColumn = "span 2";
@@ -384,6 +397,8 @@ function createGif(gif, append, isWide = false){
     }
     
 };
+
+export default createGif;
 
 showSearchHistory()
 
@@ -399,4 +414,26 @@ window.onscroll = function(ev) {
         }else if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (searchSection == 'none')){
             showTrending(n+=25);
         }
-    };
+};
+
+
+// MY GIFOS
+
+function getSavedGifos(){
+    const fromStorage = JSON.parse(localStorage.getItem('my-gifos'));
+    if(fromStorage){
+        return fromStorage;
+    }else{
+        return [];
+    }
+};
+
+function showSavedGifos(){
+    
+        let myGifosgSection = document.getElementById('misGifos-container');
+        let gifos = JSON.parse(localStorage.getItem('my-gifos'))
+        myGifos.showMyGifos(gifos, myGifosgSection, 10);
+}
+
+showSavedGifos()
+

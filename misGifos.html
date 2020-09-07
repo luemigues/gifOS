@@ -19,15 +19,15 @@
             <nav>
                 <div class="button colored">Crear Guifos</div>
                 <div class="theme-button-container">
-                    <div class="theme-dopdown">
-                        <div class="button colored" onclick="showThemes()">Elegir tema</div>
-                        <div onclick="showThemes()" class="button colored material-icons">
+                    <div class="theme-dopdown" id="theme-dropdown">
+                        <div class="button colored">Elegir tema</div>
+                        <div class="button colored material-icons">
                                     arrow_drop_down
                         </div>
                     </div>
                     <div class="theme-buttons" id="select-theme">
-                        <div id="day-button" onclick="changeTheme2Day()" class="button sailor-day"><span>S</span>ailor Day</div>
-                        <div id="night-button" onclick="changeTheme2Night()" class="button sailor-night"><span>S</span>ailor Night</div>
+                        <div id="day-button" class="button sailor-day"><span>S</span>ailor Day</div>
+                        <div id="night-button" class="button sailor-night"><span>S</span>ailor Night</div>
                     </div>
                 </div>
                 <a><span>M</span>is Guifos</a>
@@ -55,6 +55,6 @@
 
     </main>
 
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/script.js" type="module"></script>
 </body>
 </html>
