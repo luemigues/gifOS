@@ -106,8 +106,17 @@ header {
         height: 64px;
         min-width: 1200px;
 
+
         img{
             width: 103px;
+        }
+
+        #backArrow{
+            img{
+                width: 24px;
+                height: 24px;
+                margin: 10px;
+            }
         }
         
         nav{
@@ -548,6 +557,16 @@ header {
                     overflow: hidden;
                     height: 20px;
                     line-height: 18px;
+
+                    span{
+                        color: white;
+                        align-self: flex-end;
+                        justify-self: flex-end;
+                        display: inline;
+                        font-size: 18px;
+                        margin-right: 4px;
+                        float: left;
+                    }
             }
 
             div{
@@ -630,7 +649,7 @@ header {
 
 
 .creator-container{
-    display: none; 
+    display: block; 
     background-color: $day-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
     width: 55%;
@@ -711,6 +730,7 @@ header {
 // CAPTURING
 
 .capture-container{
+    display: none;
 
     background-color: $day-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
@@ -723,10 +743,12 @@ header {
         padding: 8px 14px 3px 8px;
 
         video {
-            background: #FFFFFF;
+            background: black;
             border: 1px solid #979797;
             box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
             width: 100%;
+            // max-width: 832px;
+            max-height: 434px;
         }
     }
 
@@ -758,10 +780,17 @@ header {
     }
 
     #captureButtons{
-        display: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        div:first-child{
+            width: 36px;
+        }
+
     }
 
-    .recording{
+    #recordingButtons{
 
         display: none;
 
@@ -771,8 +800,8 @@ header {
         }
     }
 
-    .preview{
-        display: flex;
+    #previewButtons{
+        display: none;
 
         div{
             display: flex;
@@ -804,6 +833,7 @@ header {
 }
 
 .uploading-container{
+    display: none;
     background-color: $day-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 
@@ -854,6 +884,7 @@ header {
 }
 
 .success-container{
+    display: none;
     background-color: $day-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
     width: 60%;

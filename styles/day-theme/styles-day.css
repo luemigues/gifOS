@@ -136,6 +136,12 @@ header .main-header img {
   width: 103px;
 }
 
+header .main-header #backArrow img {
+  width: 24px;
+  height: 24px;
+  margin: 10px;
+}
+
 header .main-header nav {
   height: 64px;
   display: -webkit-box;
@@ -670,6 +676,17 @@ header .main-header nav a:active {
   line-height: 18px;
 }
 
+.bulkGif-container > div:hover > div span {
+  color: white;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  justify-self: flex-end;
+  display: inline;
+  font-size: 18px;
+  margin-right: 4px;
+  float: left;
+}
+
 .bulkGif-container > div div {
   display: none;
 }
@@ -753,7 +770,7 @@ header .main-header nav a:active {
 }
 
 .creator-container {
-  display: none;
+  display: block;
   background-color: #E6E6E6;
   -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
           box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
@@ -839,6 +856,7 @@ header .main-header nav a:active {
 }
 
 .capture-container {
+  display: none;
   background-color: #E6E6E6;
   -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
           box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
@@ -851,11 +869,12 @@ header .main-header nav a:active {
 }
 
 .capture-container .image-container video {
-  background: #FFFFFF;
+  background: black;
   border: 1px solid #979797;
   -webkit-box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
           box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
   width: 100%;
+  max-height: 434px;
 }
 
 .capture-container .button-container {
@@ -898,25 +917,36 @@ header .main-header nav a:active {
 }
 
 .capture-container #captureButtons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.capture-container #captureButtons div:first-child {
+  width: 36px;
+}
+
+.capture-container #recordingButtons {
   display: none;
 }
 
-.capture-container .recording {
-  display: none;
-}
-
-.capture-container .recording .button {
+.capture-container #recordingButtons .button {
   background-color: #FF6161;
   color: #FFFFFF;
 }
 
-.capture-container .preview {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.capture-container #previewButtons {
+  display: none;
 }
 
-.capture-container .preview div {
+.capture-container #previewButtons div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -929,11 +959,11 @@ header .main-header nav a:active {
           align-items: center;
 }
 
-.capture-container .preview div .colored {
+.capture-container #previewButtons div .colored {
   margin-left: 8px;
 }
 
-.capture-container .preview div .timer + div {
+.capture-container #previewButtons div .timer + div {
   width: 20px;
   height: 20px;
 }
@@ -953,6 +983,7 @@ header .main-header nav a:active {
 }
 
 .uploading-container {
+  display: none;
   background-color: #E6E6E6;
   -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
           box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
@@ -1020,6 +1051,7 @@ header .main-header nav a:active {
 }
 
 .success-container {
+  display: none;
   background-color: #E6E6E6;
   -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
           box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
