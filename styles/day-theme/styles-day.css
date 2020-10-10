@@ -909,7 +909,10 @@ header .main-header nav a:active {
 
 .capture-container .button-container .timer {
   justify-self: flex-start;
+  width: 140px;
+  height: 36px;
   padding: 5px 20px;
+  text-align: center;
   background: #FFFFFF;
   border: 1px solid #979797;
   -webkit-box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;

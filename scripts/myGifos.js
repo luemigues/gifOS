@@ -159,17 +159,21 @@ async function getStreamAndRecord(){
         const recordingButtons = document.getElementById("captureButtons");
         for(let button of recordingButtons.children){
             button.addEventListener('click', () =>{
-            const startDate = new Date();
-            console.log(startDate);
-            changeButtons('capture');
-            recorder.startRecording();
+                changeButtons('capture');
+                recorder.startRecording();
+                const dateStarted = new Date().getTime();
+                (function looper() {
+                    if(!recorder) {
+                        return;
+                    }
+        
+                    document.querySelector('#timerPassed').innerHTML = time((new Date().getTime() - dateStarted));
+                    setTimeout(looper, 100);
+                })();
+        
             });
         };
-        
-        // while(recorder.) == 'started'){
-        //     const endDate = new Date();
-        //     console.log(startDate - endDate);
-        // }
+
         const stopRecordingButtons = document.querySelectorAll(".recordingButton");
         for(let button of stopRecordingButtons){
             button.addEventListener('click', () => {
@@ -205,11 +209,8 @@ function changeButtons(buttons){
     }
 }
 
-function timeRecorded(){
-    const h = date.getHours(); // 0 - 23
-    const m = date.getMinutes(); // 0 - 59
-    const s = date.getSeconds();
-    const endDate = new Date();
-    
-    startDate - endDate;
+
+
+function time(ms) {
+    return new Date(ms).toISOString().slice(11, -1);
 }

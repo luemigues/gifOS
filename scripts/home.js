@@ -210,7 +210,7 @@ async function suggestCategory(titlePostion, gifPosition, position){
         let categories = await giphy.getCategories();
     
         let gifData = categories.data; 
-        title.innerText = '#' + gifData[random[position]].gif["tags"][1];
+        title.innerText = '#' + gifData[random[position]].name_encoded;
         gif.style.backgroundImage = 'url(' + gifData[random[position]].gif["images"].downsized_medium["url"] + ')'; 
     }
     catch(err){
