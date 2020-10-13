@@ -1,8 +1,6 @@
 import createGif from './home.js';
 import { globalFunctions } from './script.js';
-import {Recorder} from './recorder.js'
 
-const recorder = new Recorder();
 
 if(location.hash == '#creadorGifo'){
     showSection('creador');   
@@ -117,6 +115,8 @@ for(let button of cancelButtons){
 
 const video = document.getElementById('video');
 const capture = document.getElementById('capture');
+const imgBlob = document.getElementById('blob');
+let recordedGifURL = "";
 
 capture.addEventListener('click', async ()=> {
     try{
@@ -133,6 +133,7 @@ capture.addEventListener('click', async ()=> {
 
 async function getStreamAndRecord(){
 
+    // SETTING RECORDER
    const stream = await navigator.mediaDevices.getUserMedia(
         {
         audio: false,
@@ -142,7 +143,7 @@ async function getStreamAndRecord(){
         
         });
         
-        const recorder = RecordRTC(stream, {
+        let recorder = RecordRTC(stream, {
             type: 'gif',
             frameRate: 1,
             quality: 10,
@@ -156,10 +157,110 @@ async function getStreamAndRecord(){
         video.srcObject = stream;
         video.play();
 
+        // recording
+
         const recordingButtons = document.getElementById("captureButtons");
         for(let button of recordingButtons.children){
             button.addEventListener('click', () =>{
-                changeButtons('capture');
+                startRecordingGif(recorder);
+            });
+        };
+
+        // saving and preview recording
+        const stopRecordingButtons = document.querySelectorAll(".recordingButton");
+        for(let button of stopRecordingButtons){
+            button.addEventListener('click', () => {
+                stopRecAndPreview(recorder, stream);
+            })
+        };
+
+};
+
+const repeatBttn = document.getElementById('repeatBttn');
+repeatBttn.addEventListener('click', () => {
+    reRecord();
+});
+
+function reRecord(){
+    video.style.display ='block';
+    imgBlob.style.display = 'none';
+    changeButtonsTo('re-record');
+    getStreamAndRecord();   
+}
+
+function startRecordingGif(recorder){
+    changeButtonsTo('recording');
+    recorder.startRecording();
+    const dateStarted = new Date().getTime();
+    (function looper() {
+        if(!recorder) {
+            return;
+        }
+        
+        document.querySelector('#timerPassed').innerHTML = time((new Date().getTime() - dateStarted));
+        setTimeout(looper, 100);
+    })();
+};
+
+function stopRecAndPreview(recorder, stream){
+
+    try{
+        changeButtonsTo('preview');
+        recorder.stopRecording(function(){
+    
+            let blob = recorder.getBlob();
+            let form = new FormData();
+            form.append('file', blob, 'myGif.gif');
+            console.log(form.get('file'));
+    
+            stream.getTracks().forEach( (track) => {
+                track.stop();
+            });
+            recordedGifURL = recorder.toURL();
+            console.log(recordedGifURL)
+            imgBlob.src = recordedGifURL;
+            video.style.display ='none';
+            imgBlob.style.display = 'block';
+            }
+        });
+    }catch(err){
+        console.log(err)
+        reRecord();
+    }
+};
+
+
+function changeButtonsTo(buttons){
+    switch(buttons){
+        case 'recording':
+            globalFunctions.hide(document.getElementById("captureButtons"));
+            globalFunctions.show(document.getElementById("recordingButtons"), 'flex');
+        break;
+
+        case 'preview':
+            globalFunctions.hide(document.getElementById("recordingButtons"));
+            globalFunctions.show(document.getElementById("previewButtons"), 'flex');
+        break;
+
+        case 're-record':
+            globalFunctions.hide(document.getElementById("previewButtons"));
+            globalFunctions.show(document.getElementById("captureButtons"), 'flex');
+        break;
+
+        case 'uploading':
+            globalFunctions.hide(document.getElementById("capture-container"));
+            globalFunctions.show(document.getElementById("uploading-container"), 'flex');
+        break;
+
+        default: console.log('No buttons changed');
+    }
+};
+
+function startRecording(recorder){
+    const recordingButtons = document.getElementById("captureButtons");
+        for(let button of recordingButtons.children){
+            button.addEventListener('click', () =>{
+                changeButtonsTo('recording');
                 recorder.startRecording();
                 const dateStarted = new Date().getTime();
                 (function looper() {
@@ -173,44 +274,8 @@ async function getStreamAndRecord(){
         
             });
         };
-
-        const stopRecordingButtons = document.querySelectorAll(".recordingButton");
-        for(let button of stopRecordingButtons){
-            button.addEventListener('click', () => {
-
-                changeButtons('recording');
-                recorder.stopRecording(function(){
-                    
-                    let form = new FormData();
-                    form.append('file', recorder.getBlob(), 'myGif.gif');
-                    console.log(form.get('file'));
-                });
-            })
-        };
-
 };
-
-
-
-
-function changeButtons(buttons){
-    switch(buttons){
-        case 'capture':
-            globalFunctions.hide(document.getElementById("captureButtons"));
-            globalFunctions.show(document.getElementById("recordingButtons"), 'flex');
-        break;
-
-        case 'recording':
-            globalFunctions.hide(document.getElementById("recordingButtons"));
-            globalFunctions.show(document.getElementById("previewButtons"), 'flex');
-        break;
-
-        default: console.log('No buttons changed');
-    }
-}
-
-
 
 function time(ms) {
     return new Date(ms).toISOString().slice(11, -1);
-}
+};

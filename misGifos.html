@@ -70,6 +70,7 @@
                     <video id="video">
 
                     </video>
+                    <img id="blob">
                 </div>
                 <div class="button-container" id="captureButtons">
                     <div class="button colored"><img src="./assets/camera.svg" alt="camara"></div>
@@ -78,8 +79,8 @@
                 <div class="button-container" id="recordingButtons">
                     <div class="timer" id="timerPassed">00.00.03.06</div>
                     <div>
-                        <div class="recordingButton button colored"><img src="./assets/recording.svg" alt="recording"></div>
-                        <div class="recordingButton button colored">Listo</div>
+                        <div class="recordingButton button colored" disabled><img src="./assets/recording.svg" alt="recording"></div>
+                        <div class="recordingButton button colored" disabled>Listo</div>
                     </div>
                 </div>
                 <div class="button-container" id="previewButtons">
@@ -90,8 +91,8 @@
 
                     </div>
                     <div>
-                        <div class="button pale">Repetir Captura</div>
-                        <div class="button colored">Subir Guifo</div>
+                        <div class="button pale" id="repeatBttn">Repetir Captura</div>
+                        <div class="button colored" id="uploadBttn">Subir Guifo</div>
                     </div>
                 </div>
              </div>
