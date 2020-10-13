@@ -221,7 +221,6 @@ function stopRecAndPreview(recorder, stream){
             imgBlob.src = recordedGifURL;
             video.style.display ='none';
             imgBlob.style.display = 'block';
-            }
         });
     }catch(err){
         console.log(err)
