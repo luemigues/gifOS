@@ -53,7 +53,10 @@ main{
     width: 140px;
     text-align: center;
     &:hover, &:active {
-         outline: 1px dashed $fcolor-db;
+        background: #F0E5EE;
+        border: 1px solid #110038;
+        box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
+        outline: 1px dashed $fcolor-db;
         outline-offset: -6px;
      }
 
@@ -112,7 +115,7 @@ header {
         }
 
         #backArrow{
-            img{
+            svg{
                 width: 24px;
                 height: 24px;
                 margin: 10px;
@@ -644,6 +647,10 @@ header {
         font-weight: 900;
         padding: 5px;
         margin: 2px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }
 
@@ -879,6 +886,10 @@ header {
             font-size: $fsize-small;
             color: rgba(17,0,56,0.64);
             margin: 10px;
+        }
+
+        span{
+            text-decoration: line-through;
         }
     }
 

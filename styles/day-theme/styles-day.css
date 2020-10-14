@@ -68,6 +68,10 @@ main section {
 }
 
 .colored:hover, .colored:active {
+  background: #F0E5EE;
+  border: 1px solid #110038;
+  -webkit-box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
+          box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
   outline: 1px dashed #110038;
   outline-offset: -6px;
 }
@@ -136,7 +140,7 @@ header .main-header img {
   width: 103px;
 }
 
-header .main-header #backArrow img {
+header .main-header #backArrow svg {
   width: 24px;
   height: 24px;
   margin: 10px;
@@ -767,6 +771,15 @@ header .main-header nav a:active {
   font-weight: 900;
   padding: 5px;
   margin: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .creator-container {
@@ -1041,6 +1054,10 @@ header .main-header nav a:active {
   font-size: 12px;
   color: rgba(17, 0, 56, 0.64);
   margin: 10px;
+}
+
+.uploading-container .image-container span {
+  text-decoration: line-through;
 }
 
 .uploading-container .button-container {

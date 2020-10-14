@@ -6,16 +6,41 @@
   max-width: 100vw;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #110038;
   font-family: "Chakra Petch", sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   min-width: 100vw;
   overflow-x: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+body a {
+  text-decoration: none;
+  color: inherit;
+  cursor: auto;
+}
+
+main {
+  margin-top: 0px;
 }
 
 main section {
   margin: 0 auto;
-  margin-top: 64px;
+  margin-top: 68px;
   max-width: 1200px;
 }
 
@@ -43,8 +68,39 @@ main section {
   text-align: center;
 }
 
+.colored:hover, .colored:active {
+  outline: 1px dashed #110038;
+  outline-offset: -6px;
+}
+
+.pale {
+  background: #110038;
+  border: 1px solid #B4B4B4;
+  -webkit-box-shadow: inset -1px -1px 0 0 #5C5C5C, inset 1px 1px 0 0 #FFF4FD;
+          box-shadow: inset -1px -1px 0 0 #5C5C5C, inset 1px 1px 0 0 #FFF4FD;
+  height: 36px;
+  width: 140px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.pale:hover, .pale:active {
+  outline: 1px dashed #FFFFFF;
+  outline-offset: -6px;
+  color: #FFFFFF;
+}
+
 header {
   min-width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }
 
 header .top-bar {
@@ -60,15 +116,19 @@ header .top-bar {
 }
 
 header .main-header {
+  -ms-flex-item-align: center;
+      align-self: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 64px;
-  max-width: 1200px;
-  margin: 0 auto;
+  min-width: 1200px;
 }
 
 header .main-header [class="day"] {
@@ -79,7 +139,19 @@ header .main-header img {
   width: 103px;
 }
 
+header .main-header #backArrow svg {
+  width: 24px;
+  height: 24px;
+  margin: 10px;
+}
+
+header .main-header #backArrow svg path {
+  color: white;
+  fill: white;
+}
+
 header .main-header nav {
+  height: 64px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -92,6 +164,9 @@ header .main-header nav {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  justify-items: center;
   padding: 15px;
 }
 
@@ -112,15 +187,6 @@ header .main-header nav .theme-dopdown {
           justify-content: center;
 }
 
-header .main-header nav .theme-dopdown:hover div:before {
-  content: " ";
-  position: absolute;
-  width: inherit;
-  height: inherit;
-  border-collapse: collapse;
-  border: 1.5px dotted #110038;
-}
-
 header .main-header nav .material-icons {
   width: 36px;
   height: 36px;
@@ -128,7 +194,6 @@ header .main-header nav .material-icons {
       -ms-grid-row-align: center;
       align-self: center;
   margin: 0px;
-  color: #FFFFFF;
 }
 
 header .main-header nav a {
@@ -136,13 +201,25 @@ header .main-header nav a {
       -ms-grid-row-align: center;
       align-self: center;
   margin-left: 16.5px;
+  margin-right: 5px;
+  padding: 5px 6px 5px 0px;
   color: #FFFFFF;
 }
 
 header .main-header nav a span {
   border-bottom: 1px solid #FFFFFF;
-  padding-bottom: 2px;
   line-height: 2px;
+  width: 2px;
+  height: 2px;
+}
+
+header .main-header nav a:hover {
+  outline: 1px dashed #FFFFFF;
+  outline-offset: 2px;
+}
+
+header .main-header nav a:active {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .theme-button-container {
@@ -187,6 +264,11 @@ header .main-header nav a span {
           box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
 }
 
+.theme-buttons .theme-dopdown:hover .buttons, .theme-buttons:active .buttons {
+  outline: 1px dashed #FFFFFF;
+  outline-offset: -6px;
+}
+
 .theme-buttons .sailor-night {
   width: 150px;
   height: 36px;
@@ -204,20 +286,21 @@ header .main-header nav a span {
 .theme-buttons .sailor-day {
   width: 150px;
   height: 36px;
+  color: #110038;
   background: #CCCCCC;
   border: 1px solid #808080;
   -webkit-box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
           box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
-  color: #110038;
 }
 
 .search-container {
   max-width: 1200px;
   min-width: 400px;
   margin: 2% auto;
+  margin-bottom: 0px;
   background: #B4B4B4;
-  -webkit-box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
-          box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
   min-width: 340px;
 }
 
@@ -299,6 +382,11 @@ header .main-header nav a span {
       justify-self: center;
 }
 
+.search-container .search .button:hover {
+  outline: 0px solid transparent;
+  outline-offset: 0px;
+}
+
 .search-container .search .button svg {
   float: left;
   margin-right: 10px;
@@ -323,12 +411,22 @@ header .main-header nav a span {
   display: block;
 }
 
+.search-container .search .inactive .inactive-night:active {
+  outline: 0px solid transparent;
+  outline-offset: 0px;
+}
+
 .search-container .search .inactive .active-night {
   display: none;
 }
 
 .search-container .search .inactive p {
   color: #8F8F8F;
+}
+
+.search-container .search .colored:active {
+  outline: 1px dashed #110038;
+  outline-offset: -6px;
 }
 
 .search-container .search .colored .inactive-night {
@@ -358,8 +456,8 @@ header .main-header nav a span {
   padding: 10px 150px 10px 15px;
   width: 1200px;
   background: #B4B4B4;
-  -webkit-box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
-          box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 }
 
 .search-suggestions > div:first-of-type {
@@ -383,6 +481,52 @@ header .main-header nav a span {
   border: 1px solid #808080;
   -webkit-box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
           box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
+}
+
+.search-suggestions div:hover, .search-suggestions div:active {
+  outline: 1px dashed #110038;
+  outline-offset: -6px;
+}
+
+.prev-search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  overflow: hidden;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 12px;
+}
+
+.prev-search > div {
+  height: 34px;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  padding: 8px;
+  margin-right: 8px;
+  -ms-flex-preferred-size: content;
+      flex-basis: content;
+  color: #FFFFFF;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  background: #2E32FB;
+  border: 1px solid #4C2F99;
+  -webkit-box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
+}
+
+.prev-search > div:hover {
+  outline: 1px dashed #110038;
+  outline-offset: -6px;
 }
 
 .title {
@@ -491,8 +635,13 @@ header .main-header nav a span {
   font-weight: 400;
   background: #2E32FB;
   border: 1px solid #4C2F99;
-  -webkit-box-shadow: inset -2px -2px 0 0 #2124B3, inset 2px 2px 0 0 #FFFFFF;
-          box-shadow: inset -2px -2px 0 0 #2124B3, inset 2px 2px 0 0 #FFFFFF;
+  -webkit-box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
+}
+
+.suggested-container .suggested-box .suggested-gif .button:hover {
+  outline: 1px dashed #110038;
+  outline-offset: -6px;
 }
 
 .bulkGif-container {
@@ -508,16 +657,59 @@ header .main-header nav a span {
 }
 
 .bulkGif-container > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   height: 298px;
   background-repeat: no-repeat;
   background-size: cover;
   background-origin: border-box;
   background-position: center;
-  background-image: "";
+}
+
+.bulkGif-container > div:hover > div {
+  display: block;
+  -ms-grid-column-align: stretch;
+      justify-self: stretch;
+  width: 100%;
+  padding: 2px;
+  background: -webkit-gradient(linear, right top, left top, from(#EE3EFE), to(#2E32FB));
+  background: linear-gradient(270deg, #EE3EFE 0%, #2E32FB 100%);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 900;
+  overflow: hidden;
+  height: 20px;
+  line-height: 18px;
+}
+
+.bulkGif-container > div:hover > div span {
+  color: white;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  justify-self: flex-end;
+  display: inline;
+  font-size: 18px;
+  margin-right: 4px;
+  float: left;
+}
+
+.bulkGif-container > div div {
+  display: none;
 }
 
 #search {
   display: none;
+  margin-top: 64px;
 }
 
 #search .title {
@@ -544,5 +736,438 @@ header .main-header nav a span {
       align-self: center;
   -ms-grid-column-align: right;
       justify-self: right;
+}
+
+.return-top {
+  border-radius: 50%;
+  font-size: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  position: fixed;
+  top: 90vh;
+  left: 93vw;
+}
+
+.return-top a {
+  color: #FFFFFF;
+}
+
+#creadorGifo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#creadorGifo .top {
+  background: -webkit-gradient(linear, right top, left top, from(#EE3EFE), to(#2E32FB));
+  background: linear-gradient(270deg, #EE3EFE 0%, #2E32FB 100%);
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 900;
+  padding: 5px;
+  margin: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.creator-container {
+  display: block;
+  background-color: #B4B4B4;
+  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+  width: 55%;
+}
+
+.creator-container .text-container {
+  margin: 30px;
+  padding-right: 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 16px;
+  color: #110038;
+}
+
+.creator-container .text-container img {
+  margin-right: 16px;
+  width: 32px;
+  height: 32px;
+}
+
+.creator-container .text-container p:first-child {
+  font-weight: 900;
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+
+.creator-container .text-container p {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.creator-container .text-container ol {
+  font-size: 14px;
+  counter-reset: list;
+  margin: 9px 0;
+}
+
+.creator-container .text-container ol li {
+  list-style: none;
+  margin: 9px 0;
+}
+
+.creator-container .text-container ol li:before {
+  content: counter(list) ") ";
+  counter-increment: list;
+  font-weight: 900;
+}
+
+.creator-container .text-container ol li::marker {
+  font-weight: 900;
+}
+
+.creator-container .button-container {
+  margin: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.creator-container .button-container .button {
+  margin-right: 16px;
+}
+
+.capture-container {
+  display: none;
+  background-color: #B4B4B4;
+  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+  width: 75%;
+}
+
+.capture-container .image-container {
+  max-width: 100%;
+  padding: 8px 14px 3px 8px;
+}
+
+.capture-container .image-container video, .capture-container .image-container img {
+  background: black;
+  border: 1px solid #979797;
+  -webkit-box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+          box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+  width: 100%;
+  max-height: 434px;
+  padding-bottom: 2px;
+}
+
+.capture-container .image-container img {
+  display: none;
+  padding: 1px;
+}
+
+.capture-container .button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  margin: 16px;
+}
+
+.capture-container .button-container .timer + div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.capture-container .button-container .timer + div div:first-child {
+  width: 36px;
+}
+
+.capture-container .button-container .timer {
+  justify-self: flex-start;
+  width: 140px;
+  height: 36px;
+  padding: 5px 20px;
+  text-align: center;
+  background: #FFFFFF;
+  border: 1px solid #979797;
+  -webkit-box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+          box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+}
+
+.capture-container #captureButtons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  fill: #FFFFFF;
+}
+
+.capture-container #captureButtons svg path {
+  color: #FFFFFF;
+  fill: "currentcolor";
+}
+
+.capture-container #captureButtons div:first-child {
+  width: 36px;
+}
+
+.capture-container #recordingButtons {
+  display: none;
+}
+
+.capture-container #recordingButtons .button {
+  background-color: #FF6161;
+  fill: #FFFFFF;
+}
+
+.capture-container #previewButtons {
+  display: none;
+}
+
+.capture-container #previewButtons div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.capture-container #previewButtons div .colored {
+  margin-left: 8px;
+}
+
+.capture-container #previewButtons div .timer + div {
+  width: 20px;
+  height: 20px;
+}
+
+.capture-container #previewButtons div svg path {
+  fill: white;
+  color: white;
+}
+
+.loading {
+  width: 240px;
+  height: 20px;
+  margin-left: 2px;
+  background: #B4B4B4;
+  border: 1px solid #979797;
+  -webkit-box-shadow: inset 2px 2px 0 0 #E6E6E6, inset -2px -2px 0 0 #000000;
+          box-shadow: inset 2px 2px 0 0 #E6E6E6, inset -2px -2px 0 0 #000000;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (12px)[17];
+      grid-template-columns: repeat(17, 12px);
+  grid-column-gap: 1px;
+}
+
+.loading div {
+  background-color: #EE3EFE;
+}
+
+.uploading-container {
+  display: none;
+  background-color: #B4B4B4;
+  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+  width: 75%;
+}
+
+.uploading-container .image-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  justify-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 100%;
+  margin: 8px 14px 3px 8px;
+  background: #110038;
+  border: 1px solid #979797;
+  -webkit-box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+          box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+  height: 440px;
+}
+
+.uploading-container .image-container img + p {
+  font-weight: 900;
+  margin-bottom: 35px;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.uploading-container .image-container .loading {
+  width: 324px;
+}
+
+.uploading-container .image-container .loading + p {
+  font-size: 12px;
+  color: rgba(17, 0, 56, 0.64);
+  margin: 10px;
+  color: #FFFFFF;
+}
+
+.uploading-container .image-container span {
+  text-decoration: line-through;
+}
+
+.uploading-container .button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  margin: 16px;
+}
+
+.success-container {
+  display: none;
+  background-color: #B4B4B4;
+  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+  width: 60%;
+}
+
+.success-container .image-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 20px;
+}
+
+.success-container .image-container div:first-child {
+  width: 360px;
+  height: 190px;
+  background: #E6E6E6;
+  -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+          box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+  margin-right: 25px;
+}
+
+.success-container .image-container .success-buttons {
+  margin-top: 20px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.success-container .image-container .success-buttons p {
+  font-weight: 900;
+  margin: 15px;
+}
+
+.success-container .image-container .success-buttons .button {
+  width: 256px;
+  margin-bottom: 15px;
+}
+
+.success-container .button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  margin: 40px;
 }
 /*# sourceMappingURL=styles-night.css.map */

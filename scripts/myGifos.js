@@ -1,6 +1,8 @@
 import createGif from './home.js';
 import { globalFunctions } from './script.js';
+import Giphy from "./giphy.js";
 
+const upGiphy = new Giphy('https://upload.giphy.com/v1/gifs', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 
 if(location.hash == '#creadorGifo'){
     showSection('creador');   
@@ -116,7 +118,8 @@ for(let button of cancelButtons){
 const video = document.getElementById('video');
 const capture = document.getElementById('capture');
 const imgBlob = document.getElementById('blob');
-let recordedGifURL = "";
+let recordedGifURL = '';
+let gifBlob = '';
 
 capture.addEventListener('click', async ()=> {
     try{
@@ -212,12 +215,13 @@ function stopRecAndPreview(recorder, stream){
             let form = new FormData();
             form.append('file', blob, 'myGif.gif');
             console.log(form.get('file'));
-    
+
+            gifBlob = form.get('file');
+            
             stream.getTracks().forEach( (track) => {
                 track.stop();
             });
             recordedGifURL = recorder.toURL();
-            console.log(recordedGifURL)
             imgBlob.src = recordedGifURL;
             video.style.display ='none';
             imgBlob.style.display = 'block';
@@ -227,6 +231,19 @@ function stopRecAndPreview(recorder, stream){
         reRecord();
     }
 };
+
+document.getElementById('uploadBttn').addEventListener('click', uploadGif);
+
+async function uploadGif(){
+    try{
+        let upload = await upGiphy.uploadGif(gifBlob);
+        let res = upload.json()
+        console.log(res);
+
+    }catch(err){
+        console.log(err)
+    }
+}
 
 
 function changeButtonsTo(buttons){

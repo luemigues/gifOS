@@ -1,25 +1,37 @@
 @import '../variables';
 
-
-
 // General
+
+html {
+    scroll-behavior: smooth;
+ }
 
 body {
     background-color: $night-background;
     font-family: $font-fam;
+    box-sizing: border-box;
     min-width: 100vw;
     overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    a{
+        text-decoration: none;
+        color: inherit;
+        cursor: auto;
+    }
 
 }
 
 main{
-
+    margin-top: 0px;
     section{
         margin: 0 auto;
-        margin-top: 64px;
+        margin-top: 68px;
         max-width: 1200px;
     }
-
 }
 
 // button styles
@@ -39,6 +51,26 @@ main{
     height: 36px;
     width: 140px;
     text-align: center;
+    &:hover, &:active {
+        outline: 1px dashed #110038;
+        outline-offset: -6px;
+     }
+
+}
+
+.pale{
+    background:$night-background;
+    border: 1px solid #B4B4B4;
+    box-shadow: inset -1px -1px 0 0 #5C5C5C, inset 1px 1px 0 0 #FFF4FD;
+    height: 36px;
+    width: 140px;
+    text-align: center;
+    color: $fcolor-lb;
+    &:hover, &:active {
+        outline: 1px dashed $fcolor-lb;
+        outline-offset: -6px;
+        color: $fcolor-lb;
+     }
 }
 
 
@@ -46,7 +78,11 @@ main{
 // HEADER - NAV BAR + LOGO
 
 header {
-    min-width: 100vw; 
+
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 
     .top-bar{
         background: $night-gradient;
@@ -56,7 +92,6 @@ header {
         padding: 4px 8px;
         box-shadow: 0 1px 0 0 #110038;
         margin-bottom: 3%;
-
     }
 
     .main-header{
@@ -65,23 +100,39 @@ header {
                 display: none;
             }
         }
+        align-self: center;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         height: 64px;
-        max-width: 1200px;
-        margin: 0 auto;
-        // margin: 3% 10% 1% 7%;
-        //margin: 35px 140px 19px 100px;
+        min-width: 1200px;
+
 
         img{
             width: 103px;
         }
+
+        #backArrow{
+            svg {
+                width: 24px;
+                height: 24px;
+                margin: 10px;
+
+                path{
+                    color: white;
+                    fill: white;
+                }
+            }
+        }
         
         nav{
+            height: 64px;
             display: flex;
             flex-direction: row;
             align-content: center;
             align-items: flex-start;
+            justify-content: space-around;
+            justify-items: center;
             padding: 15px;
     
             .theme-buttons{
@@ -92,18 +143,6 @@ header {
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
-
-                &:hover{
-                    
-                    div:before{
-                        content: " ";
-                        position: absolute;
-                        width: inherit;
-                        height: inherit;
-                        border-collapse: collapse;
-                        border: 1.5px dotted #110038;
-                    }
-                }
             }
     
             .material-icons{
@@ -111,19 +150,31 @@ header {
                 height: 36px;
                 align-self: center;
                 margin: 0px;
-                color: $fcolor-lb;
             }
 
             a {
                 align-self: center;
                 margin-left: 16.5px;
+                margin-right: 5px;
+                padding: 5px 6px 5px 0px;
                 color: $fcolor-lb;
 
                 span {
                 border-bottom: 1px solid $fcolor-lb;
-                padding-bottom: 2px;
                 line-height: 2px;
+                width: 2px;
+                height: 2px;
 
+                }
+
+                &:hover{
+                    outline: 1px dashed $fcolor-lb;
+                    outline-offset: 2px;
+                    
+                }
+
+                &:active{
+                    color: rgba(255, 255, 255, 0.5);
                 }
             }
     
@@ -152,7 +203,15 @@ header {
     justify-content: space-evenly;
     align-items: center;
     background-color: $night-greybox;
-    box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+    box-shadow:  inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+
+    .theme-dopdown:hover , &:active{
+                
+                .buttons{
+                    outline: 1px dashed $fcolor-lb;
+                    outline-offset: -6px;
+                }
+        }
 
     .sailor-night{
 
@@ -162,7 +221,6 @@ header {
         border: 1px solid rgba(51,53,143,0.20);
         box-shadow: inset -1px -1px 0 0 #E6DCE4, inset 1px 1px 0 0 #FFFFFF;
         color: $fcolor-lb;
-
         span {
             border-bottom: 1px solid $fcolor-lb;
         }
@@ -172,10 +230,10 @@ header {
 
         width: 150px;
         height: 36px;
-        background: #CCCCCC;
-        border: 1px solid #808080;
-        box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
         color: $fcolor-db;
+        background:#CCCCCC;
+        border:  1px solid #808080;
+        box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
     }
 
 }
@@ -189,9 +247,10 @@ header {
     max-width: 1200px;
     min-width: 400px;
     margin: 2% auto;
+    margin-bottom: 0px;
     //margin: 35px 140px 19px 100px;
     background: $night-greybox;
-    box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+    box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
     min-width: 340px;
 
     & > div:first-of-type {
@@ -238,6 +297,11 @@ header {
             align-self: center;
             justify-self: center;
 
+            &:hover{
+                outline: 0px solid transparent;
+                outline-offset: 0px;
+            }
+            
             svg{
                 float: left;
                 margin-right: 10px;
@@ -246,11 +310,11 @@ header {
                 float: right;
             }
         }
-
+        
         .inactive-day, .active-day{
             display: none;
         }
-
+        
         .inactive{
             background: $night-greybox;
             border: 1px solid #808080;
@@ -258,25 +322,35 @@ header {
             
             .inactive-night {
                 display: block;
+
+                &:active{
+                    outline: 0px solid transparent;
+                    outline-offset: 0px;
+                }
             }
             .active-night {
                 display: none;
             }
-
+            
             p{
                 color: #8F8F8F;
             }
         }
-
+        
         .colored{
-
+            
+            &:active{
+                outline: 1px dashed #110038;
+                outline-offset: -6px;
+            }
             .inactive-night {
                 display: none;
             }
             .active-night {
                 display: block;
-            }
 
+            }
+            
             &:active{
                 border: 1px solid #110038;
             }
@@ -296,6 +370,7 @@ header {
     align-content: flex-start;
     justify-content: space-evenly;
     justify-items: center;
+
     padding: 10px 150px 10px 15px;
     width: 1200px;
     // position: absolute;
@@ -303,7 +378,7 @@ header {
     // z-index: 1;
 
     background: $night-greybox;
-    box-shadow: inset -2px -2px 0 0 #8F8F8F, inset 2px 2px 0 0 #FFFFFF;
+    box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 
     & > div:first-of-type{
         background: #CCCCCC;
@@ -316,18 +391,58 @@ header {
         max-width: 1057px;
         padding: 7px 16px;
         margin: 5px;
+
         align-self: flex-start;
 
         color: $fcolor-db;
         font-size: $fsize-reg;
         text-align: left;
 
-        background: #CCCCCC;
+        background:#CCCCCC;
         border: 1px solid #808080;
         box-shadow: inset -1px -1px 0 0 #B4B4B4, inset 1px 1px 0 0 #FFFFFF;
-  
+        
+        &:hover, &:active {
+            outline: 1px dashed $fcolor-db;
+           outline-offset: -6px;
+        }
     }
 
+}
+
+// Search History
+
+.prev-search{
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    justify-content: flex-start;
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 12px;
+
+    & > div{
+        
+        height: 34px;
+        min-width: fit-content;
+        padding: 8px;
+        margin-right: 8px;
+        flex-basis: content;
+
+        color: $fcolor-lb;
+        font-family: $font-fam;
+        font-size: $fsize-med;
+        font-weight: 400;
+
+        background: $night-gif;
+        border: 1px solid #4C2F99;
+        box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
+
+        &:hover{
+            outline: 1px dashed $fcolor-db;
+            outline-offset: -6px;
+        }
+    }
 }
 
 //Suggested for tonight
@@ -411,7 +526,11 @@ header {
 
                 background: $night-gif;
                 border: 1px solid #4C2F99;
-                box-shadow: inset -2px -2px 0 0 #2124B3, inset 2px 2px 0 0 #FFFFFF;
+                box-shadow: inset -2px -2px 0 0 #284F99, inset 2px 2px 0 0 #FFFFFF;
+                &:hover{
+                    outline: 1px dashed $fcolor-db;
+                    outline-offset: -6px;
+                }
             }
         }
     }
@@ -422,18 +541,52 @@ header {
 
 .bulkGif-container{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(3,1fr);
     column-gap: 15px;
     row-gap: 15px;
 
     & > div{
-        height: 298px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-origin: border-box;
-        background-position: center;
-        background-image: "";
+            display: flex;
+            align-content: flex-end;
+            align-items: flex-end;
+            justify-content: flex-start;
+
+            height: 298px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-origin: border-box;
+            background-position: center;
+            // background-image: "";
+
+            &:hover > div{
+                    display: block;
+                    justify-self: stretch;
+                    width: 100%;
+                    padding: 2px;
+                    background: $night-gradient;
+                    color: $fcolor-lb;
+                    font-size: $fsize-small;
+                    font-family: $font-fam;
+                    font-weight: 900;
+                    overflow: hidden;
+                    height: 20px;
+                    line-height: 18px;
+
+                    span{
+                        color: white;
+                        align-self: flex-end;
+                        justify-self: flex-end;
+                        display: inline;
+                        font-size: 18px;
+                        margin-right: 4px;
+                        float: left;
+                    }
+            }
+
+            div{
+                display: none;
+            }
     }
 
 }
@@ -442,6 +595,7 @@ header {
 
 #search {
     display: none;
+    margin-top: 64px;
 
     .title{
         display: flex;
@@ -459,4 +613,370 @@ header {
         }
     }
 
+}
+
+
+
+// RETURN TOP ARROW
+
+.return-top{
+
+    border-radius: 50%;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 90vh;
+    left: 93vw;
+
+    a{
+        color: $fcolor-lb;
+    }
+}
+
+
+// MIS GIFOS SECTION
+
+//CREAR GIFO
+
+#creadorGifo{
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .top{
+        background: $night-gradient;
+        color: $fcolor-lb;
+        font-size: $fsize-med;
+        font-weight: 900;
+        padding: 5px;
+        margin: 2px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+
+.creator-container{
+    display: block; 
+    background-color: $night-greybox;
+    box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+    width: 55%;
+
+
+    .text-container{
+
+        margin: 30px;
+        padding-right: 5%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        align-content: flex-start;
+        justify-content: center;
+
+
+        font-size: $fsize-reg;
+        color: $fcolor-db;
+
+        img{
+            margin-right: 16px;
+             width: 32px;
+            height: 32px;
+        }
+
+        p:first-child{
+            font-weight: 900;
+            margin-bottom: 18px;
+            font-size: $fsize-reg;
+        }
+
+        p {
+            font-size: $fsize-med;
+            line-height: 20px;
+        }
+
+        ol{
+            font-size: $fsize-med;
+            counter-reset: list;
+            margin: 9px 0;
+
+            li{
+                list-style: none;
+                margin: 9px 0;
+
+                &:before{ 
+                    content: counter(list) ") ";
+                    counter-increment: list;
+                    font-weight: 900;
+                }
+
+            }
+
+            li::marker{
+                font-weight: 900;
+            }
+        }
+
+        
+    }
+    
+    .button-container{
+
+        margin: 35px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        
+        .button{
+            margin-right: 16px;
+        }
+       
+    }
+}
+
+// CAPTURING
+
+.capture-container{
+    display: none;
+
+    background-color: $night-greybox;
+    box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+
+    width: 75%;
+
+    .image-container{
+
+        max-width: 100%;
+        padding: 8px 14px 3px 8px;
+
+        video, img {
+            background: black;
+            border: 1px solid #979797;
+            box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+            width: 100%;
+            // max-width: 832px;
+            max-height: 434px;
+            padding-bottom: 2px;
+        }
+
+        img{
+            display: none;
+            padding: 1px;
+        }
+    }
+
+
+    .button-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+        margin: 16px;
+
+       .timer + div{
+            display: flex;
+            flex-direction: row;
+
+           div:first-child{
+                width: 36px;
+            }
+       } 
+
+        .timer{
+            justify-self: flex-start;
+            width: 140px;
+            height: 36px;
+            padding: 5px 20px;
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid #979797;
+            box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+        }
+    }
+    
+    
+    #captureButtons{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        fill: $fcolor-lb;
+        
+        svg path{
+            color: $fcolor-lb;
+            fill: "currentcolor";
+        }
+        div:first-child{
+            width: 36px;
+        }
+
+    }
+
+    #recordingButtons{
+
+        display: none;
+
+        .button{
+            background-color: $day-brec;
+            fill: $fcolor-lb;
+        }
+
+    }
+
+    #previewButtons{
+        display: none;
+
+        div{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .colored{
+                margin-left: 8px;
+            }
+
+            .timer + div{
+                width: 20px;
+                height: 20px;
+            }
+
+            svg{
+                path{
+                    fill: white;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+.loading{
+    width: 240px;
+    height: 20px;
+    margin-left: 2px;
+    background: #B4B4B4;
+    border: 1px solid #979797;
+    box-shadow: inset 2px 2px 0 0 #E6E6E6, inset -2px -2px 0 0 #000000;
+
+    display: grid;
+    grid-template-columns: repeat(17, 12px);
+    grid-column-gap: 1px;
+
+    div{
+        background-color: #EE3EFE;
+    }
+}
+
+.uploading-container{
+    display: none;
+    background-color: $night-greybox;
+    box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+
+    width: 75%;
+
+    .image-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        justify-items: center;
+        align-content: center;
+        align-items: center;
+
+        max-width: 100%;
+        margin: 8px 14px 3px 8px;
+        background: $night-background;
+        border: 1px solid #979797;
+        box-shadow: inset -2px -2px 0 0 #E6E6E6, inset 2px 2px 0 0 #000000;
+        height: 440px;
+
+        img + p{
+            font-weight: 900;
+            margin-bottom: 35px;
+            margin-top: 10px;
+
+            font-size: $fsize-reg;
+            color: $fcolor-lb;
+        }
+
+        .loading{
+            width: 324px;
+        }
+
+        .loading + p{
+            font-size: $fsize-small;
+            color: rgba(17,0,56,0.64);
+            margin: 10px;
+            color: $fcolor-lb;
+        }
+
+        span{
+            text-decoration: line-through;
+        }
+    }
+
+    .button-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-content: center;
+        margin: 16px;
+    }
+}
+
+.success-container{
+    display: none;
+    background-color: $night-greybox;
+    box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+    width: 60%;
+
+    .image-container{
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+
+        div:first-child{
+            width: 360px;
+            height: 190px;
+            background: #E6E6E6;
+            box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+            margin-right: 25px;
+        }
+
+        .success-buttons{
+            margin-top: 20px;
+            align-self: flex-start;
+
+            p{
+                font-weight: 900;
+                margin: 15px;
+            }
+
+            .button{
+                width: 256px;
+                margin-bottom: 15px;
+            }
+
+        }
+
+    }
+
+    .button-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-content: center;
+        margin: 40px;
+    }
 }
