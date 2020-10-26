@@ -315,6 +315,7 @@ header .main-header nav a:active {
   font-weight: 900;
   -webkit-box-shadow: 0 0 0 0 #B4B4B4;
           box-shadow: 0 0 0 0 #B4B4B4;
+  margin-bottom: 0px;
 }
 
 .search-container .search {
@@ -435,10 +436,6 @@ header .main-header nav a:active {
 
 .search-container .search .colored .active-night {
   display: block;
-}
-
-.search-container .search .colored:active {
-  border: 1px solid #110038;
 }
 
 .search-suggestions {
@@ -1013,23 +1010,40 @@ header .main-header nav a:active {
   color: white;
 }
 
-.loading {
-  width: 240px;
+.capture-container .loading {
+  width: 242px;
   height: 20px;
-  margin-left: 2px;
-  background: #B4B4B4;
-  border: 1px solid #979797;
-  -webkit-box-shadow: inset 2px 2px 0 0 #E6E6E6, inset -2px -2px 0 0 #000000;
-          box-shadow: inset 2px 2px 0 0 #E6E6E6, inset -2px -2px 0 0 #000000;
+  padding: 2px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (12px)[17];
-      grid-template-columns: repeat(17, 12px);
-  grid-column-gap: 1px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-grid-columns: (1fr)[10];
+      grid-template-columns: repeat(10, 1fr);
+  -webkit-column-gap: 2px;
+          column-gap: 2px;
 }
 
-.loading div {
-  background-color: #EE3EFE;
+.capture-container .loading div {
+  background-color: #999999;
+  width: 22px;
+  height: 16px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+.loading {
+  margin-left: 2px;
+  background: #B4B4B4;
+  -webkit-box-shadow: inset -2px -2px 0 0 #FFFCFC, inset 2px 2px 0 0 #000000;
+          box-shadow: inset -2px -2px 0 0 #FFFCFC, inset 2px 2px 0 0 #000000;
+  padding-left: 2px;
 }
 
 .uploading-container {

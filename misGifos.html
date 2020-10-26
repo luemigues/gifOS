@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" id="stylesheet" href="./styles/night-theme/styles-night.css" type="text/css">
+    <link rel="stylesheet" id="stylesheet" href="./styles/day-theme/styles-day.css" type="text/css">
     <title>gifOS</title>
 </head>
 <body>
@@ -149,7 +149,7 @@
                 <div class="button-container" id="previewButtons">
                     <div>
                         <div class="timer" id="timerRecorded">00.00.03.06</div>
-                        <div class="button colored">
+                        <div class="button colored" id="play">
                             <svg width="6px" height="10px" viewBox="0 0 6 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
                                 <title>forward</title>
@@ -168,8 +168,18 @@
                                 </g>
                             </svg>
                         </div>
-                        <div class="loading"></div>
-
+                        <div id="progressVid" class="loading" max="100" value="0">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
                     </div>
                     <div>
                         <div class="button pale" id="repeatBttn">Repetir Captura</div>

@@ -135,47 +135,58 @@ capture.addEventListener('click', async ()=> {
 });
 
 async function getStreamAndRecord(){
-
-    // SETTING RECORDER
-   const stream = await navigator.mediaDevices.getUserMedia(
-        {
-        audio: false,
-        video: {
-        height: { max: 480 }
-        }
-        
-        });
-        
-        let recorder = RecordRTC(stream, {
-            type: 'gif',
-            frameRate: 1,
-            quality: 10,
-            width: 360,
-            hidden: 240,
-            onGifRecordingStarted: function() {
-                console.log('started')
-            },
-        });
+    try{
+        // SETTING RECORDER
+        const stream = await navigator.mediaDevices.getUserMedia(
+            {
+            audio: false,
+            video: {
+            height: { max: 480 }
+            }
             
-        video.srcObject = stream;
-        video.play();
-
-        // recording
-
-        const recordingButtons = document.getElementById("captureButtons");
-        for(let button of recordingButtons.children){
-            button.addEventListener('click', () =>{
-                startRecordingGif(recorder);
             });
-        };
-
-        // saving and preview recording
-        const stopRecordingButtons = document.querySelectorAll(".recordingButton");
-        for(let button of stopRecordingButtons){
-            button.addEventListener('click', () => {
-                stopRecAndPreview(recorder, stream);
-            })
-        };
+        
+            let vidRecorder = RecordRTC(stream, {
+                type: 'video',
+                quality: 10,
+                mimeType: "video/webm; codecs=vp8",
+                frameRate: 30,
+            });
+            
+            let recorder = RecordRTC(stream, {
+                type: 'gif',
+                frameRate: 1,
+                quality: 10,
+                width: 360,
+                hidden: 240,
+                onGifRecordingStarted: function() {
+                    console.log('started')
+                },
+            });
+                
+            video.srcObject = stream;
+            video.play();
+        
+            // recording
+        
+            const recordingButtons = document.getElementById("captureButtons");
+            for(let button of recordingButtons.children){
+                button.addEventListener('click', () =>{
+                    startRecordingGif(recorder, vidRecorder, stream);
+                });
+            };
+        
+            // saving and preview recording
+            const stopRecordingButtons = document.querySelectorAll(".recordingButton");
+            for(let button of stopRecordingButtons){
+                button.addEventListener('click', () => {
+                    stopRecAndPreview(recorder, vidRecorder, stream);
+                })
+            };
+    }catch(err){
+        console.log(err);
+        reRecord();
+    }
 
 };
 
@@ -185,47 +196,84 @@ repeatBttn.addEventListener('click', () => {
 });
 
 function reRecord(){
-    video.style.display ='block';
-    imgBlob.style.display = 'none';
-    changeButtonsTo('re-record');
-    getStreamAndRecord();   
+    try{
+        video.style.display ='block';
+        imgBlob.style.display = 'none';
+        changeButtonsTo('re-record');
+        getStreamAndRecord();   
+
+    }catch(err){
+        console.log(err)
+
+        globalFunctions.hide(document.getElementById('capture-container'));
+        globalFunctions.hide(document.getElementById('uploading-container'));
+        globalFunctions.hide(document.getElementById('success-container'));
+        
+        showSection('creador');  
+    }
 }
 
-function startRecordingGif(recorder){
-    changeButtonsTo('recording');
-    recorder.startRecording();
-    const dateStarted = new Date().getTime();
-    (function looper() {
-        if(!recorder) {
-            return;
-        }
-        
-        document.querySelector('#timerPassed').innerHTML = time((new Date().getTime() - dateStarted));
-        setTimeout(looper, 100);
-    })();
+async function startRecordingGif(recorder, vidRecorder, stream){
+    try{
+        changeButtonsTo('recording');
+    
+        await vidRecorder.startRecording();
+        await recorder.startRecording();
+    
+        vidRecorder.stream = stream;
+        recorder.stream = stream;
+    
+        const dateStarted = new Date().getTime();
+        (function looper() {
+            if(!recorder) {
+                return;
+            }
+            
+            document.querySelector('#timerPassed').innerHTML = time((new Date().getTime() - dateStarted));
+            setTimeout(looper, 100);
+        })();
+    }catch(err){
+        console.log(err)
+        reRecord();
+    }
+
 };
 
-function stopRecAndPreview(recorder, stream){
+async function stopRecAndPreview(recorder,vidRecorder, stream){
 
     try{
+
         changeButtonsTo('preview');
+
+        vidRecorder.stopRecording(() => {
+            let videoBlob= vidRecorder.getBlob();
+            video.src = window.URL.createObjectURL(videoBlob);
+            video.load();
+            vidRecorder.reset();
+            vidRecorder.destroy();
+            video.srcObject = null;
+        })
+        
         recorder.stopRecording(function(){
-    
             let blob = recorder.getBlob();
             let form = new FormData();
             form.append('file', blob, 'myGif.gif');
             console.log(form.get('file'));
-
             gifBlob = form.get('file');
             
-            stream.getTracks().forEach( (track) => {
-                track.stop();
-            });
             recordedGifURL = recorder.toURL();
             imgBlob.src = recordedGifURL;
-            video.style.display ='none';
-            imgBlob.style.display = 'block';
+            // video.style.display ='none';
+            // imgBlob.style.display = 'block';
+            recorder.reset();
+            recorder.destroy();
         });
+        
+        
+        stream.getTracks().forEach( (track) => {
+            track.stop();
+        });
+
     }catch(err){
         console.log(err)
         reRecord();
@@ -243,7 +291,16 @@ async function uploadGif(){
     }catch(err){
         console.log(err)
     }
-}
+};
+
+document.getElementById('play').addEventListener('click', ()=>{
+    const progress = document.getElementById( "progressVid" );
+    for(let div of progress.children){
+        div.style.backgroundColor = '#999999';
+    }
+    video.play()
+    videoProgress();
+});
 
 
 function changeButtonsTo(buttons){
@@ -260,6 +317,8 @@ function changeButtonsTo(buttons){
 
         case 're-record':
             globalFunctions.hide(document.getElementById("previewButtons"));
+            globalFunctions.hide(document.getElementById("recordingButtons"));
+            globalFunctions.hide(document.getElementById("previewButtons"));
             globalFunctions.show(document.getElementById("captureButtons"), 'flex');
         break;
 
@@ -273,25 +332,61 @@ function changeButtonsTo(buttons){
 };
 
 function startRecording(recorder){
-    const recordingButtons = document.getElementById("captureButtons");
-        for(let button of recordingButtons.children){
-            button.addEventListener('click', () =>{
-                changeButtonsTo('recording');
-                recorder.startRecording();
-                const dateStarted = new Date().getTime();
-                (function looper() {
-                    if(!recorder) {
-                        return;
-                    }
-        
-                    document.querySelector('#timerPassed').innerHTML = time((new Date().getTime() - dateStarted));
-                    setTimeout(looper, 100);
-                })();
-        
-            });
-        };
+
+    try{
+        const recordingButtons = document.getElementById("captureButtons");
+            for(let button of recordingButtons.children){
+                button.addEventListener('click', () =>{
+                    changeButtonsTo('recording');
+                    recorder.startRecording();
+                    const dateStarted = new Date().getTime();
+                    (function looper() {
+                        if(!recorder) {
+                            return;
+                        }
+            
+                        document.querySelector('#timerPassed').innerHTML = time((new Date().getTime() - dateStarted));
+                        setTimeout(looper, 100);
+                    })();
+            
+                });
+            };
+    }catch(err){
+        console.log(err)
+        reRecord()
+    }
 };
 
 function time(ms) {
     return new Date(ms).toISOString().slice(11, -1);
 };
+
+function videoProgress(){
+    try{
+        const progress = document.getElementById( "progressVid" );
+        const vidDuration = video.duration;
+        const partSec = (vidDuration *10)/100;
+        const partMil = partSec * 1000;
+        
+        if(video.readyState > 0.2){
+            for(let i = 0;  i < progress.children.length; i++){
+                setTimeout(() => {changeColor(progress.children[i]);},i * partMil);
+            }
+        }
+
+        function changeColor(div){
+            const theme = localStorage.getItem('theme');
+            if(theme == 'day'){
+                console.log('hello')
+                div.style.backgroundColor = '#F7C9F3'; 
+            }else if(theme == 'night'){
+                div.style.backgroundColor = '#CE36DB'; 
+            }else{
+                div.style.backgroundColor = '#F7C9F3'; 
+            }
+        }
+
+    }catch(err){
+        console.log(err);
+    }
+}
