@@ -1008,7 +1008,7 @@ header .main-header nav a:active {
           column-gap: 2px;
 }
 
-.capture-container .loading div {
+.capture-container .loading li {
   background-color: #999999;
   width: 22px;
   height: 16px;
@@ -1017,6 +1017,7 @@ header .main-header nav a:active {
       align-self: center;
   -ms-grid-column-align: center;
       justify-self: center;
+  text-decoration: none;
 }
 
 .loading {
@@ -1025,6 +1026,7 @@ header .main-header nav a:active {
   -webkit-box-shadow: inset -2px -2px 0 0 #FFFCFC, inset 2px 2px 0 0 #000000;
           box-shadow: inset -2px -2px 0 0 #FFFCFC, inset 2px 2px 0 0 #000000;
   padding-left: 2px;
+  list-style: none;
 }
 
 .uploading-container {

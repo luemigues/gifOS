@@ -845,12 +845,13 @@ header {
         grid-template-columns: repeat(10, 1fr);
         column-gap: 2px;
 
-        div{
+        li{
             background-color:  #999999;
             width: 22px;
             height: 16px;
             align-self: center;
             justify-self: center;
+            text-decoration: none;
         }
 
     }
@@ -862,6 +863,7 @@ header {
     background: #B4B4B4;
     box-shadow: inset -2px -2px 0 0 #FFFCFC, inset 2px 2px 0 0 #000000;
     padding-left: 2px;
+    list-style: none;
 }
 
 .uploading-container{
