@@ -1,6 +1,7 @@
 import createGif from './home.js';
 import { globalFunctions } from './script.js';
 import Giphy from "./giphy.js";
+import Recorder from "./recorder.js";
 
 const upGiphy = new Giphy('https://upload.giphy.com/v1/gifs', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 
@@ -10,6 +11,9 @@ if(location.hash == '#creadorGifo'){
 }else if(location.hash == '#misGifos'){
     showSection('gifos');
 };
+
+
+const recorder = new Recorder();
 
 //MY GIFOS
 
@@ -115,12 +119,6 @@ for(let button of cancelButtons){
 
 // VIDEO
 
-const video = document.getElementById('video');
-const capture = document.getElementById('capture');
-const imgBlob = document.getElementById('blob');
-let recordedGifURL = '';
-let gifBlob = '';
-
 capture.addEventListener('click', async ()=> {
     try{
         globalFunctions.show(document.getElementById("capture-container"), 'block');
@@ -137,52 +135,26 @@ capture.addEventListener('click', async ()=> {
 async function getStreamAndRecord(){
     try{
         // SETTING RECORDER
-        const stream = await navigator.mediaDevices.getUserMedia(
-            {
-            audio: false,
-            video: {
-            height: { max: 480 }
-            }
-            
-            });
-        
-            let vidRecorder = RecordRTC(stream, {
-                type: 'video',
-                quality: 10,
-                mimeType: "video/webm; codecs=vp8",
-                frameRate: 30,
-            });
-            
-            let recorder = RecordRTC(stream, {
-                type: 'gif',
-                frameRate: 1,
-                quality: 10,
-                width: 360,
-                hidden: 240,
-                onGifRecordingStarted: function() {
-                    console.log('started')
-                },
-            });
-                
-            video.srcObject = stream;
-            await video.play();
+        await recorder.initialize()
+        await recorder.showStream()
         
             // recording
-        
-            const recordingButtons = document.getElementById("captureButtons");
-            for(let button of recordingButtons.children){
-                button.addEventListener('click', () =>{
-                    startRecordingGif(recorder, vidRecorder, stream);
-                });
-            };
-        
-            // saving and preview recording
-            const stopRecordingButtons = document.querySelectorAll(".recordingButton");
-            for(let button of stopRecordingButtons){
-                button.addEventListener('click', () => {
-                    stopRecAndPreview(recorder, vidRecorder, stream);
-                })
-            };
+    
+        const recordingButtons = document.getElementById("captureButtons");
+        for(let button of recordingButtons.children){
+            button.addEventListener('click', () =>{
+                startRecordingGif()
+            });
+        };
+    
+        // saving and preview recording
+        const stopRecordingButtons = document.querySelectorAll(".recordingButton");
+        for(let button of stopRecordingButtons){
+            button.addEventListener('click', () => {
+                stopRecAndPreview();
+            })
+        };
+
     }catch(err){
         console.log(err);
         reRecord();
@@ -195,15 +167,11 @@ repeatBttn.addEventListener('click', () => {
     reRecord();
 });
 
-async function startRecordingGif(recorder, vidRecorder, stream){
+async function startRecordingGif(){
     try{
         changeButtonsTo('recording');
         
-        await vidRecorder.startRecording();
-        await recorder.startRecording();
-        
-        vidRecorder.stream = stream;
-        recorder.stream = stream;
+        recorder.startRecordingGif()
         
         const dateStarted = new Date().getTime();
         (function looper() {
@@ -221,40 +189,12 @@ async function startRecordingGif(recorder, vidRecorder, stream){
     
 };
 
-async function stopRecAndPreview(recorder,vidRecorder, stream){
+function stopRecAndPreview(){
     
     try{
         
         changeButtonsTo('preview');
-
-        vidRecorder.stopRecording(() => {
-            let videoBlob= vidRecorder.getBlob();
-            video.src = window.URL.createObjectURL(videoBlob);
-            video.load();
-            vidRecorder.reset();
-            vidRecorder.destroy();
-            video.srcObject = null;
-        })
-        
-        recorder.stopRecording(function(){
-            let blob = recorder.getBlob();
-            let form = new FormData();
-            form.append('file', blob, 'myGif.gif');
-            console.log(form.get('file'));
-            gifBlob = form.get('file');
-            
-            recordedGifURL = recorder.toURL();
-            imgBlob.src = recordedGifURL;
-            // video.style.display ='none';
-            // imgBlob.style.display = 'block';
-            recorder.reset();
-            recorder.destroy();
-        });
-        
-        
-        stream.getTracks().forEach( (track) => {
-            track.stop();
-        });
+        recorder.stopRecAndPreview();
         
     }catch(err){
         console.log(err)
@@ -267,14 +207,14 @@ function reRecord(){
         video.style.display ='block';
         imgBlob.style.display = 'none';
         changeButtonsTo('re-record');
-        getStreamAndRecord();   
+        getStreamAndRecord()
 
     }catch(err){
         console.log(err)
 
-        globalFunctions.hide(document.getElementById('capture-container'));
-        globalFunctions.hide(document.getElementById('uploading-container'));
-        globalFunctions.hide(document.getElementById('success-container'));
+        // globalFunctions.hide(document.getElementById('capture-container'));
+        // globalFunctions.hide(document.getElementById('uploading-container'));
+        // globalFunctions.hide(document.getElementById('success-container'));
         
         showSection('creador');  
     }
@@ -284,7 +224,7 @@ document.getElementById('uploadBttn').addEventListener('click', uploadGif);
 
 async function uploadGif(){
     try{
-        let upload = await upGiphy.uploadGif(gifBlob);
+        let upload = await upGiphy.uploadGif(recorder.gif.blob);
         let res = upload.json()
         console.log(res);
 
