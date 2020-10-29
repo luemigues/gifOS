@@ -1,5 +1,6 @@
-1- search bar - sugeridos mismo width que el input
 2- botones responsivos
 3- todo mas mobile friendly... o alternativa mobile... 
-4- doble borde dotteado en bottones
 5- configurar numero de visitas
+6- corregir button buscar active en day theme
+7- Corregir que se quede en el theme al pasar a crearGifo
+8- Que se quede en el theme seleccionado en local host

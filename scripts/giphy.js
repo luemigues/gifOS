@@ -39,6 +39,20 @@ class Giphy {
         let relatedTerms = await res.json();
         return relatedTerms;
     };
-}
+
+    async uploadGif(blob) {
+
+        let qs = this.key;
+
+        await fetch(`${this.url}?${qs}`, {
+            method: 'POST', 
+            headers:{
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: blob
+        });
+    }
+
+};
 
 export default Giphy;
