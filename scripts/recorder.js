@@ -2,9 +2,7 @@ class Recorder {
     constructor() {
 
         this.video = document.getElementById('video');
-
         this.capture = document.getElementById('capture');
-
         this.gif = {
             url: '',
             blob: '',

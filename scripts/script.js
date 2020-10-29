@@ -68,14 +68,14 @@ function showThemes() {
     }
 };
 
-function changeTheme2Night(){
+export function changeTheme2Night(){
     let stylesheet = document.getElementById('stylesheet');
     stylesheet.href = './styles/night-theme/styles-night.css';
     stylesheet.setAttribute('type',"text/css");
     localStorage.setItem('theme', 'night')
 };
 
-function changeTheme2Day(){
+export function changeTheme2Day(){
     let stylesheet = document.getElementById('stylesheet');
     stylesheet.href = './styles/day-theme/styles-day.css';
     stylesheet.setAttribute('type',"text/css");

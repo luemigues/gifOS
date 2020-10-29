@@ -2,14 +2,45 @@ import createGif from './home.js';
 import { globalFunctions } from './script.js';
 import Giphy from "./giphy.js";
 import Recorder from "./recorder.js";
+import {changeTheme2Night, changeTheme2Day} from './script.js';
 
 const upGiphy = new Giphy('https://upload.giphy.com/v1/gifs', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 
-if(location.hash == '#creadorGifo'){
-    showSection('creador');   
+window.onload = () => {
+
+    const theme = localStorage.getItem('theme');
+
+    if(theme == 'night'){
+        changeTheme2Night();
+    }else{
+        changeTheme2Day();
+    }
     
-}else if(location.hash == '#misGifos'){
-    showSection('gifos');
+    if(location.hash == '#creadorGifo'){
+        const newRecord = localStorage.getItem('newRecord');
+                
+        if(newRecord){
+            showCaptureSetup();
+            localStorage.removeItem('newRecord');
+
+        }else{
+            showSection('creador');
+            addEvenCaptureConfirmBttns();
+        }
+    
+    }else if(location.hash == '#misGifos'){
+        showSection('gifos');
+
+        document.getElementById('crearGifo').addEventListener('click', ()=> {
+            showSection('creador');
+            addEvenCaptureConfirmBttns();
+        });
+
+        document.getElementById("gifosAnchor").addEventListener('click', ()=> {
+            showSection(); 
+        });
+    }
+
 };
 
 
@@ -71,14 +102,6 @@ export function showMyGifos(res, append, rows){
 
 //EVENTS
 
-document.getElementById('crearGifo').addEventListener('click', ()=> {
-    showSection('creador'); 
-});
-
-document.getElementById("gifosAnchor").addEventListener('click', ()=> {
-    showSection(); 
-});
-
 function showSavedGifos(){  
         let myGifosgSection = document.getElementById('misGifos-container');
         let gifos = JSON.parse(localStorage.getItem('my-gifos'));
@@ -92,7 +115,7 @@ function showSection(section){
     if(section == 'creador'){
         // globalFunctions.hide(document.getElementById('misGifos'));
         globalFunctions.show(document.getElementById('creadorGifo'), 'flex')
-        globalFunctions.show(document.getElementById('creator-container'))
+        globalFunctions.show(document.getElementById('creator-container'), 'block')
         globalFunctions.show(document.getElementById('backArrow'), 'block')
         globalFunctions.hide(document.getElementById('nav'));
 
@@ -117,20 +140,27 @@ for(let button of cancelButtons){
     });
 };
 
-// VIDEO
+// VIDEO RECORDING 
 
-capture.addEventListener('click', async ()=> {
-    try{
-        globalFunctions.show(document.getElementById("capture-container"), 'block');
-        globalFunctions.hide(document.getElementById('creator-container'));
-        globalFunctions.hide(document.getElementById('misGifos'));
-        globalFunctions.show(document.getElementById("captureButtons"), 'flex')
-        getStreamAndRecord();
+function showCaptureSetup(){
+    globalFunctions.show(document.getElementById("capture-container"), 'block');
+    globalFunctions.hide(document.getElementById('creator-container'));
+    globalFunctions.hide(document.getElementById('misGifos'));
+    globalFunctions.show(document.getElementById("captureButtons"), 'flex');
+    getStreamAndRecord();
+}
 
-    }catch(err){
-        console.log(err)
-    }
-});
+function addEvenCaptureConfirmBttns(){
+    
+    capture.addEventListener('click', async ()=> {
+        try{
+            showCaptureSetup()
+    
+        }catch(err){
+            console.log(err)
+        }
+    });
+}
 
 async function getStreamAndRecord(){
     try{
@@ -159,23 +189,21 @@ async function getStreamAndRecord(){
         console.log(err);
         reRecord();
     }
-
 };
 
-const repeatBttn = document.getElementById('repeatBttn');
-repeatBttn.addEventListener('click', () => {
-    reRecord();
-});
+const captureTopText = document.getElementById('top-text');
 
 async function startRecordingGif(){
     try{
+
         changeButtonsTo('recording');
+        captureTopText.innerText = 'Capturando Tu Guifo';
         
         recorder.startRecordingGif()
         
         const dateStarted = new Date().getTime();
         (function looper() {
-            if(!recorder) {
+            if(recorder.vidRecorder.state == 'destroyed') {
                 return;
             }
             
@@ -191,36 +219,50 @@ async function startRecordingGif(){
 
 function stopRecAndPreview(){
     
-    try{
-        
-        changeButtonsTo('preview');
+    try{   
         recorder.stopRecAndPreview();
+
+        //style 
+
+        changeButtonsTo('preview');
+        captureTopText.innerText = 'Vista Previa';
+        setUpVideoProgress();
+        setTimeout(()=>{
+            document.getElementById('timerRecorded').innerHTML = time(recorder.video.duration * 1000);
+        }, 1000)
+        
+        //events 
+
+        const repeatBttn = document.getElementById('repeatBttn');
+        
+        repeatBttn.addEventListener('click', () => {
+            localStorage.setItem('newRecord', 'true');
+            reRecord();
+        });
+        
+        document.getElementById('uploadBttn').addEventListener('click', uploadGif);
+        
         
     }catch(err){
         console.log(err)
-        reRecord();
+        // reRecord();
     }
 };
 
+
+//RE-RECORD - For recapture video or crush handling
+
 function reRecord(){
     try{
-        video.style.display ='block';
-        imgBlob.style.display = 'none';
-        changeButtonsTo('re-record');
-        getStreamAndRecord()
+        window.location.reload();
 
     }catch(err){
         console.log(err)
-
-        // globalFunctions.hide(document.getElementById('capture-container'));
-        // globalFunctions.hide(document.getElementById('uploading-container'));
-        // globalFunctions.hide(document.getElementById('success-container'));
-        
-        showSection('creador');  
     }
 }
 
-document.getElementById('uploadBttn').addEventListener('click', uploadGif);
+// GIF UPLOAD
+
 
 async function uploadGif(){
     try{
@@ -233,16 +275,56 @@ async function uploadGif(){
     }
 };
 
+//VIDEO PROGRESS BAR
 
-document.getElementById('play').addEventListener('click', ()=>{
-    const progress = document.getElementById( "progressVid" );
-    for(let li of progress.children){
-        li.style.backgroundColor = '#999999';
+function setUpVideoProgress(){
+    
+    document.getElementById('play').addEventListener('click', ()=>{
+        const progress = document.getElementById( "progressVid" );
+        for(let li of progress.children){
+            li.style.backgroundColor = '#999999';
+        }
+        video.play();
+        playVideoProgress();
+    });
+}
+
+
+function playVideoProgress(){
+    try{
+        const progress = document.getElementById("progressVid");
+        const vidDuration = video.duration;
+        const partSec = (vidDuration * 10)/100;
+        const partMil = partSec * 1000;
+        
+        if(video.readyState > 0.1){
+            for(let i = 1;  i < (progress.children.length + 1); i++){
+                setTimeout(() => {
+                    const j = i - 1;
+                    changeColor(progress.children[j]);
+                },i * partMil);
+
+            }
+        }
+
+        function changeColor(div){
+            const theme = localStorage.getItem('theme');
+            if(theme == 'day'){
+                console.log('hello');
+                div.style.backgroundColor = '#F7C9F3'; 
+            }else if(theme == 'night'){
+                div.style.backgroundColor = '#CE36DB'; 
+            }else{
+                div.style.backgroundColor = '#F7C9F3'; 
+            }
+        }
+
+    }catch(err){
+        console.log(err);
     }
-    video.play();
-    videoProgress();
-});
+}
 
+// GLOBAL FUNC FOR BUTTON CHANGING
 
 function changeButtonsTo(buttons){
     switch(buttons){
@@ -274,39 +356,10 @@ function changeButtonsTo(buttons){
 
 
 function time(ms) {
-    return new Date(ms).toISOString().slice(11, -1);
-};
-
-function videoProgress(){
     try{
-        const progress = document.getElementById("progressVid");
-        const vidDuration = video.duration;
-        const partSec = (vidDuration * 10)/100;
-        const partMil = partSec * 1000;
-        
-        if(video.readyState > 0.2){
-            for(let i = 1;  i < (progress.children.length + 1); i++){
-                setTimeout(() => {
-                    const j = i - 1;
-                    changeColor(progress.children[j]);
-                },i * partMil);
+        return  new Date(ms).toISOString().slice(11, -1);
 
-            }
-        }
-
-        function changeColor(div){
-            const theme = localStorage.getItem('theme');
-            if(theme == 'day'){
-                console.log('hello');
-                div.style.backgroundColor = '#F7C9F3'; 
-            }else if(theme == 'night'){
-                div.style.backgroundColor = '#CE36DB'; 
-            }else{
-                div.style.backgroundColor = '#F7C9F3'; 
-            }
-        }
-
-    }catch(err){
-        console.log(err);
+    }catch(e){
+        return null;
     }
-}
+};
