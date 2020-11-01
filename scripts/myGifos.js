@@ -5,6 +5,7 @@ import Recorder from "./recorder.js";
 import {changeTheme2Night, changeTheme2Day} from './script.js';
 
 const upGiphy = new Giphy('https://upload.giphy.com/v1/gifs', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
+const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 
 window.onload = () => {
 
@@ -240,12 +241,15 @@ function stopRecAndPreview(){
             reRecord();
         });
         
-        document.getElementById('uploadBttn').addEventListener('click', uploadGif);
-        
+        document.getElementById('uploadBttn').addEventListener('click', uploadGif);  
         
     }catch(err){
         console.log(err)
-        // reRecord();
+
+        if(err.name == 'NotAllowedError' || err.name == "PermissionDeniedError"){
+            alert('Es necesario permitir el acceso a la cámara. Por favor, revisar permisos del navegador');
+            reRecord();
+        }
     }
 };
 
@@ -262,18 +266,34 @@ function reRecord(){
 }
 
 // GIF UPLOAD
+async function showUploadedGif(){
+
+    const uploadedGifId = await uploadGif();
+    const gif = await giphy.getGifById(uploadedGifId);
+    
+
+}
 
 
 async function uploadGif(){
     try{
-        let upload = await upGiphy.uploadGif(recorder.gif.blob);
-        let res = upload.json()
-        console.log(res);
+        globalFunctions.hide(document.getElementById('capture-container'));
+        globalFunctions.show(document.getElementById('uploading-container'), 'block');
+
+        const blob = recorder.gif.blob
+        let upload = await upGiphy.uploadGif(blob);
+        const id = upload.data.id
+        return id;
+
 
     }catch(err){
         console.log(err)
     }
 };
+
+//Loading bar
+
+
 
 //VIDEO PROGRESS BAR
 
@@ -288,7 +308,6 @@ function setUpVideoProgress(){
         playVideoProgress();
     });
 }
-
 
 function playVideoProgress(){
     try{

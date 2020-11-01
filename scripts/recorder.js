@@ -76,7 +76,7 @@ class Recorder {
             let form = new FormData();
             form.append('file', blob, 'myGif.gif');
             console.log(form.get('file'));
-            this.gif.blob = form.get('file');
+            this.gif.blob = form;
 
             const recordedGifURL = this.gifRecorder.toURL();
             this.gif.url = recordedGifURL;

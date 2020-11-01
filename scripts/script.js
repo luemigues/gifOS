@@ -41,7 +41,7 @@ document.getElementById("day-button").addEventListener('click', changeTheme2Day)
 document.getElementById("night-button").addEventListener('click', changeTheme2Night);
 
 document.getElementById('crearGifo').addEventListener('click', ()=> {
-    location.assign(".././misGifos.html#creadorGifo");
+    location.assign("./misGifos.html#creadorGifo");
 });
 
 
