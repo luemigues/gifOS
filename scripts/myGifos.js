@@ -228,10 +228,11 @@ function stopRecAndPreview(){
         changeButtonsTo('preview');
         captureTopText.innerText = 'Vista Previa';
         setUpVideoProgress();
-        setTimeout(()=>{
-            document.getElementById('timerRecorded').innerHTML = time(recorder.video.duration * 1000);
-        }, 1000)
-        
+
+        const duration = recorder.finishTime.getTime() - recorder.startTime.getTime();
+        document.getElementById('timerRecorded').innerHTML = time(duration);
+
+
         //events 
 
         const repeatBttn = document.getElementById('repeatBttn');
@@ -240,12 +241,12 @@ function stopRecAndPreview(){
             localStorage.setItem('newRecord', 'true');
             reRecord();
         });
-        
-        document.getElementById('uploadBttn').addEventListener('click', uploadGif);  
+
+        uploadAndShowGif();  
         
     }catch(err){
         console.log(err)
-
+        
         if(err.name == 'NotAllowedError' || err.name == "PermissionDeniedError"){
             alert('Es necesario permitir el acceso a la cámara. Por favor, revisar permisos del navegador');
             reRecord();
@@ -259,46 +260,109 @@ function stopRecAndPreview(){
 function reRecord(){
     try{
         window.location.reload();
-
+        
     }catch(err){
         console.log(err)
     }
 }
 
 // GIF UPLOAD
-async function showUploadedGif(){
-
-    const uploadedGifId = await uploadGif();
-    const gif = await giphy.getGifById(uploadedGifId);
+function uploadAndShowGif(){
     
+    document.getElementById('uploadBttn').addEventListener('click', () =>{
 
+        globalFunctions.hide(document.getElementById('capture-container'));
+        globalFunctions.show(document.getElementById('uploading-container'), 'block');
+        
+        const interval = setInterval(animateLoading, 800);
+
+        const uploadedGifId = uploadGif();
+        uploadedGifId.then(id => {
+            clearInterval(interval);         
+            showGif(id)
+        }) 
+    }); 
+    
 }
-
 
 async function uploadGif(){
     try{
-        globalFunctions.hide(document.getElementById('capture-container'));
-        globalFunctions.show(document.getElementById('uploading-container'), 'block');
-
         const blob = recorder.gif.blob
         let upload = await upGiphy.uploadGif(blob);
         const id = upload.data.id
-        return id;
 
+        return id;
 
     }catch(err){
         console.log(err)
     }
 };
 
-//Loading bar
+async function showGif(id){
+    
+    globalFunctions.hide(document.getElementById('uploading-container'));
+    globalFunctions.show(document.getElementById('success-container'), 'block');
+    
+    const gif = await giphy.getGifById(id);
 
+    const urlGif = gif.data.images['downsized'].url;
+    const gifContainer = document.getElementById('uploaded-gif')
+    gifContainer.src = urlGif;
+
+    const urlGiphy = gif.data.url
+
+    document.getElementById('gifURL').addEventListener('click', ()=>{
+        const url = document.createElement('textarea');
+        document.body.appendChild(url);
+        url.value = urlGiphy;
+        url.select();
+        document.execCommand('copy');
+        url.style.display = 'none';
+        document.body.removeChild(url);
+        alert('El enlace a tu Gif se ha copiado en el portapapeles')
+        console.log(gif.data.images['downsized'].url)
+    })
+
+    document.getElementById('gifDownload').addEventListener('click', async ()=>{
+
+        var link = document.createElement('a');
+
+        let response = await fetch(urlGif);
+        let file = await response.blob();
+        link.download = 'myGif';
+        link.href = window.URL.createObjectURL(file);
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(link.href);
+        document.body.removeChild(link);
+    })
+}
+
+//VIDEO PROGRESS BAR
+function animateLoading(){
+
+    const progress = document.getElementById("progressUpload");
+    let count = 0;
+
+    if(count < progress.length){
+        for(let i = 1;  i < (progress.children.length); i++){
+            changeColor(progress.children[i]);
+            count++
+        }
+    }else{
+        for(let li of progress.children){
+            li.style.backgroundColor = '#999999';
+        }
+        count = 0;
+    }
+}
 
 
 //VIDEO PROGRESS BAR
 
 function setUpVideoProgress(){
-    
+
     document.getElementById('play').addEventListener('click', ()=>{
         const progress = document.getElementById( "progressVid" );
         for(let li of progress.children){
@@ -312,34 +376,33 @@ function setUpVideoProgress(){
 function playVideoProgress(){
     try{
         const progress = document.getElementById("progressVid");
-        const vidDuration = video.duration;
-        const partSec = (vidDuration * 10)/100;
-        const partMil = partSec * 1000;
+        const vidDuration = recorder.finishTime.getTime() - recorder.startTime.getTime();
+        const part = (vidDuration * 10)/100;
         
         if(video.readyState > 0.1){
             for(let i = 1;  i < (progress.children.length + 1); i++){
-                setTimeout(() => {
+                const coloring = setTimeout(() => {
                     const j = i - 1;
                     changeColor(progress.children[j]);
-                },i * partMil);
-
+                },i * part);
             }
         }
 
-        function changeColor(div){
-            const theme = localStorage.getItem('theme');
-            if(theme == 'day'){
-                console.log('hello');
-                div.style.backgroundColor = '#F7C9F3'; 
-            }else if(theme == 'night'){
-                div.style.backgroundColor = '#CE36DB'; 
-            }else{
-                div.style.backgroundColor = '#F7C9F3'; 
-            }
-        }
-
+        
     }catch(err){
         console.log(err);
+    }
+}
+
+function changeColor(div){
+    const theme = localStorage.getItem('theme');
+    if(theme == 'day'){
+        console.log('hello');
+        div.style.backgroundColor = '#F7C9F3'; 
+    }else if(theme == 'night'){
+        div.style.backgroundColor = '#CE36DB'; 
+    }else{
+        div.style.backgroundColor = '#F7C9F3'; 
     }
 }
 

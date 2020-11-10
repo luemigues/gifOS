@@ -1073,6 +1073,131 @@ header .main-header nav a:active {
 
 .uploading-container .image-container .loading {
   width: 324px;
+  padding: 2px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-grid-columns: (1fr)[15];
+      grid-template-columns: repeat(15, 1fr);
+  -webkit-column-gap: 2px;
+          column-gap: 2px;
+}
+
+.uploading-container .image-container .loading li {
+  background-color: #999999;
+  width: 19px;
+  height: 16px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  text-decoration: none;
+  -webkit-animation-name: load;
+          animation-name: load;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.uploading-container .image-container .loading li:first-child {
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+
+.uploading-container .image-container .loading li:nth-child(2) {
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+}
+
+.uploading-container .image-container .loading li:nth-child(3) {
+  -webkit-animation-delay: 3s;
+          animation-delay: 3s;
+}
+
+.uploading-container .image-container .loading li:nth-child(4) {
+  -webkit-animation-delay: 4s;
+          animation-delay: 4s;
+}
+
+.uploading-container .image-container .loading li:nth-child(5) {
+  -webkit-animation-delay: 5s;
+          animation-delay: 5s;
+}
+
+.uploading-container .image-container .loading li:nth-child(6) {
+  -webkit-animation-delay: 6s;
+          animation-delay: 6s;
+}
+
+.uploading-container .image-container .loading li:nth-child(7) {
+  -webkit-animation-delay: 7s;
+          animation-delay: 7s;
+}
+
+.uploading-container .image-container .loading li:nth-child(8) {
+  -webkit-animation-delay: 8s;
+          animation-delay: 8s;
+}
+
+.uploading-container .image-container .loading li:nth-child(9) {
+  -webkit-animation-delay: 9s;
+          animation-delay: 9s;
+}
+
+.uploading-container .image-container .loading li:nth-child(10) {
+  -webkit-animation-delay: 10s;
+          animation-delay: 10s;
+}
+
+.uploading-container .image-container .loading li:nth-child(11) {
+  -webkit-animation-delay: 11s;
+          animation-delay: 11s;
+}
+
+.uploading-container .image-container .loading li:nth-child(12) {
+  -webkit-animation-delay: 12s;
+          animation-delay: 12s;
+}
+
+.uploading-container .image-container .loading li:nth-child(13) {
+  -webkit-animation-delay: 13s;
+          animation-delay: 13s;
+}
+
+.uploading-container .image-container .loading li:nth-child(14) {
+  -webkit-animation-delay: 14s;
+          animation-delay: 14s;
+}
+
+.uploading-container .image-container .loading li:nth-child(15) {
+  -webkit-animation-delay: 15s;
+          animation-delay: 15s;
+}
+
+@-webkit-keyframes load {
+  from {
+    background-color: #999999;
+  }
+  to {
+    background-color: #F7C9F3;
+  }
+}
+
+@keyframes load {
+  from {
+    background-color: #999999;
+  }
+  to {
+    background-color: #F7C9F3;
+  }
 }
 
 .uploading-container .image-container .loading + p {
@@ -1127,12 +1252,16 @@ header .main-header nav a:active {
 }
 
 .success-container .image-container div:first-child {
-  width: 360px;
+  max-width: 360px;
   height: 190px;
   background: #E6E6E6;
   -webkit-box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
           box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
   margin-right: 25px;
+}
+
+.success-container .image-container div:first-child img {
+  height: inherit;
 }
 
 .success-container .image-container .success-buttons {

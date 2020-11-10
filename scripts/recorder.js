@@ -3,6 +3,9 @@ class Recorder {
 
         this.video = document.getElementById('video');
         this.capture = document.getElementById('capture');
+        this.startTime = 0;
+        this.finishTime = 0;
+
         this.gif = {
             url: '',
             blob: '',
@@ -58,9 +61,13 @@ class Recorder {
 
         this.vidRecorder.stream = this.stream;
         this.gifRecorder.stream = this.stream;
+
+        this.startTime = new Date();
     }
 
     stopRecAndPreview() {
+        
+        this.finishTime = new Date();
 
         this.vidRecorder.stopRecording(() => {
             let videoBlob = this.vidRecorder.getBlob();

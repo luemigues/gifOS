@@ -124,6 +124,7 @@ function searchFromInput(){
         
         document.getElementById('previous-search').innerHTML = '';
         showSearchHistory();
+
     }
 };
 
@@ -180,6 +181,10 @@ function showResults(term){
     searchSection.style.display = 'block';
     
     searchInput.value = "";
+
+    let searchButton = document.getElementById('search-button');
+        searchButton.classList.add('inactive');
+        searchButton.classList.remove('colored');
     
     searchGifs(term, 0);
 };
