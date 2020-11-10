@@ -2,10 +2,13 @@ import createGif from './home.js';
 import { globalFunctions } from './script.js';
 import Giphy from "./giphy.js";
 import Recorder from "./recorder.js";
+import { getSavedGifos } from './home.js';
 import {changeTheme2Night, changeTheme2Day} from './script.js';
 
 const upGiphy = new Giphy('https://upload.giphy.com/v1/gifs', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
+
+const myGifosStorage = getSavedGifos();
 
 window.onload = () => {
 
@@ -298,12 +301,20 @@ async function uploadGif(){
     }
 };
 
+function saveMyGif(gif){
+
+    myGifosStorage.push(gif.data);
+    localStorage.setItem('my-gifos', JSON.stringify(myGifosStorage));
+}
+
 async function showGif(id){
     
     globalFunctions.hide(document.getElementById('uploading-container'));
     globalFunctions.show(document.getElementById('success-container'), 'block');
     
     const gif = await giphy.getGifById(id);
+
+    saveMyGif(gif);
 
     const urlGif = gif.data.images['downsized'].url;
     const gifContainer = document.getElementById('uploaded-gif')

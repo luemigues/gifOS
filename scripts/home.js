@@ -8,7 +8,7 @@ const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4E
 
 let myGifosStorage = getSavedGifos();
 
-function getSavedGifos(){
+export function getSavedGifos(){
     const fromStorage = JSON.parse(localStorage.getItem('my-gifos'));
     if(fromStorage){
         return fromStorage;

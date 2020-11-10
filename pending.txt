@@ -1,3 +1,5 @@
-2- botones responsivos
-3- todo mas mobile friendly... o alternativa mobile... 
-9- Scroll
+1- Responsivo
+2- Scroll
+3- Local storage save de Mygifos subidos
+4- Refactor para optimización de Home js
+
