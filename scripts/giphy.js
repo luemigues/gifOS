@@ -42,15 +42,25 @@ class Giphy {
 
     async uploadGif(blob) {
 
-        let qs = this.key;
+        const header = new Headers();
 
-        await fetch(`${this.url}?${qs}`, {
+        const upload = await fetch(`${this.url}?${this.key}`, {
             method: 'POST', 
-            headers:{
-                'Access-Control-Allow-Origin': '*'
-            },
+            headers: header, 
+            cors: "cors",
             body: blob
         });
+
+        const res = await upload.json()
+
+        return res;
+    }
+
+    async getGifById(id) {
+
+       const res = await fetch(`${this.url}/gifs/${id}?${this.key}`);
+       const gif = await res.json();
+       return gif
     }
 
 };

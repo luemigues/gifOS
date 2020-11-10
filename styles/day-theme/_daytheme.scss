@@ -899,6 +899,86 @@ header {
 
         .loading{
             width: 324px;
+            padding: 2px;
+            display: grid;
+            justify-content: space-between;
+            align-content: center;
+            grid-template-columns: repeat(15, 1fr);
+            column-gap: 2px;
+
+            
+            
+            
+            li{
+                background-color:  #999999;
+                width: 19px;
+                height: 16px;
+                align-self: center;
+                justify-self: center;
+                text-decoration: none;
+                animation-name: load;
+                animation-duration: 0.3s;
+                animation-timing-function: linear;
+                animation-fill-mode: forwards;
+                
+                &:first-child{
+                    animation-delay: 1s;
+                }
+                &:nth-child(2){
+                    animation-delay: 2s;
+                }
+    
+                &:nth-child(3){
+                    animation-delay: 3s;
+                }
+                &:nth-child(4){
+                    animation-delay: 4s;
+                }
+                &:nth-child(5){
+                    animation-delay: 5s;
+                }
+                &:nth-child(6){
+                    animation-delay: 6s;
+                }
+                &:nth-child(7){
+                    animation-delay: 7s;
+                }
+                &:nth-child(8){
+                    animation-delay: 8s;
+                }
+                &:nth-child(9){
+                    animation-delay: 9s;
+                }
+
+                &:nth-child(10){
+                    animation-delay: 10s;
+                }
+                &:nth-child(11){
+                    animation-delay: 11s;
+                }
+                &:nth-child(12){
+                    animation-delay: 12s;
+                }
+                &:nth-child(13){
+                    animation-delay: 13s;
+                }
+                &:nth-child(14){
+                    animation-delay: 14s;
+                }
+                &:nth-child(15){
+                    animation-delay: 15s;
+                }
+
+                @keyframes load {
+                    from{
+                        background-color:#999999;
+                    }
+                    to{
+                        background-color: #F7C9F3;
+                    }
+                }
+
+            }
         }
 
         .loading + p{
@@ -906,6 +986,7 @@ header {
             color: rgba(17,0,56,0.64);
             margin: 10px;
         }
+
 
         span{
             text-decoration: line-through;
@@ -936,11 +1017,15 @@ header {
         margin: 20px;
 
         div:first-child{
-            width: 360px;
+            max-width: 360px;
             height: 190px;
             background: #E6E6E6;
             box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
             margin-right: 25px;
+
+            img{
+                height: inherit;
+            }
         }
 
         .success-buttons{

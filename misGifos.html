@@ -227,7 +227,23 @@
                 <div class="image-container">
                     <img src="./assets/globe_img.png" alt="">
                     <p>Estamos subiendo tu guifo…</p>
-                    <div class="loading"></div>
+                    <div id="progressUpload" class="loading">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </div>
                     <p>Tiempo restante: <span>38 años</span> algunos minutos</p>
                 </div>
                 <div class="button-container">
@@ -267,15 +283,17 @@
                     </svg>
                 </div>
                 <div class="image-container">
-                    <div></div>
+                    <div>
+                        <img src="#" alt="" id="uploaded-gif">
+                    </div>
                     <div class="success-buttons">
                         <p>Guifo creado con éxito</p>
-                        <div class="button pale">Copiar Enlace Guifo</div>
-                        <div class="button pale">Descargar Guifo</div>
+                        <div class="button pale" id="gifURL">Copiar Enlace Guifo</div>
+                        <div class="button pale" id="gifDownload">Descargar Guifo</div>
                     </div>
                 </div>
                 <div class="button-container">
-                    <div class="button colored">Listo</div>
+                    <div class="button colored cancel">Listo</div>
                 </div>
             </div>
 
