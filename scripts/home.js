@@ -4,9 +4,10 @@ import {globalFunctions} from './script.js';
 // Global vars
 const searchInput = document.getElementById('search-input');
 let searchedTerms = getSearchedTerms();
-const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
-
 let myGifosStorage = getSavedGifos();
+let n = 0;
+
+const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 
 export function getSavedGifos(){
     const fromStorage = JSON.parse(localStorage.getItem('my-gifos'));
@@ -17,15 +18,22 @@ export function getSavedGifos(){
     }
 };
 
+
+export function onLoadIndex(){
+    activateHeaderEvents()
+    suggestDailyCategories();
+    showSearchHistory()
+    showTrending(n)
+}
+
 //EVENT LISTENERS
 
-if(document.getElementById('search-button')){
-    
+function activateHeaderEvents(){
+
     document.getElementById("search-button").addEventListener('click', searchFromInput);
     
-    const inputCheck = document.getElementById("search-input");
-    inputCheck.addEventListener('input', suggestSearch);
-    inputCheck.addEventListener('keyup', checkEmptyInput);
+    searchInput.addEventListener('input', suggestSearch);
+    searchInput.addEventListener('keyup', checkEmptyInput);
     
     const searchSuggestionsButtons = document.getElementById("search-suggestions");
     for(let button of searchSuggestionsButtons.children){
@@ -42,7 +50,7 @@ if(document.getElementById('search-button')){
             showSearchHistory();
         });
     };
-    
+
     const closeCategoryItems = document.getElementsByClassName('close-category');
     for(let i=1 ; i <= 4; i++){
         closeCategoryItems[i-1].addEventListener('click', () => suggestNewCategory(`suggested-g${i}`));
@@ -232,9 +240,8 @@ function suggestDailyCategories(){
     suggestCategory('suggested-t4','suggested-g4',3)
 };
 
-suggestDailyCategories();
-
 function suggestNewCategory(categoryId){
+
     if(categoryId == 'suggested-g1'){
 
         suggestCategory('suggested-t1','suggested-g1',0)
@@ -383,11 +390,6 @@ function createGif(gif, append, isWide = false){
 };
 
 export default createGif;
-
-showSearchHistory()
-
-let n = 0
-showTrending(n)
 
 /*window.onscroll = function(ev) {
     let searchSection = document.getElementById('search').style.display;
