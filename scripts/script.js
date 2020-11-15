@@ -3,10 +3,11 @@ import { onLoadIndex } from './home.js';
 
 let clickThemes = true;
 // onload
+window.addEventListener('DOMContentLoaded', onPageLoad);
 
-checkThemes();
+function onPageLoad(){
+    checkThemes()
 
-window.onload = () => {
     if(window.location.pathname == '/misGifos.html'){
         onLoadGifosSection();
     }else{

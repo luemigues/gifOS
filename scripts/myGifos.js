@@ -120,7 +120,9 @@ function showSection(section){
         globalFunctions.hide(document.getElementById('creadorGifo'));
         globalFunctions.show(document.getElementById('misGifos'), 'block');
         globalFunctions.hide(document.getElementById('backArrow'));
-        showSavedGifos();
+        if(document.getElementById('misGifos-container').children.length == 0){
+            showSavedGifos();
+        }
     }
 }
 

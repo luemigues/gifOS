@@ -3,6 +3,7 @@ import {globalFunctions} from './script.js';
 
 // Global vars
 const searchInput = document.getElementById('search-input');
+const searchSection = document.getElementById('search');
 let searchedTerms = getSearchedTerms();
 let myGifosStorage = getSavedGifos();
 let n = 0;
@@ -180,10 +181,6 @@ function showResults(term){
     let searchSection = document.getElementById('search');
     let searchTitle = document.getElementById('search-title');
     
-    searchSection.scrollIntoView(true);
-    
-    window.smoothsc
-    
     searchTitle.innerText = term;
     search.textContent = "";
     searchSection.style.display = 'block';
@@ -195,6 +192,8 @@ function showResults(term){
         searchButton.classList.remove('colored');
     
     searchGifs(term, 0);
+    
+    // window.scrollBy(0,searchSection.offsetTop)
 };
 
 async function searchGifs(term, offset){
@@ -202,7 +201,7 @@ async function searchGifs(term, offset){
     try{
         let searchContainer = document.getElementById('search-container');
         
-        let search = await giphy.getSearch(term, 25, 0)
+        let search = await giphy.getSearch(term, 25, offset)
         
         showGifsOnGrid(search, searchContainer, 5);
     }
@@ -332,6 +331,8 @@ function showGifsOnGrid(res, append, rows){
             }
         }
     }
+    
+    window.scrollBy(0,searchSection.offsetTop - 100)
 };
 
 function createGif(gif, append, isWide = false){
@@ -391,14 +392,14 @@ function createGif(gif, append, isWide = false){
 
 export default createGif;
 
-/*window.onscroll = function(ev) {
-    let searchSection = document.getElementById('search').style.display;
+window.onscroll = function(ev) {
+    let search = searchSection.style.display;
 
-        if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (searchSection == 'block')) {
+        if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == 'block')) {
             let term = document.getElementById('search-title').innerText;
             searchGifs(term, n+=25)
-        }else if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (searchSection == 'none')){
+        }else if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == '')){
             showTrending(n+=25);
         }
-};*/
+};
 
