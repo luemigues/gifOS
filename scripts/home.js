@@ -191,19 +191,19 @@ function showResults(term){
         searchButton.classList.add('inactive');
         searchButton.classList.remove('colored');
     
-    searchGifs(term, 0);
+    searchGifs(term, 0, true);
     
     // window.scrollBy(0,searchSection.offsetTop)
 };
 
-async function searchGifs(term, offset){
+async function searchGifs(term, offset, fromClick){
 
     try{
         let searchContainer = document.getElementById('search-container');
         
         let search = await giphy.getSearch(term, 25, offset)
         
-        showGifsOnGrid(search, searchContainer, 5);
+        showGifsOnGrid(search, searchContainer, 5, fromClick);
     }
     catch(err){
         return err;
@@ -271,7 +271,7 @@ async function showTrending(offset){
         let trendingSection = document.getElementById('trending-container');
         let trendings = await giphy.getTrendings(25, offset);
     
-        showGifsOnGrid(trendings, trendingSection, 5);
+        showGifsOnGrid(trendings, trendingSection, 5, false);
     }
     catch(err){
         return err;
@@ -280,7 +280,7 @@ async function showTrending(offset){
 
 // GIFS IN GRID
 
-function showGifsOnGrid(res, append, rows){
+function showGifsOnGrid(res, append, rows, fromClick){
     
     let gifs = res.data || res;
     let totalgifs = 0;
@@ -332,7 +332,9 @@ function showGifsOnGrid(res, append, rows){
         }
     }
     
-    window.scrollBy(0,searchSection.offsetTop - 100)
+    if(fromClick){
+        window.scrollBy(0,searchSection.offsetTop - 150)
+    }
 };
 
 function createGif(gif, append, isWide = false){
@@ -397,7 +399,7 @@ window.onscroll = function(ev) {
 
         if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == 'block')) {
             let term = document.getElementById('search-title').innerText;
-            searchGifs(term, n+=25)
+            searchGifs(term, n+=25,false)
         }else if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == '')){
             showTrending(n+=25);
         }
