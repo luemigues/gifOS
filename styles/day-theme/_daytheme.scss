@@ -11,11 +11,15 @@ body {
     font-family: $font-fam;
     box-sizing: border-box;
     min-width: 100vw;
-    overflow-x: hidden;
+    // overflow-x: hidden;
 
     display: flex;
     flex-direction: column;
-    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+
+    min-width: 340px;
 
     a{
         text-decoration: none;
@@ -27,10 +31,16 @@ body {
 
 main{
     margin-top: 0px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+    padding: 0 8%;
+
     section{
-        margin: 0 auto;
         margin-top: 68px;
         max-width: 1200px;
+        width: 100%;
     }
 }
 
@@ -42,22 +52,21 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
+    width: max-content;
 }
 
 .colored{
     background: $day-bcolored;
     border: 1px solid #110038;
-    box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
+    box-shadow: inset -1px -1px 0 0 #A72CB3, inset 1px 1px 0 0 #FFFFFF;
     height: 36px;
     width: 140px;
+    white-space: nowrap;
     text-align: center;
     &:hover, &:active {
-        border: 1px solid #110038;
-        box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
-        outline: 1px dashed $fcolor-db;
+        outline: 1px dashed #110038;
         outline-offset: -6px;
      }
-
 }
 
 .pale{
@@ -78,11 +87,12 @@ main{
 // HEADER - NAV BAR + LOGO
 
 header {
+    width: 100%;
+    padding: 0 8%;
 
-    min-width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
+    & > .top-bar{
+        margin: 0 -9.6%;
+    }
 
     .top-bar{
         background: $day-gradient;
@@ -92,7 +102,19 @@ header {
         padding: 4px 8px;
         box-shadow: 0 1px 0 0 #110038;
         margin-bottom: 3%;
+        text-align: left;
     }
+
+    
+    .header-container{
+        margin: 0 auto;
+        text-align: center;
+        padding: 0 10px;
+        display: flex;
+        flex-flow: column wrap;
+        max-width: 1200px;
+    }
+
 
     .main-header{
         @if background-color($day-background){
@@ -102,11 +124,12 @@ header {
         }
         align-self: center;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        height: 64px;
-        min-width: 1200px;
-
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
 
         img{
             width: 103px;
@@ -121,14 +144,14 @@ header {
         }
         
         nav{
-            height: 64px;
             display: flex;
             flex-direction: row;
             align-content: center;
             align-items: flex-start;
-            justify-content: space-around;
-            justify-items: center;
-            padding: 15px;
+            justify-content: flex-start;
+            justify-items: flex-start;
+            flex-wrap: wrap;
+            padding: 15px 0px;
     
             .theme-buttons{
                 display: none;
@@ -145,6 +168,10 @@ header {
                 height: 36px;
                 align-self: center;
                 margin: 0px;
+            }
+
+            #crearGifo{
+                margin-right: 16px;
             }
 
             a {
@@ -186,7 +213,7 @@ header {
     align-content: center;
     align-items: flex-start;
 
-    margin-left: 16px;
+    // margin-left: 16px;
     z-index: 1;
 }
 .theme-buttons{
@@ -236,14 +263,12 @@ header {
 
 .search-container{
 
-    max-width: 1200px;
-    min-width: 400px;
     margin: 2% auto;
     margin-bottom: 0px;
     //margin: 35px 140px 19px 100px;
     background: $day-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
-    min-width: 340px;
+    width: 100%;
 
     & > div:first-of-type {
         padding: 2px;
@@ -263,8 +288,7 @@ header {
         justify-content: flex-start;
 
         input {
-            width: 1057px;
-            max-width: 1057px;
+            width: 100%;
             height: 48px;
             padding: 13px;
             margin: 12px;
@@ -361,7 +385,7 @@ header {
     justify-items: center;
 
     padding: 10px 150px 10px 15px;
-    width: 1200px;
+    width: 100%;
     // position: absolute;
 
     // z-index: 1;
@@ -406,9 +430,8 @@ header {
     flex-flow: row nowrap;
     overflow: hidden;
     justify-content: flex-start;
-    width: 1200px;
-    margin: 0 auto;
     margin-top: 12px;
+    width: 100%;
 
     & > div{
         
@@ -454,9 +477,8 @@ header {
 .suggested-container{
 
     display: flex;
-    width: 1200px;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     justify-items: center;
     align-items: center;
     flex-wrap: wrap;
@@ -466,8 +488,10 @@ header {
         width: 288px;
         height: 319px;
         padding: 3px;
+        margin: 5px;
         background: $day-greybox;
         box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
+        flex-basis: 280px;
 
         .top-suggested{
             display: flex;
@@ -530,10 +554,14 @@ header {
 
 .bulkGif-container{
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fill, minmax(288px,4fr));
+    grid-auto-columns: min-content;
     grid-template-rows: repeat(3,1fr);
     column-gap: 15px;
     row-gap: 15px;
+    max-width: 100%;
+    overflow: hidden;
 
     & > div{
             display: flex;
@@ -661,6 +689,7 @@ header {
     background-color: $day-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
     width: 55%;
+    min-width: fit-content;
 
 
     .text-container{
@@ -744,6 +773,7 @@ header {
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 
     width: 75%;
+    min-width: fit-content;
 
     .image-container{
 
@@ -818,11 +848,14 @@ header {
 
     #previewButtons{
         display: none;
+        flex-wrap: wrap;
 
         div{
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
             align-items: center;
+            margin-top: 5px;
 
             .colored{
                 margin-left: 8px;
@@ -844,6 +877,7 @@ header {
         align-content: center;
         grid-template-columns: repeat(10, 1fr);
         column-gap: 2px;
+        margin-top: 5px;
 
         li{
             background-color:  #999999;
@@ -864,6 +898,7 @@ header {
     box-shadow: inset -2px -2px 0 0 #FFFCFC, inset 2px 2px 0 0 #000000;
     padding-left: 2px;
     list-style: none;
+    
 }
 
 .uploading-container{
@@ -872,6 +907,7 @@ header {
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 
     width: 75%;
+    min-width: fit-content;
 
     .image-container{
         display: flex;
@@ -1004,6 +1040,7 @@ header {
     background-color: $day-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
     width: 60%;
+    min-width: fit-content;
 
     .image-container{
 
@@ -1011,11 +1048,12 @@ header {
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        flex-wrap: wrap;
         margin: 20px;
 
         div:first-child{
-            max-width: 360px;
-            height: 190px;
+            max-width: 365px;
+            height: 195px;
             background: #E6E6E6;
             box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
             margin-right: 25px;

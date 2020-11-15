@@ -193,7 +193,6 @@ function showResults(term){
     
     searchGifs(term, 0, true);
     
-    // window.scrollBy(0,searchSection.offsetTop)
 };
 
 async function searchGifs(term, offset, fromClick){
@@ -395,13 +394,17 @@ function createGif(gif, append, isWide = false){
 export default createGif;
 
 window.onscroll = function(ev) {
-    let search = searchSection.style.display;
 
-        if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == 'block')) {
-            let term = document.getElementById('search-title').innerText;
-            searchGifs(term, n+=25,false)
-        }else if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == '')){
-            showTrending(n+=25);
-        }
+    if(window.location.pathname == 'index.html'){
+
+        let search = searchSection.style.display;
+    
+            if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == 'block')) {
+                let term = document.getElementById('search-title').innerText;
+                searchGifs(term, n+=25,false)
+            }else if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == '')){
+                showTrending(n+=25);
+            }
+    }
 };
 
