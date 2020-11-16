@@ -127,7 +127,7 @@ header {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         max-width: 1200px;
         margin: 0 auto;
         width: 100%;
@@ -154,6 +154,7 @@ header {
             flex-direction: row;
             align-content: center;
             align-items: flex-start;
+            align-content: flex-start;
             justify-content: flex-start;
             justify-items: flex-start;
             flex-wrap: wrap;
@@ -167,6 +168,7 @@ header {
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
+                z-index: 10;
             }
     
             .material-icons{
@@ -181,7 +183,7 @@ header {
             }
 
             a {
-                align-self: center;
+                align-self: flex-start;
                 margin-left: 16.5px;
                 margin-right: 5px;
                 padding: 5px 6px 5px 0px;
@@ -698,7 +700,7 @@ header {
     background-color: $night-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
     width: 55%;
-    min-width: fit-content;
+    min-width: min-content;
 
 
     .text-container{
@@ -782,7 +784,7 @@ header {
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 
     width: 75%;
-    min-width: fit-content;
+    min-width: min-content;;
 
     .image-container{
 
@@ -914,8 +916,6 @@ header {
     }
 }
 
-
-
 .loading{
     margin-left: 2px;
     background: #B4B4B4;
@@ -930,7 +930,7 @@ header {
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
 
     width: 75%;
-    min-width: fit-content;
+    min-width: min-content;
 
     .image-container{
         display: flex;
@@ -1065,7 +1065,7 @@ header {
     background-color: $night-greybox;
     box-shadow: inset -2px -2px 0 0 #B4B4B4, inset 2px 2px 0 0 #FFFFFF;
     width: 60%;
-    min-width: fit-content;
+    min-width: min-content;
 
     .image-container{
 
