@@ -9,7 +9,7 @@ function onPageLoad(){
     checkThemes()
     const pathname = window.location.pathname
 
-    if(pathname.includes('misGifos.html')){
+    if(pathname.includes('misGifos.html') || pathname.includes('misgifos')){
         onLoadGifosSection();
     }else{
         onLoadIndex();
