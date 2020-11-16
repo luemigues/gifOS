@@ -170,7 +170,7 @@ async function getStreamAndRecord(){
                 startRecordingGif()
             });
         };
-    
+        
         // saving and preview recording
         const stopRecordingButtons = document.querySelectorAll(".recordingButton");
         for(let button of stopRecordingButtons){
@@ -181,7 +181,12 @@ async function getStreamAndRecord(){
 
     }catch(err){
         console.log(err);
-        reRecord();
+        
+        if(err.name == 'NotAllowedError' || err.name == "PermissionDeniedError"){
+            alert('Es necesario permitir el acceso a la cámara. Por favor, revisar permisos del navegador');
+        }else{
+            reRecord();
+        }
     }
 };
 
@@ -189,7 +194,7 @@ const captureTopText = document.getElementById('top-text');
 
 async function startRecordingGif(){
     try{
-
+        
         changeButtonsTo('recording');
         captureTopText.innerText = 'Capturando Tu Guifo';
         
@@ -215,35 +220,31 @@ function stopRecAndPreview(){
     
     try{   
         recorder.stopRecAndPreview();
-
+        
         //style 
-
+        
         changeButtonsTo('preview');
         captureTopText.innerText = 'Vista Previa';
         setUpVideoProgress();
-
+        
         const duration = recorder.finishTime.getTime() - recorder.startTime.getTime();
         document.getElementById('timerRecorded').innerHTML = time(duration);
-
-
+        
+        
         //events 
-
+        
         const repeatBttn = document.getElementById('repeatBttn');
         
         repeatBttn.addEventListener('click', () => {
             localStorage.setItem('newRecord', 'true');
             reRecord();
         });
-
+        
         uploadAndShowGif();  
         
     }catch(err){
         console.log(err)
-        
-        if(err.name == 'NotAllowedError' || err.name == "PermissionDeniedError"){
-            alert('Es necesario permitir el acceso a la cámara. Por favor, revisar permisos del navegador');
-            reRecord();
-        }
+        reRecord();
     }
 };
 
