@@ -184,6 +184,7 @@ async function getStreamAndRecord(){
         
         if(err.name == 'NotAllowedError' || err.name == "PermissionDeniedError"){
             alert('Es necesario permitir el acceso a la cámara. Por favor, revisar permisos del navegador');
+        }else{
             reRecord();
         }
     }
