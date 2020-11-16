@@ -845,7 +845,7 @@ header {
         
         svg path{
             color: $fcolor-lb;
-            fill: "currentcolor";
+            fill: currentColor;
         }
         div:first-child{
             width: 36px;

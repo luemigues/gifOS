@@ -686,11 +686,11 @@ header .main-header nav a:active {
   display: -ms-grid;
   display: grid;
   grid-auto-flow: row;
-  -ms-grid-columns: (minmax(288px, 4fr))[auto-fill];
+  -ms-grid-columns: repeat(auto-fill, minmax(288px, 4fr));
       grid-template-columns: repeat(auto-fill, minmax(288px, 4fr));
   grid-auto-columns: -webkit-min-content;
   grid-auto-columns: min-content;
-  -ms-grid-rows: (1fr)[3];
+  -ms-grid-rows: repeat(3, 1fr);
       grid-template-rows: repeat(3, 1fr);
   -webkit-column-gap: 15px;
           column-gap: 15px;
@@ -1016,7 +1016,7 @@ header .main-header nav a:active {
 
 .capture-container #captureButtons svg path {
   color: #FFFFFF;
-  fill: "currentcolor";
+  fill: currentColor;
 }
 
 .capture-container #captureButtons div:first-child {
@@ -1079,7 +1079,7 @@ header .main-header nav a:active {
           justify-content: space-between;
   -ms-flex-line-pack: center;
       align-content: center;
-  -ms-grid-columns: (1fr)[10];
+  -ms-grid-columns: repeat(10, 1fr);
       grid-template-columns: repeat(10, 1fr);
   -webkit-column-gap: 2px;
           column-gap: 2px;
@@ -1163,7 +1163,7 @@ header .main-header nav a:active {
           justify-content: space-between;
   -ms-flex-line-pack: center;
       align-content: center;
-  -ms-grid-columns: (1fr)[15];
+  -ms-grid-columns: repeat(15, 1fr);
       grid-template-columns: repeat(15, 1fr);
   -webkit-column-gap: 2px;
           column-gap: 2px;

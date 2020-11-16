@@ -7,13 +7,12 @@ window.addEventListener('DOMContentLoaded', onPageLoad);
 
 function onPageLoad(){
     checkThemes()
-    console.log(window.location.pathname)
+    const pathname = window.location.pathname
 
-    if(window.location.pathname == '/gifos/index.html'){
-        console.log(window.location.pathname)
-        onLoadIndex();
-    }else{
+    if(pathname.includes('misGifos.html')){
         onLoadGifosSection();
+    }else{
+        onLoadIndex();
     }
 
     activateEvents();

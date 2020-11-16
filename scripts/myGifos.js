@@ -130,7 +130,7 @@ const cancelButtons = document.getElementsByClassName('cancel');
 
 for(let button of cancelButtons){
     button.addEventListener('click', ()=>{
-        window.location.assign('../index.html');
+        window.location.assign('./index.html');
     });
 };
 

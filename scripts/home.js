@@ -395,7 +395,7 @@ export default createGif;
 
 window.onscroll = function(ev) {
 
-    if(window.location.pathname == 'index.html'){
+    if(window.location.pathname.includes('index.html')){
 
         let search = searchSection.style.display;
     
