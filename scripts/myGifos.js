@@ -3,24 +3,14 @@ import { globalFunctions } from './script.js';
 import Giphy from "./giphy.js";
 import Recorder from "./recorder.js";
 import { getSavedGifos } from './home.js';
-import {changeTheme2Night, changeTheme2Day} from './script.js';
 
 const upGiphy = new Giphy('https://upload.giphy.com/v1/gifs', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 
 const myGifosStorage = getSavedGifos();
 
-window.onload = () => {
-
-    const theme = localStorage.getItem('theme');
-
-    if(theme == 'night'){
-        changeTheme2Night();
-    }else{
-        changeTheme2Day();
-    }
-    
-    if(location.hash == '#creadorGifo'){
+export function onLoadGifosSection(){
+        if(location.hash == '#creadorGifo'){
         const newRecord = localStorage.getItem('newRecord');
                 
         if(newRecord){
@@ -44,9 +34,7 @@ window.onload = () => {
             showSection(); 
         });
     }
-
-};
-
+}
 
 const recorder = new Recorder();
 
@@ -132,7 +120,9 @@ function showSection(section){
         globalFunctions.hide(document.getElementById('creadorGifo'));
         globalFunctions.show(document.getElementById('misGifos'), 'block');
         globalFunctions.hide(document.getElementById('backArrow'));
-        showSavedGifos();
+        if(document.getElementById('misGifos-container').children.length == 0){
+            showSavedGifos();
+        }
     }
 }
 
@@ -140,7 +130,7 @@ const cancelButtons = document.getElementsByClassName('cancel');
 
 for(let button of cancelButtons){
     button.addEventListener('click', ()=>{
-        window.location.assign('../index.html');
+        window.location.assign('./index.html');
     });
 };
 

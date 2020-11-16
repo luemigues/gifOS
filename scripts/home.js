@@ -3,10 +3,12 @@ import {globalFunctions} from './script.js';
 
 // Global vars
 const searchInput = document.getElementById('search-input');
+const searchSection = document.getElementById('search');
 let searchedTerms = getSearchedTerms();
-const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
-
 let myGifosStorage = getSavedGifos();
+let n = 0;
+
+const giphy = new Giphy('https://api.giphy.com/v1', 'lBi3DfmhAX973lNDIbC2l0hCj4EymuCT');
 
 export function getSavedGifos(){
     const fromStorage = JSON.parse(localStorage.getItem('my-gifos'));
@@ -17,15 +19,22 @@ export function getSavedGifos(){
     }
 };
 
+
+export function onLoadIndex(){
+    activateHeaderEvents()
+    suggestDailyCategories();
+    showSearchHistory()
+    showTrending(n)
+}
+
 //EVENT LISTENERS
 
-if(document.getElementById('search-button')){
-    
+function activateHeaderEvents(){
+
     document.getElementById("search-button").addEventListener('click', searchFromInput);
     
-    const inputCheck = document.getElementById("search-input");
-    inputCheck.addEventListener('input', suggestSearch);
-    inputCheck.addEventListener('keyup', checkEmptyInput);
+    searchInput.addEventListener('input', suggestSearch);
+    searchInput.addEventListener('keyup', checkEmptyInput);
     
     const searchSuggestionsButtons = document.getElementById("search-suggestions");
     for(let button of searchSuggestionsButtons.children){
@@ -42,7 +51,7 @@ if(document.getElementById('search-button')){
             showSearchHistory();
         });
     };
-    
+
     const closeCategoryItems = document.getElementsByClassName('close-category');
     for(let i=1 ; i <= 4; i++){
         closeCategoryItems[i-1].addEventListener('click', () => suggestNewCategory(`suggested-g${i}`));
@@ -172,10 +181,6 @@ function showResults(term){
     let searchSection = document.getElementById('search');
     let searchTitle = document.getElementById('search-title');
     
-    searchSection.scrollIntoView(true);
-    
-    window.smoothsc
-    
     searchTitle.innerText = term;
     search.textContent = "";
     searchSection.style.display = 'block';
@@ -186,17 +191,18 @@ function showResults(term){
         searchButton.classList.add('inactive');
         searchButton.classList.remove('colored');
     
-    searchGifs(term, 0);
+    searchGifs(term, 0, true);
+    
 };
 
-async function searchGifs(term, offset){
+async function searchGifs(term, offset, fromClick){
 
     try{
         let searchContainer = document.getElementById('search-container');
         
-        let search = await giphy.getSearch(term, 25, 0)
+        let search = await giphy.getSearch(term, 25, offset)
         
-        showGifsOnGrid(search, searchContainer, 5);
+        showGifsOnGrid(search, searchContainer, 5, fromClick);
     }
     catch(err){
         return err;
@@ -232,9 +238,8 @@ function suggestDailyCategories(){
     suggestCategory('suggested-t4','suggested-g4',3)
 };
 
-suggestDailyCategories();
-
 function suggestNewCategory(categoryId){
+
     if(categoryId == 'suggested-g1'){
 
         suggestCategory('suggested-t1','suggested-g1',0)
@@ -265,7 +270,7 @@ async function showTrending(offset){
         let trendingSection = document.getElementById('trending-container');
         let trendings = await giphy.getTrendings(25, offset);
     
-        showGifsOnGrid(trendings, trendingSection, 5);
+        showGifsOnGrid(trendings, trendingSection, 5, false);
     }
     catch(err){
         return err;
@@ -274,7 +279,7 @@ async function showTrending(offset){
 
 // GIFS IN GRID
 
-function showGifsOnGrid(res, append, rows){
+function showGifsOnGrid(res, append, rows, fromClick){
     
     let gifs = res.data || res;
     let totalgifs = 0;
@@ -324,6 +329,10 @@ function showGifsOnGrid(res, append, rows){
                 filledColumns=0;
             }
         }
+    }
+    
+    if(fromClick){
+        window.scrollBy(0,searchSection.offsetTop - 150)
     }
 };
 
@@ -384,19 +393,18 @@ function createGif(gif, append, isWide = false){
 
 export default createGif;
 
-showSearchHistory()
+window.onscroll = function(ev) {
 
-let n = 0
-showTrending(n)
+    if(window.location.pathname.includes('index.html')){
 
-/*window.onscroll = function(ev) {
-    let searchSection = document.getElementById('search').style.display;
-
-        if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (searchSection == 'block')) {
-            let term = document.getElementById('search-title').innerText;
-            searchGifs(term, n+=25)
-        }else if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (searchSection == 'none')){
-            showTrending(n+=25);
-        }
-};*/
+        let search = searchSection.style.display;
+    
+            if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == 'block')) {
+                let term = document.getElementById('search-title').innerText;
+                searchGifs(term, n+=25,false)
+            }else if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && (search == '')){
+                showTrending(n+=25);
+            }
+    }
+};
 

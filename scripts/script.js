@@ -1,6 +1,34 @@
+import { onLoadGifosSection } from './myGifos.js';
+import { onLoadIndex } from './home.js';
 
 let clickThemes = true;
+// onload
+window.addEventListener('DOMContentLoaded', onPageLoad);
 
+function onPageLoad(){
+    checkThemes()
+    const pathname = window.location.pathname
+
+    if(pathname.includes('misGifos.html')){
+        onLoadGifosSection();
+    }else{
+        onLoadIndex();
+    }
+
+    activateEvents();
+}
+
+
+function checkThemes(){
+    const theme = localStorage.getItem('theme');
+    
+    if(theme == 'night'){
+        changeTheme2Night();
+    }else{
+        changeTheme2Day();
+    }
+
+}
 
 //Global funcs
 export let globalFunctions = {
@@ -32,28 +60,22 @@ export let globalFunctions = {
     }
 };
 
-const themeDropdown = document.getElementById("theme-dropdown");
-for(let button of themeDropdown.children){
-    button.addEventListener('click', showThemes)
-};
-
-document.getElementById("day-button").addEventListener('click', changeTheme2Day);
-document.getElementById("night-button").addEventListener('click', changeTheme2Night);
-
-document.getElementById('crearGifo').addEventListener('click', ()=> {
-    location.assign("./misGifos.html#creadorGifo");
-});
+function activateEvents(){
+    const themeDropdown = document.getElementById("theme-dropdown");
+    for(let button of themeDropdown.children){
+        button.addEventListener('click', showThemes)
+    };
+    
+    document.getElementById("day-button").addEventListener('click',  changeTheme2Day);
+    document.getElementById("night-button").addEventListener('click', changeTheme2Night);
+    
+    document.getElementById('crearGifo').addEventListener('click', ()=> {
+        location.assign("./misGifos.html#creadorGifo");
+    });
+}
 
 
 //THEMES
-window.onload = () => {
-    const theme = localStorage.getItem('theme');
-    if(theme == 'night'){
-        changeTheme2Night();
-    }else{
-        changeTheme2Day();
-    }
-}
 
 function showThemes() {
     let themes = document.getElementById('select-theme')
@@ -68,17 +90,15 @@ function showThemes() {
     }
 };
 
-export function changeTheme2Night(){
+function changeTheme2Night(){
     let stylesheet = document.getElementById('stylesheet');
-    stylesheet.href = './styles/night-theme/styles-night.css';
-    stylesheet.setAttribute('type',"text/css");
-    localStorage.setItem('theme', 'night')
+    stylesheet.setAttribute('href', './styles/night-theme/styles-night.css')
+    localStorage.setItem('theme', 'night');
 };
 
-export function changeTheme2Day(){
+function changeTheme2Day(){
     let stylesheet = document.getElementById('stylesheet');
-    stylesheet.href = './styles/day-theme/styles-day.css';
-    stylesheet.setAttribute('type',"text/css");
-    localStorage.setItem('theme', 'day')
+    stylesheet.setAttribute('href', './styles/day-theme/styles-day.css');
+    localStorage.setItem('theme', 'day');
 };
 

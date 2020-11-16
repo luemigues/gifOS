@@ -1,5 +1,0 @@
-1- Responsivo
-2- Scroll
-3- Local storage save de Mygifos subidos
-4- Refactor para optimización de Home js
-
